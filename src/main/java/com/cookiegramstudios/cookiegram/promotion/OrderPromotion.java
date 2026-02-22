@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
  * The entity includes the following key attributes:
  * </p>
  * <ul>
+ * <li><b>id: long</b> - Unique identifier for the OrderPromotion object</li>
  * <li><b>promotionId: String</b> - Unique identifier for the promotion</li>
  * <li><b>discountAmt: Double</b> - The total dollar amount of the discount</li>
  * <li><b>appliedAt: LocalDateTime</b> - The date and time at which the promotion was applied (only after checkout)</li>
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
  */
 
 public class OrderPromotion {
+	long id;
 	String promotionId;
 	double discountAmt;
 	LocalDateTime appliedAt;	
