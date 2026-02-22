@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  * <li><b>promoValue: String</b> - The actual figure (dollar amount or percentage)</li>
  * <li><b>starDate: LocalDateTime</b> - Date and time the promotion started</li>
  * <li><b>endDate: LocalDateTime</b> - Date and time the promotion ended</li>
- * <li><b>isActive: boolean</b> - Whether the promotion is currenly running or not</li>
+ * <li><b>isActive: boolean</b> - Whether the promotion is currently running or not</li>
  * </ul>
  *
  * @author Kyle Haines
@@ -36,5 +36,5 @@ public class Promotion {
 	double promoValue; // fixed $ or %
 	LocalDateTime startDate; // YYYY-MM-DD
 	LocalDateTime endDate; // YYYY-MM-DD
-	boolean isActive; // whether promo is currently active or not
+	boolean isActive; // whether promotion is currently active or not
 }
