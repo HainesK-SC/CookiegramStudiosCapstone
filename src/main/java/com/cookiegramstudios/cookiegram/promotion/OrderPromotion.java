@@ -26,7 +26,9 @@ import java.time.LocalDateTime;
 
 public class OrderPromotion {
 	long id;
-	String promotionId;
+	long orderId; // FK REFERENCE TO ORDER OBJECT
+	long promoId; // FK REFERENCE TO PROMOTION OBJECT
+	String promoCode; // PROMO CODE USED - HELPFUL IF CODES WILL CHANGE
 	double discountAmt;
 	LocalDateTime appliedAt;	
 }
