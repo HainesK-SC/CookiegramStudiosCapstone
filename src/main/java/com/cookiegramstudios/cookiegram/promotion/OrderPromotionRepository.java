@@ -25,6 +25,20 @@ public interface OrderPromotionRepository extends JpaRepository<OrderPromotion, 
 	OrderPromotion findByPromoCode(String promoCode);
 	
 	/**
+     * Find an OrderPromotion(s) by orderId
+     * @param the unique order ID
+     * @return List: OrderPromotion - A list of OrderPromotion object(s) of the given order ID
+     */
+	OrderPromotion findByOrderId(long orderId);
+	
+	/**
+     * Find an OrderPromotion(s) by promoId
+     * @param the unique promo ID
+     * @return List: OrderPromotion - A list of OrderPromotion object(s) of the given promo ID
+     */
+	OrderPromotion findByPromoId(long promoId);
+	
+	/**
      * Find a OrderPromotion(s) by the amount discounted
      * @param the dollar value of discount applied to the order
      * @return List: OrderPromotion - A list of OrderPromotion object(s) of the given discount amount
