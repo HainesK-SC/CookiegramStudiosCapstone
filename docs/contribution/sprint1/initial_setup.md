@@ -12,7 +12,7 @@ This will give us a good starting point and a good reference to implement the ba
 
 ## Main Tasks
 Each main task has it's own markdown file for reference.
-- [ ] 1 - User Entity & Roles
+- [X] 1 - User Entity & Roles
 - [ ] 2 - Spring Security Configuration
 - [ ] 3 - Controller Layer Setup
 - [ ] 4 - Views & Thymeleaf Templates
