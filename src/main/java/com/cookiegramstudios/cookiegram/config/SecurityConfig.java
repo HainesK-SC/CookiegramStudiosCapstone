@@ -15,9 +15,28 @@ import org.springframework.security.web.SecurityFilterChain;
  * HTTP Security filter chain configurations
  * </p>
  *
+ * <p><strong>References:</strong></p>
+ * <ul>
+ *     <li>
+ *         <a href="https://www.codejava.net/frameworks/spring-boot/spring-security-authentication-success-handler-examples" target="_blank">
+ *             CodeJava – Spring Security Authentication Success Handler Examples
+ *         </a>
+ *     </li>
+ *     <li>
+ *         <a href="https://mainul35.medium.com/spring-security-demonstrating-custom-authentication-success-handler-3b6fcb572a53" target="_blank">
+ *             Medium – Custom Authentication Success Handler
+ *         </a>
+ *     </li>
+ *     <li>
+ *         <a href="https://www.baeldung.com/spring-redirect-after-login" target="_blank">
+ *             Baeldung – Redirect After Login
+ *         </a>
+ *     </li>
+ * </ul>
+ *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.1
+ * @version 1.2
  */
 @Configuration
 public class SecurityConfig {

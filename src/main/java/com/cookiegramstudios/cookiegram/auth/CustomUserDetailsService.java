@@ -25,9 +25,17 @@ import java.util.Collections;
  * mapping the User entity to Spring Security's expected format.
  * </p>
  *
+ * <p><strong>References:</strong></p>
+ * <ul>
+ *     <li>
+ *         <a href="https://java-jedi.medium.com/spring-security-part-iii-custom-userdetailsservice-with-database-authentication-1c39d42f4d8a">
+ *             Medium – Spring Security Part III: Custom UserDetailsService with Database Authentication
+ *         </a>
+ *     </li>
+ * </ul>
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.0
+ * @version 1.1
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
