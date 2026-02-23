@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.config;
+package com.cookiegramstudios.cookiegram.common.config;
 
 import com.cookiegramstudios.cookiegram.auth.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
