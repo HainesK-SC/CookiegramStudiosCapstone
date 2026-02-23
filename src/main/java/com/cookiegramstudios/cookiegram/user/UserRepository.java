@@ -12,17 +12,10 @@ import org.springframework.stereotype.Repository;
  *
  * @author Matthew Samaha
  * @date 2026-02-18
- * @version 1.0
+ * @version 1.1
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    /**
-     * Find a user by username
-     * @param username the username to search for
-     * @return user with given username
-     */
-    User findByUsername(String username);
 
     /**
      * Finds a user by their email address

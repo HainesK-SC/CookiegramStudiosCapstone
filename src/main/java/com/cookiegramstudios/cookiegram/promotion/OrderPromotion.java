@@ -1,5 +1,7 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
+import jakarta.persistence.Entity;
+
 import java.time.LocalDateTime;
 
 /**

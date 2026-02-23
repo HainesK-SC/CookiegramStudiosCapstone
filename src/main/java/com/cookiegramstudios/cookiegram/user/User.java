@@ -2,6 +2,7 @@ package com.cookiegramstudios.cookiegram.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ import java.time.LocalDateTime;
  *
  * @author Matthew Samaha
  * @date 2026-02-18
- * @version 1.0
+ * @version 1.1
  */
 @Entity
 @Table(name = "users")
@@ -53,7 +54,7 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Role is required")
+    @NotNull(message = "Role is required") // changed annotation
     private UserRole role;
 
     @Column(nullable = false)
