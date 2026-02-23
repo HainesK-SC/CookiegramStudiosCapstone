@@ -1,6 +1,6 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -25,12 +25,25 @@ import java.time.LocalDateTime;
  * @date 2026-02-22
  * @version 1.0
  */
-
+@Entity
+@Table(name = "order_promotions")
 public class OrderPromotion {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
+	@Column(nullable = false)
+
 	long orderId; // FK REFERENCE TO ORDER OBJECT
+	@Column(nullable = false)
+
 	long promoId; // FK REFERENCE TO PROMOTION OBJECT
+	@Column(nullable = false)
+
 	String promoCode; // PROMO CODE USED - HELPFUL IF CODES WILL CHANGE
+	@Column(nullable = false)
+
 	double discountAmt;
+	@Column(nullable = false)
+
 	LocalDateTime appliedAt;	
 }
