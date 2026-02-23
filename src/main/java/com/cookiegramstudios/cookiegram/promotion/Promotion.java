@@ -1,5 +1,7 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -27,14 +29,24 @@ import java.time.LocalDateTime;
  * @date 2026-02-22
  * @version 1.0
  */
-
+@Entity
+@Table(name = "promotions")
 public class Promotion {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
+	@Column(nullable = false, unique = true)
 	String promoCode;
+	@Column(nullable = false)
 	String description; // short description
+	@Column(nullable = false)
 	String promoType; // fixed $ or %
+	@Column(nullable = false)
 	double promoValue; // fixed $ or %
+	@Column(nullable = false)
 	LocalDateTime startDate; // YYYY-MM-DD
+	@Column(nullable = false)
 	LocalDateTime endDate; // YYYY-MM-DD
+	@Column(nullable = false)
 	boolean isActive; // whether promotion is currently active or not
 }

@@ -3,6 +3,7 @@ package com.cookiegramstudios.cookiegram.promotion;
 import java.time.LocalDateTime;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Repository interface for {@link OrderPromotion} relational entity.
@@ -15,7 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2026-02-22
  * @version 1.0
  */
-
+@Repository
 public interface OrderPromotionRepository extends JpaRepository<OrderPromotion, Long> {
 	/**
      * Find an OrderPromotion(s) by promotion code
