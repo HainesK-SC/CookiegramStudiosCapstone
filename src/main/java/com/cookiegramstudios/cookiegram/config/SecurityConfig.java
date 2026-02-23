@@ -1,5 +1,6 @@
 package com.cookiegramstudios.cookiegram.config;
 
+import com.cookiegramstudios.cookiegram.auth.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * <p>
  * This class provides security-related beans and configurations,
  * including password encoding for secure password storage and
- * HTTP Security filter chain configurations
+ * HTTP Security filter chain configurations with role-based access control
  * </p>
  *
  * <p><strong>References:</strong></p>
@@ -36,10 +37,17 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.2
+ * @version 1.3
  */
 @Configuration
 public class SecurityConfig {
+
+    private final CustomAuthenticationSuccessHandler successHandler;
+
+    // Consturctor Injection - for custom auth success handling
+    public SecurityConfig(CustomAuthenticationSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
 
     /**
      * Configures the password encoder bean for the entire application
@@ -61,11 +69,21 @@ public class SecurityConfig {
      * This method sets up:
      * <ul>
      * <li>Public endpoints (home page, login, static resources)</li>
-     * <li>Form-based login with custom login page</li>
+     * <li>Role-based access control for ADMIN, BAKER, and COURIER roles</li>
+     * <li>Form-based login with custom login page and success handler</li>
      * <li>Logout configuration with session invalidation</li>
-     * <li>H2 console access (if applicable)</li>
+     * <li>H2 console access (development only)</li>
      * </ul>
      * </p>
+     * <p>
+     * <b>Role-Based Access:</b>
+     * <ul>
+     * <li>ADMIN: Full access to /admin/** endpoints</li>
+     * <li>BAKER: Access to /employee/** endpoints</li>
+     * <li>COURIER: Access to /courier/** endpoints</li>
+     * </ul>
+     * </p>
+     *
      * @param http the HttpSecurity object to configure
      * @return the configured SecurityFilterChain
      * @throws Exception if configuration fails
@@ -89,18 +107,22 @@ public class SecurityConfig {
                         // Anyone can access
                         .requestMatchers("/h2-console/**").permitAll()
 
-                        // Placeholder for role-based restrictions
-                        // All other requests will require authentication for now
+                        // Role-based access control - added :: redirect to URl if user has role
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/employee/**").hasRole("BAKER")
+                        .requestMatchers("/courier/**").hasRole("COURIER")
+
+                        // All other requests require authentication
                         .anyRequest().authenticated()
                 )
 
-                // Configure form-based login - NO SpringSecurity standards
+                // Configure form-based login
                 .formLogin(form -> form
-                                .loginPage("/login")                    // Custom login page URL
-                                .loginProcessingUrl("/login")           // URL to submit username/password
-                                .failureUrl("/login?error=true")        // Redirect on login failure
-                                .permitAll()                            // Allow everyone to access login page
-
+                        .loginPage("/login")                    // Custom login page URL
+                        .loginProcessingUrl("/login")           // URL to submit username/password
+                        .successHandler(successHandler)         // Custom success handler for role-based redirects
+                        .failureUrl("/login?error=true")        // Redirect on login failure
+                        .permitAll()                            // Allow everyone to access login page
                 )
 
                 // Configure logout
