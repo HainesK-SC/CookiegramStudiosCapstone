@@ -42,11 +42,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    private final CustomAuthenticationSuccessHandler successHandler;
-
-    // Consturctor Injection - for custom auth success handling
-    public SecurityConfig(CustomAuthenticationSuccessHandler successHandler) {
-        this.successHandler = successHandler;
+    /**
+     * Configures the custom authentication success handler bean.
+     * <p>
+     * This handler redirects users to role-specific dashboards after successful login.
+     * Creating it as a bean allows Spring Security to use it in the filter chain configuration.
+     * </p>
+     *
+     * @return configured CustomAuthenticationSuccessHandler instance
+     */
+    @Bean
+    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 
     /**
@@ -62,6 +69,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 
     /**
      * Configures the security filter chain for HTTP requests.
@@ -118,11 +126,11 @@ public class SecurityConfig {
 
                 // Configure form-based login
                 .formLogin(form -> form
-                        .loginPage("/login")                    // Custom login page URL
-                        .loginProcessingUrl("/login")           // URL to submit username/password
-                        .successHandler(successHandler)         // Custom success handler for role-based redirects
-                        .failureUrl("/login?error=true")        // Redirect on login failure
-                        .permitAll()                            // Allow everyone to access login page
+                        .loginPage("/login")                              // Custom login page URL
+                        .loginProcessingUrl("/login")                     // URL to submit username/password
+                        .successHandler(customAuthenticationSuccessHandler())  // Custom success handler for role-based redirects
+                        .failureUrl("/login?error=true")                  // Redirect on login failure
+                        .permitAll()                                      // Allow everyone to access login page
                 )
 
                 // Configure logout
