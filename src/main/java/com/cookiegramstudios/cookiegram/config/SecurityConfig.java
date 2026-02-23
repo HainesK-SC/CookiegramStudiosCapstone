@@ -36,8 +36,21 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
-
+    /**
+     * Configures the security filter chain for HTTP requests.
+     * <p>
+     * This method sets up:
+     * <ul>
+     * <li>Public endpoints (home page, login, static resources)</li>
+     * <li>Form-based login with custom login page</li>
+     * <li>Logout configuration with session invalidation</li>
+     * <li>H2 console access (if applicable)</li>
+     * </ul>
+     * </p>
+     * @param http the HttpSecurity object to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if configuration fails
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
