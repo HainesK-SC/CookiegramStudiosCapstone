@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/public-layout :: layout(~{::content})">
 <head>
     <meta charset="UTF-8">
     <title>CookieGram | Home </title>
 </head>
 <body>
-<h1>Welcome to CookieGram!</h1>
+<div th:fragment="content">
+    <!-- promotion section would go here -->
+    <div th:replace="fragments/order-preview :: orderPreview"></div>
+
+</div>
 </body>
 </html>

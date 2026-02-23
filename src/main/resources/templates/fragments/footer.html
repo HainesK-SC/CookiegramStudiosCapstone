@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<footer th:fragment="footer"
+        class="bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+
+        <p class="mb-1">
+            © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
+            CookieGram
+        </p>
+
+        <small class="text-light">
+            contact@cookiegrams.com | (123) 456-7890
+        </small>
+
+        <div class="footer-social mt-3">
+            <a href="#" class="text-light me-3 text-decoration-none">
+                Instagram
+            </a>
+            <a href="#" class="text-light text-decoration-none">
+                Facebook
+            </a>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>

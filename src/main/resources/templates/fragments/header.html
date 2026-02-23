@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:fragment="header" class="bg-light border-bottom sticky-top">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+
+        <a th:href="@{/}" class="text-decoration-none">
+            <h4 class="mb-0 text-dark">CookieGram</h4>
+        </a>
+
+        <div>
+            <span class="me-2 text-muted small">Staff Login</span>
+            <a th:href="@{/login}" class="btn btn-outline-primary btn-sm">
+                Login
+            </a>
+        </div>
+
+    </div>
+</header>
+
+</body>
+</html>
