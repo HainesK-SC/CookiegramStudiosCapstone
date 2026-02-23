@@ -96,6 +96,4 @@ public class PublicController {
         return "login";
 
     }
-
-
 }
