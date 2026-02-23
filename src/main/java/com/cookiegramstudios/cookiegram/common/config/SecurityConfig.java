@@ -37,7 +37,7 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.4
+ * @version 1.5
  */
 @Configuration
 public class SecurityConfig {
