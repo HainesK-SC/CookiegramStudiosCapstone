@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Controller for public-facing pages accessible to all users.
  * <p>
@@ -42,6 +44,12 @@ public class PublicController {
     @GetMapping("/")
     public String home(Model model){
         // mock promotions (will be replaced later with a proper service call)
+        List<String> promotionsList = List.of(
+                "Buy 1 Dozen, Get 10% Off",
+                "Free Delivery on orders over $30",
+                "Weekend Special: 2 Cookies Free"
+        );
+        model.addAttribute("promotions", promotionsList);
 
         return "index";
     }
@@ -88,4 +96,6 @@ public class PublicController {
         return "login";
 
     }
+
+
 }

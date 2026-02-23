@@ -104,6 +104,7 @@ public class SecurityConfig {
                         // Public endpoints - accessible to everyone (standard)
                         .requestMatchers(
                                 "/",              // Home page
+                                "/order/**", // Order page
                                 "/login",         // Login page
                                 "/css/**",        // CSS files
                                 "/js/**",         // JavaScript files
