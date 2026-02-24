@@ -136,6 +136,17 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Creates a new user account.
+     * <p>
+     * This method handles password encoding and timestamp generation automatically.
+     * </p>
+     *
+     * @param user the user entity to create (password will be encoded)
+     * @return the created and persisted user entity
+     * @throws UserAlreadyExistsException if email already exists
+     * @throws InvalidUserDataException if validation fails
+     */
     public User createUser(User user){
         logger.debug("Creating new user with email: {}", user.getEmail());
 
@@ -167,6 +178,19 @@ public class UserService {
 
     }
 
+    /**
+     * Updates an existing user's information.
+     * <p>
+     * Updates firstName, lastName, and email. Does not update password or role.
+     * </p>
+     *
+     * @param id the ID of the user to update
+     * @param user the user entity containing updated information
+     * @return the updated user entity
+     * @throws UserNotFoundException if user not found
+     * @throws InvalidUserDataException if validation fails
+     * @throws UserAlreadyExistsException if new email already exists
+     */
     public User updateUser(Long id, User user){
         logger.debug("Updating user with ID: {}", id);
 
@@ -199,6 +223,18 @@ public class UserService {
 
         return updatedUser;
 
+    }
+
+    public void deleteUser(Long id){
+        logger.debug("Deleting user with ID: {}", id);
+
+        // verify user exists before deleting
+        User user = getUserById(id);
+
+        // delete user
+        userRepository.deleteById(id);
+        logger.info("Successfully deleted user with ID: {} and email: {}",
+                id, user.getEmail());
     }
 
 
