@@ -1,9 +1,199 @@
-# Workflow - Capstone Team
 
-Purpose: in case you get lost in the git workflow, use this as a reference.
+# Git Clone & Onboarding Setup
+
+Purpose: this is for anyone who wants to contribute to the project -- DO THIS ONLY ONCE
 This file is authored by Matthew Samaha
 
-> __I've modified this workflow again, to fit if you're contributing in either IntelliJ, or Eclipse.__
+---
+
+## 🚀 Getting Started - First Time Setup (Onboarding)
+
+If you're new to this project, follow these steps to get your local environment set up:
+
+### Preparation
+Before you begin, make sure you have:
+- [ ] Git installed (check with `git --version`)
+- [ ] Java JDK 17+ installed (check with `java -version`)
+- [ ] Maven installed (check with `mvn -v`) OR Gradle
+- [ ] IntelliJ IDEA or Eclipse IDE
+- [ ] GitHub account with access to the repository
+- [ ] If working in Eclipse, ensure you have the [EGit - Git Integration for Eclipse](https://marketplace.eclipse.org/content/egit-git-integration-eclipse) installed
+
+**You can do this inside Eclipse's Marketplace or by downloading the plugin directly from the link.**
+
+
+### Step 1: Clone the Repository
+
+**Command Line:**
+```bash
+# Navigate to where you want to store the project
+cd ~/Documents/Projects  # or wherever you keep your code
+
+# Clone the repository 
+git clone https://github.com/HainesK-SC/CookiegramStudiosCapstone.git
+
+# Navigate into the project directory
+cd CookiegramStudiosCapstone
+```
+
+**IntelliJ Method:**
+1. Open IntelliJ IDEA
+2. Import **File** → **New** → **Project from Version Control**
+3. Paste your repository URL: `https://github.com/HainesK-SC/CookiegramStudiosCapstone.git`
+4. Choose a directory location
+5. Click **Clone**
+
+**Eclipse Method:**
+1. Open Eclipse
+2. Click **File** → **Import** → **Git** → **Projects from Git** → **Next**
+3. Select **Clone URI** → **Next**
+4. Paste your repository URL: `https://github.com/HainesK-SC/CookiegramStudiosCapstone.git`
+5. Enter your GitHub credentials if prompted → **Next**
+6. Select all branches (main, development, staging) → **Next**
+7. Choose a directory location → **Next**
+8. Select **Import existing Eclipse projects** or **Import as general project** → **Next**
+9. Click **Finish**
+
+### Step 2: Verify All Branches Are Available
+
+**Command Line:**
+```bash
+# Fetch all branches from remote
+git fetch --all
+
+# List all branches (local and remote)
+git branch -a
+
+# You should see:
+#   * main
+#     development
+#     staging
+#     remotes/origin/main
+#     remotes/origin/development
+#     remotes/origin/staging
+```
+
+**IntelliJ Method:**
+1. Look at the bottom-right corner (current branch name)
+2. Click it to open the branch menu
+3. You should see all branches under **Local Branches** and **Remote Branches**
+
+**Eclipse Method:**
+1. Right-click on project → **Team** → **Show in Repositories View**
+2. Expand your repository → **Branches** → **Remote Tracking**
+3. You should see `origin/main`, `origin/development`, `origin/staging`
+
+### Step 3: Set Up Local Branches
+
+**Command Line:**
+```bash
+# Create and checkout development branch (tracks remote)
+git checkout development
+
+# Create and checkout staging branch (tracks remote)
+git checkout staging
+
+# Go back to main
+git checkout main
+
+# Finally, switch to development — this is where you'll work
+git checkout development
+```
+
+**IntelliJ Method:**
+1. Click the branch name in bottom-right corner
+2. Under **Remote Branches** → **origin**, right-click `development`
+3. Select **Checkout** (this creates a local tracking branch)
+4. Repeat for `staging`
+5. Switch to `development` branch to start working
+
+**Eclipse Method:**
+1. Right-click project → **Team** → **Switch To** → **Other...**
+2. Expand **Remote Tracking** → Select `origin/development`
+3. Click **Checkout...** → Select **Checkout as New Local Branch** → **Finish**
+4. Repeat for `origin/staging`
+5. Switch back to `development`: Right-click project → **Team** → **Switch To** → **development**
+
+### Step 4: Set Up Your Git Configuration (If Not Already Done)
+
+**Command Line:**
+```bash
+# Set your name and email (used for commits)
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Verify configuration
+git config --global --list
+```
+
+**IntelliJ Method:**
+1. Go to **File** → **Settings** (or **IntelliJ IDEA** → **Preferences** on Mac)
+2. Navigate to **Version Control** → **Git**
+3. Your name and email should already be configured from global Git settings
+4. If not, set them via command line above
+
+**Eclipse Method:**
+1. Go to **Window** → **Preferences** (or **Eclipse** → **Preferences** on Mac)
+2. Navigate to **Team** → **Git** → **Configuration**
+3. Click **Add Entry...**
+    - Key: `user.name`, Value: `Your Name` → **OK**
+    - Key: `user.email`, Value: `your.email@example.com` → **OK**
+4. Click **Apply and Close**
+
+### Step 5: Install Project Dependencies
+
+**Command Line:**
+```bash
+# For a Spring Boot / Maven project:
+mvn clean install
+
+# OR if using Gradle:
+./gradlew build
+
+# Run the application to verify everything works
+mvn spring-boot:run
+# OR
+./gradlew bootRun
+```
+
+**IntelliJ Method:**
+1. IntelliJ should auto-detect Maven/Gradle and prompt you to import
+2. Click **Load Maven Project** or **Import Gradle Project** in the popup
+3. Wait for dependencies to download (check progress in bottom-right)
+4. Click the green **Run** button (or **Shift+F10**) to test the application
+
+**Eclipse Method:**
+1. Right-click project → **Maven** → **Update Project** (or **Alt+F5**)
+2. Check **Force Update of Snapshots/Releases** → **OK**
+3. Wait for dependencies to download (check progress in bottom-right)
+4. Right-click project → **Run As** → **Spring Boot App** (or **Maven build** with goal `spring-boot:run`)
+
+### Step 6: Verify You're Ready to Work
+
+**Command Line:**
+```bash
+# Check you're on development branch
+git branch
+# Should show: * development
+
+# Check status
+git status
+# Should show: "On branch development, Your branch is up to date with 'origin/development'"
+
+# You're ready! 🎉
+```
+
+**IntelliJ Method:**
+- Check bottom-right corner shows `development` branch
+- Run the application successfully
+- You're ready! 🎉
+
+**Eclipse Method:**
+- Check bottom-right corner or status bar shows `development` branch
+- Run the application successfully
+- You're ready! 🎉
+
+---
 
 ## 📚 Understanding the Branches
 
@@ -19,20 +209,6 @@ Before you start working, understand our branch structure:
 **Workflow Direction:**
 ```
 issue-branch → development → staging → main (via PR)
-```
-
-## 📊 Workflow Overview
-```
-GitHub Issue (#42)
-    ↓ (Create branch)
-Issue Branch (42-fix-something)
-    ↓ (Work & Commit)
-    ↓ (PR & Review)
-Development Branch
-    ↓ (Merge when ready)
-Staging Branch
-    ↓ (PR & Team Review)
-Main Branch (Production)
 ```
 
 ---
@@ -487,6 +663,8 @@ git merge main
 git push origin development
 ```
 
+---
+
 ## 📊 Branch Naming Convention
 
 GitHub auto-generates branch names from issues:
@@ -498,14 +676,6 @@ You can customize the name when creating the branch, but keep it:
 - Hyphen-separated
 - Descriptive
 - Prefixed with issue number
-
----
-
-## 💬 Communication Guidelines
-
-- **Before merging to staging or main:** Notify team in group chat
-- **Before creating PR to main:** Let everyone know (if it's a major big change, or ties to a User Story on Trello)
-- **When blocked:** Don't hesitate to ask for help in Teams Channel or private chat
 
 ---
 
@@ -531,6 +701,12 @@ You can customize the name when creating the branch, but keep it:
 **Problem:** Accidentally committed to wrong branch
 - **Solution:** Ask for help in team chat before pushing!
 
+**Problem:** Eclipse shows "Project configuration is not up-to-date"
+- **Solution:** Right-click project → Maven → Update Project → Force Update
+
+**Problem:** IntelliJ not recognizing as Maven/Gradle project
+- **Solution:** Right-click `pom.xml` or `build.gradle` → Add as Maven/Gradle Project
+
 ---
 
 ## 🔧 IDE-Specific Tips
@@ -541,6 +717,7 @@ You can customize the name when creating the branch, but keep it:
     - `Ctrl+Shift+K` / `Cmd+Shift+K` — Push
     - `Ctrl+T` / `Cmd+T` — Update Project (Pull)
 - **Git Tool Window:** View → Tool Windows → Git (shows branches, commits, log)
+- **Interactive Rebase:** Right-click commit → Interactive Rebase to clean up history
 
 ### Eclipse
 - **Keyboard Shortcuts:**
@@ -549,5 +726,13 @@ You can customize the name when creating the branch, but keep it:
 - **Git Staging View:** Window → Show View → Other → Git → Git Staging
 - **History View:** Right-click project → Team → Show in History
 
-
 ---
+
+This workflow ensures:
+- ✅ New team members can quickly get started with their preferred IDE
+- ✅ All work is tracked via GitHub issues and linked branches
+- ✅ Code review happens via PRs before merging to `development`
+- ✅ `main` branch protection is respected (PR-only)
+- ✅ Clean branch management with auto-linking
+- ✅ Better team collaboration and transparency
+- ✅ IDE flexibility — use IntelliJ, Eclipse, or command line
