@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -70,6 +71,36 @@ public class UserService {
         }
         logger.info("User found for email: {}", email);
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserById(Long id){
+        logger.debug("Fetching user by id: {}", id);
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.warn("User not found with ID: {}", id);
+                    return new UserNotFoundException("User not found with ID: " + id);
+                });
+
+        logger.info("User found with ID: {}", id);
+        return user;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAllUsers(){
+        logger.debug("Fetching all users");
+        List<User> users = userRepository.findAll();
+        logger.info("All users fetched");
+        return users;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getUsersByRole(UserRole role){
+        logger.debug("Fetching users by role: {}", role);
+        List<User> users = userRepository.findAllByRole(role);
+        logger.info("Users fetched by role: {}", role);
+        return users;
     }
 
     /**
