@@ -1,6 +1,7 @@
 # Workflow - Capstone Team
 
 Purpose: in case you get lost in the git workflow, use this as a reference.
+This file is authored by Matthew Samaha
 
 ## Branch Overview
 
