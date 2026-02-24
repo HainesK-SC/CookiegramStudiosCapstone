@@ -8,14 +8,17 @@
 		<section th:fragment="activePromotions(promotions)">
 		<div class="container">
 			<h2>Current Promotions</h2>
-			<li th:each="promo : ${promotions}">
-			    <strong th:text="${promo.promoCode}">CODE</strong>
-			    -
-			    <span th:text="${promo.description}">Promo description</span>
-			    (
-			    <span th:text="${promo.displayValue}">value</span>
-			    )
-			</li>
+			<ul>
+				<li th:each="promo : ${promotions}">
+				    <strong th:text="${promo.promoCode}">CODE</strong>
+				    -
+				    <span th:text="${promo.description}">Promo description</span>
+				    (
+				    <span th:text="${promo.displayValue}">value</span>
+				    )
+				</li>
+			</ul>
+			
 		</div>
 		</section>
 	</body>
