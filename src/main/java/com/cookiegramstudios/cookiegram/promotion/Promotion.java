@@ -26,28 +26,28 @@ import java.time.LocalDate;
  * </ul>
  *
  * @author Kyle Haines
- * @date 2026-02-22
  * @version 1.0
+ * @date 2026-02-22
  */
 @Entity
 @Table(name = "promotions")
 public class Promotion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
-	@Column(nullable = false, unique = true)
-	String promoCode;
-	@Column(nullable = false)
-	String description; // short description
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	String promoType; // FIXED or PERCENTAGE
-	@Column(nullable = false)
-	double promoValue; // fixed $ or %
-	@Column(nullable = false)
-	LocalDate startDate; // YYYY-MM-DD
-	@Column(nullable = false)
-	LocalDate endDate; // YYYY-MM-DD
-	@Column(nullable = false)
-	boolean isActive; // whether promotion is currently active or not
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
+    @Column(nullable = false, unique = true)
+    String promoCode;
+    @Column(nullable = false)
+    String description; // short description
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    PromotionTypes promoType; // FIXED or PERCENTAGE
+    @Column(nullable = false)
+    double promoValue; // fixed $ or %
+    @Column(nullable = false)
+    LocalDate startDate; // YYYY-MM-DD
+    @Column(nullable = false)
+    LocalDate endDate; // YYYY-MM-DD
+    @Column(nullable = false)
+    boolean isActive; // whether promotion is currently active or not
 }
