@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.user;
 
 import com.cookiegramstudios.cookiegram.common.exceptions.InvalidUserDataException;
+import com.cookiegramstudios.cookiegram.common.exceptions.UserAlreadyExistsException;
 import com.cookiegramstudios.cookiegram.common.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 2.0
+ * @version 2.1
  */
 @Service
 @Transactional
@@ -59,7 +61,17 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-
+    /**
+     * Retrieves a user by their email address.
+     * <p>
+     * This method throws an exception if the user is not found,
+     * unlike {@link #findByEmail(String)} which returns null.
+     * </p>
+     *
+     * @param email the email address to search for
+     * @return the User entity matching the email
+     * @throws UserNotFoundException if user not found
+     */
     @Transactional
     public User getUserByEmail(String email) {
         logger.debug("Fetching user by email: {}", email);
@@ -73,6 +85,13 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    /**
+     * Retrieves a user by their unique identifier.
+     *
+     * @param id the user's unique identifier
+     * @return the User entity
+     * @throws UserNotFoundException if user not found
+     */
     @Transactional(readOnly = true)
     public User getUserById(Long id){
         logger.debug("Fetching user by id: {}", id);
@@ -87,6 +106,14 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Retrieves all users in the system.
+     * <p>
+     * Primarily used for admin user management features.
+     * </p>
+     *
+     * @return list of all users
+     */
     @Transactional(readOnly = true)
     public List<User> getAllUsers(){
         logger.debug("Fetching all users");
@@ -95,6 +122,12 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Retrieves all users with a specific role.
+     *
+     * @param role the role to filter by
+     * @return list of users with the specified role
+     */
     @Transactional(readOnly = true)
     public List<User> getUsersByRole(UserRole role){
         logger.debug("Fetching users by role: {}", role);
@@ -103,9 +136,78 @@ public class UserService {
         return users;
     }
 
+    public User createUser(User user){
+        logger.debug("Creating new user with email: {}", user.getEmail());
+
+        // validate user data before saving
+        validateUserForCreation(user);
+
+        // check if user already exists
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            logger.warn("Attempted to create user with existing email: {}", user.getEmail());
+            throw new UserAlreadyExistsException(
+                    "User already exists with email: " + user.getEmail()
+            );
+        }
+
+        // Encode password
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        logger.debug("Password encoded for user: {}", user.getEmail());
+
+        // Set creation timestamp (though @PrePersist also handles this)
+        user.setCreatedAt(LocalDateTime.now());
+
+        // Save user
+        User savedUser = userRepository.save(user);
+        logger.info("Successfully created user with ID: {} and email: {}",
+                savedUser.getId(), savedUser.getEmail());
+
+        return savedUser;
+
+    }
+
+    public User updateUser(Long id, User user){
+        logger.debug("Updating user with ID: {}", id);
+
+        // Fetch existing user
+        User existingUser = getUserById(id);
+
+        // Validate updated data
+        validateUserForUpdate(user);
+
+        // Check if new email already exists (if email is being changed)
+        if (!existingUser.getEmail().equals(user.getEmail())) {
+            User userWithNewEmail = userRepository.findByEmail(user.getEmail());
+            if (userWithNewEmail != null) {
+                logger.warn("Attempted to update to existing email: {}", user.getEmail());
+                throw new UserAlreadyExistsException(
+                        "Another user already exists with email: " + user.getEmail()
+                );
+            }
+        }
+
+        // Update allowed fields
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        // Note: Role and password are NOT updated here for security
+
+        // Save updated user
+        User updatedUser = userRepository.save(existingUser);
+        logger.info("Successfully updated user with ID: {}", id);
+
+        return updatedUser;
+
+    }
+
+
+
     /**
      * VALIDATION METHODS
      */
+
+
 
     /**
      * Validates user data for creation.
