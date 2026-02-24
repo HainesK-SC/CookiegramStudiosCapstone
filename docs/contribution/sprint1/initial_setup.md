@@ -13,10 +13,10 @@ This will give us a good starting point and a good reference to implement the ba
 ## Main Tasks
 Each main task has it's own markdown file for reference.
 - [X] 1 - User Entity & Roles
-- [ ] 2 - Spring Security Configuration
-- [ ] 3 - Controller Layer Setup
+- [X] 2 - Spring Security Configuration
+- [X] 3 - Controller Layer Setup
 - [ ] 4 - Views & Thymeleaf Templates
-- [ ] 5 - Services Layer (Supporting Backend)
+- [X] 5 - User Services Layer (Supporting Backend)
 
 ## Breakdown of Tasks
 - User Entity & Roles (Matthew)

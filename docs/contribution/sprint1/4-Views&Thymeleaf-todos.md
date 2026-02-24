@@ -4,6 +4,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **4.1 Public Landing Page**
 
+STILL IN PROGRESS
 ### Create index.html Template
 - [ ] Create `index.html` in `src/main/resources/templates/` directory
 - [ ] Add Thymeleaf namespace: `xmlns:th="http://www.thymeleaf.org"`
@@ -11,6 +12,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Link CSS file: `<link th:href="@{/css/public.css}" rel="stylesheet">`
 - [ ] Link JavaScript file: `<script th:src="@{/js/order-form.js}"></script>`
 
+STILL IN PROGRESS
 ### Design Header/Navigation
 - [ ] Create header section with logo/brand name
 - [ ] Add "Login" button/link: `<a th:href="@{/login}">Login</a>`
@@ -18,6 +20,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add note near login: "Staff Login" or similar
 - [ ] Make header sticky/fixed (optional)
 
+STILL IN PROGRESS
 ### Create Promotions Section
 - [ ] Add section with heading: "Current Promotions"
 - [ ] Create Thymeleaf loop to display promotions: `th:each="promo : ${promotions}"`
@@ -28,6 +31,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add conditional display: `th:if="${not #lists.isEmpty(promotions)}"`
 - [ ] Add empty state message if no promotions
 
+STILL IN PROGRESS
 ### Create Order Placement Section (Placeholder for Now)
 - [ ] Add section heading: "Order Your CookieGrams"
 - [ ] Add placeholder text: "Cookie ordering coming soon!"
@@ -35,6 +39,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Style section to be visually appealing
 - [ ] (Full functionality will be added in Phase 8)
 
+STILL IN PROGRESS
 ### Add Footer
 - [ ] Create footer section
 - [ ] Add copyright text
@@ -54,12 +59,14 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **4.2 Login Page**
 
+STILL IN PROGRESS
 ### Create login.html Template
 - [ ] Create `login.html` in `src/main/resources/templates/` directory
 - [ ] Add Thymeleaf namespace
 - [ ] Add basic HTML structure
 - [ ] Link CSS file: `<link th:href="@{/css/main.css}" rel="stylesheet">`
 
+STILL IN PROGRESS
 ### Design Login Form
 - [ ] Add heading: "Employee & Admin Login"
 - [ ] Create form with `th:action="@{/login}"` and `method="post"`
@@ -69,6 +76,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add submit button: "Login"
 - [ ] Style form to be centered and visually appealing
 
+STILL IN PROGRESS
 ### Add Error Message Display
 - [ ] Add conditional error div: `th:if="${param.error}"`
 - [ ] Display error message: "Invalid username or password"
@@ -76,6 +84,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add conditional logout message: `th:if="${param.logout}"`
 - [ ] Display logout message: "You have been logged out successfully"
 
+STILL IN PROGRESS
 ### Add Customer Note
 - [ ] Add note below form: "Customers: No login required. Return to home to place orders."
 - [ ] Add link back to home: `<a th:href="@{/}">Return to Home</a>`
@@ -93,18 +102,21 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **4.3 Order Confirmation Page (Public)**
 
+NOT STARTED
 ### Create order-confirmation.html Template
 - [ ] Create `order-confirmation.html` in `src/main/resources/templates/` directory
 - [ ] Add Thymeleaf namespace
 - [ ] Add basic HTML structure
 - [ ] Link CSS file
 
+NOT STARTED
 ### Design Confirmation Message
 - [ ] Add success icon or checkmark graphic
 - [ ] Add heading: "Order Confirmed!"
 - [ ] Display order number prominently: `th:text="${orderNumber}"`
 - [ ] Add thank you message
 
+NOT STARTED
 ### Display Order Summary (Placeholder for Now)
 - [ ] Add section: "Order Summary"
 - [ ] Display placeholder items (will be dynamic in Phase 8)
@@ -112,6 +124,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Display placeholder total price
 - [ ] Display placeholder delivery date
 
+  NOT STARTED
 ### Add Action Buttons
 - [ ] Add "Place Another Order" button linking to home: `th:href="@{/}"`
 - [ ] (Optional) Add "Track Order" button for future functionality
@@ -126,6 +139,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **4.4 Employee Dashboard (Minimal Layout)**
 
+NOT STARTED
 ### Create employee-dashboard.html Template
 - [ ] Create `templates/employee/` directory
 - [ ] Create `employee-dashboard.html` in this directory
@@ -133,12 +147,14 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add basic HTML structure
 - [ ] Link CSS file: `<link th:href="@{/css/dashboard.css}" rel="stylesheet">`
 
+NOT STARTED
 ### Create Dashboard Header
 - [ ] Add heading: "Employee Dashboard"
 - [ ] Add welcome message with user name: `th:text="'Welcome, ' + ${user.firstName}"`
 - [ ] Add logout link: `<a th:href="@{/logout}">Logout</a>`
 - [ ] Style header
 
+NOT STARTED
 ### Create Placeholder Dashboard Content
 - [ ] Add main heading: "Order Management Vision"
 - [ ] Add 3-4 placeholder sections with headings only:
@@ -163,6 +179,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **4.5 Admin Dashboard (Minimal Layout)**
 
+NOT STARTED
 ### Create admin-dashboard.html Template
 - [ ] Create `templates/admin/` directory
 - [ ] Create `admin-dashboard.html` in this directory
@@ -170,12 +187,14 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add basic HTML structure
 - [ ] Link CSS file: `<link th:href="@{/css/dashboard.css}" rel="stylesheet">`
 
+NOT STARTED
 ### Create Dashboard Header
 - [ ] Add heading: "Admin Dashboard"
 - [ ] Add welcome message with user name: `th:text="'Welcome, ' + ${user.firstName}"`
 - [ ] Add logout link: `<a th:href="@{/logout}">Logout</a>`
 - [ ] Style header
 
+NOT STARTED
 ### Create Placeholder Dashboard Content
 - [ ] Add main heading: "System Management Vision"
 - [ ] Add 4-5 placeholder sections with headings only:
@@ -203,6 +222,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ### Create Error Pages
 
+NOT STARTED
 #### Create 403.html (Forbidden)
 - [ ] Create `templates/error/403.html`
 - [ ] Add heading: "403 - Access Forbidden"
@@ -210,6 +230,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add link to return home: `<a th:href="@{/}">Return to Home</a>`
 - [ ] Style to match overall design
 
+NOT STARTED
 #### Create 404.html (Not Found)
 - [ ] Create `templates/error/404.html`
 - [ ] Add heading: "404 - Page Not Found"
@@ -217,6 +238,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 - [ ] Add link to return home: `<a th:href="@{/}">Return to Home</a>`
 - [ ] Style to match overall design
 
+NOT STARTED
 #### Create error.html (Generic Error)
 - [ ] Create `templates/error/error.html`
 - [ ] Add heading: "An Error Occurred"
