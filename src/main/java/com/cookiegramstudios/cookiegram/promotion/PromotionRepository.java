@@ -1,6 +1,6 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,14 +46,14 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
      * @param startDate: LocalDateTime - The date and time the promotion started.
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	List<Promotion> findByStartDate(LocalDateTime startDate);
+	List<Promotion> findByStartDate(LocalDate startDate);
 	
 	/**
      * Find a Promotion by the end date
      * @param endDate: LocalDateTime - The date and time the promotion started.
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	List<Promotion> findByEndDate(LocalDateTime endDate);
+	List<Promotion> findByEndDate(LocalDate endDate);
 	
 	/**
      * Find all active promotions
