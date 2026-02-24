@@ -34,12 +34,22 @@ public class PromotionService {
 	}
 	
 	/**
-	 * Find by ID (primary key) value.
+	 * Get Promotion by ID (primary key) value.
 	 * @param id: long - The primary key ID value of the promotion.
 	 * @return promotionById: Promotion - A Promotion object with the corresponding ID.
 	 */
 	@Transactional
 	public Optional<Promotion> getById(long id) {
 		return promotionRepository.findById(id);
+	}
+	
+	/**
+	 * Get Promotion(s) by promotion type (FIXED or PERCENTAGE).
+	 * @param promoType: PromotionTypes - A value from the PromotionTypes enumeration (FIXED or PERCENTAGE).
+	 * @return 
+	 */
+	@Transactional
+	public List<Promotion> getByPromoType(PromotionTypes promoType) {
+		return promotionRepository.findByPromoType(promoType);
 	}
 }
