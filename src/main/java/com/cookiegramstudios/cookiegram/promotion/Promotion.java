@@ -2,7 +2,7 @@ package com.cookiegramstudios.cookiegram.promotion;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Promotion entity that represents a promotional offer.
@@ -45,9 +45,9 @@ public class Promotion {
 	@Column(nullable = false)
 	double promoValue; // fixed $ or %
 	@Column(nullable = false)
-	LocalDateTime startDate; // YYYY-MM-DD
+	LocalDate startDate; // YYYY-MM-DD
 	@Column(nullable = false)
-	LocalDateTime endDate; // YYYY-MM-DD
+	LocalDate endDate; // YYYY-MM-DD
 	@Column(nullable = false)
 	boolean isActive; // whether promotion is currently active or not
 }
