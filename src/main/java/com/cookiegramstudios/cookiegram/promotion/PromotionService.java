@@ -88,4 +88,12 @@ public class PromotionService {
 	public List<Promotion> getByIsActive(boolean isActive) {
 		return promotionRepository.findByIsActive(isActive);
 	}
+	
+	/**
+	 * TO DOs for myself:
+	 * - Add Promotion object validation
+	 * - Add create, update, and delete methods
+	 * - Create promotion related exceptions 
+	 * - Add Exception handling
+	 */
 }
