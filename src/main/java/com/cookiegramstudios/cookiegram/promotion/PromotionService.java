@@ -1,5 +1,7 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -46,10 +48,34 @@ public class PromotionService {
 	/**
 	 * Get Promotion(s) by promotion type (FIXED or PERCENTAGE).
 	 * @param promoType: PromotionTypes - A value from the PromotionTypes enumeration (FIXED or PERCENTAGE).
-	 * @return 
+	 * @return List<Promotion> - Promotion object(s) that match the given type.
 	 */
 	@Transactional
 	public List<Promotion> getByPromoType(PromotionTypes promoType) {
 		return promotionRepository.findByPromoType(promoType);
+	}
+	
+	/**
+	 * Find Promotion(s) by promotion value.
+	 * This value will be represented by a dollar figure
+	 * or by a percentage figure. Percentages are shown as
+	 * whole numbers (not decimals).
+	 * @param promoValue: double - The decimal figure.
+	 * @return promotions: List<Promotion> - Promotion object(s) that match
+	 * the given value.
+	 */
+	@Transactional
+	public List<Promotion> getByPromoValue(double promoValue) {
+		return promotionRepository.findByPromoValue(promoValue);
+	}
+	
+	/**
+	 * Find Promotion(s) by their start date
+	 * @param startDate: LocalDate - The date and time the promotion started.
+	 * @return promotions: List<Promotion> - Promotion object(s) that started on the given date.
+	 */
+	@Transactional
+	public List<Promotion> getByStartDate(LocalDate startDate) {
+		return promotionRepository.findByStartDate(startDate);
 	}
 }
