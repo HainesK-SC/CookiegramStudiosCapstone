@@ -40,7 +40,8 @@ public class Promotion {
 	@Column(nullable = false)
 	String description; // short description
 	@Column(nullable = false)
-	String promoType; // fixed $ or %
+	@Enumerated(EnumType.STRING)
+	String promoType; // FIXED or PERCENTAGE
 	@Column(nullable = false)
 	double promoValue; // fixed $ or %
 	@Column(nullable = false)
