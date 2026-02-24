@@ -1,5 +1,6 @@
 package com.cookiegramstudios.cookiegram.user;
 
+import com.cookiegramstudios.cookiegram.common.exceptions.InvalidUserDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class UserService {
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
     );
 
-    private static final int MN_PASSWORD_LENGTH = 6;
+    public static final int MIN_PASSWORD_LENGTH = 6;
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -60,5 +61,63 @@ public class UserService {
     public User getUserByEmail(String email) {
         logger.debug("Fetching user by email: {}", email);
         return userRepository.findByEmail(email);
+    }
+
+    /**
+     * VALIDATION METHODS
+     */
+
+    /**
+     * Validates user data for creation.
+     *
+     * @param user the user to validate
+     * @throws InvalidUserDataException if validation fails
+     */
+    private void validateUserForCreation(User user){
+
+        if (user == null){
+            throw new InvalidUserDataException("User cannot be null");
+        }
+
+        // Validate email
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            throw new InvalidUserDataException("Email is required");
+        }
+        if (!EMAIL_PATTERN.matcher(user.getEmail()).matches()) {
+            throw new InvalidUserDataException("Invalid email format: " + user.getEmail());
+        }
+
+        // Validate password
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new InvalidUserDataException("Password is required");
+        }
+        if (user.getPassword().length() < MIN_PASSWORD_LENGTH) {
+            throw new InvalidUserDataException(
+                    "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long"
+            );
+        }
+
+        // Validate first name
+        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
+            throw new InvalidUserDataException("First name is required");
+        }
+
+        // Validate last name
+        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
+            throw new InvalidUserDataException("Last name is required");
+        }
+
+        // Validate role
+        if (user.getRole() == null) {
+            throw new InvalidUserDataException("Role is required");
+        }
+
+        logger.debug("User validation passed for email: {}", user.getEmail());
+
+    }
+
+    // Validates user data for update
+    private void validateUserForUpdate(User user){
+
     }
 }
