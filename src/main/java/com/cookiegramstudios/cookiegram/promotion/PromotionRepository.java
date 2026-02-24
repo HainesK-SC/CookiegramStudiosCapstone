@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -31,33 +32,33 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
      * @param promoType: String - DOLLAR or PERCENT - ENUMURATION
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	Promotion findByPromoType(String promoType);
+	List<Promotion> findByPromoType(String promoType);
 	
 	/**
      * Find a Promotion by promoValue (The dollar figure of the discount)
      * @param promoValue: double - Dollar value of the discount offered by the promotion
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	Promotion findByPromoValue(double promoValue);
+	List<Promotion> findByPromoValue(double promoValue);
 	
 	/**
      * Find a Promotion by the start date
      * @param startDate: LocalDateTime - The date and time the promotion started.
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	Promotion findByStartDate(LocalDateTime startDate);
+	List<Promotion> findByStartDate(LocalDateTime startDate);
 	
 	/**
      * Find a Promotion by the end date
      * @param endDate: LocalDateTime - The date and time the promotion started.
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	Promotion findByEndDate(LocalDateTime endDate);
+	List<Promotion> findByEndDate(LocalDateTime endDate);
 	
 	/**
      * Find all active promotions
      * @param isActive: boolean - True (ACTIVE) / False (INACTIVE)
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	Promotion findByIsActive(boolean isActive);
+	List<Promotion> findByIsActive(boolean isActive);
 }
