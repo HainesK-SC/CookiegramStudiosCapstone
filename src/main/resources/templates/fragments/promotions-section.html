@@ -5,9 +5,20 @@
 		<title></title>
 	</head>
 	<body>
-		<section th:fragment="promotionsSection">
+		<section th:fragment="activePromotions(promotions)">
 		<div class="container">
 			<h2>Current Promotions</h2>
+			<ul>
+				<li th:each="promo : ${promotions}">
+				    <strong th:text="${promo.promoCode}">CODE</strong>
+				    -
+				    <span th:text="${promo.description}">Promo description</span>
+				    (
+				    <span th:text="${promo.promoValue}">value</span>
+				    )
+				</li>
+			</ul>
+			
 		</div>
 		</section>
 	</body>
