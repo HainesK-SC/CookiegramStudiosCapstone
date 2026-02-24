@@ -78,4 +78,14 @@ public class PromotionService {
 	public List<Promotion> getByStartDate(LocalDate startDate) {
 		return promotionRepository.findByStartDate(startDate);
 	}
+	
+	/**
+	 * Find promotion(s) by whether they are currently active or not.
+	 * @param isActive: boolean - Whether the isActive attribute is true or false.
+	 * @return promotions: List<Promotion> - Promotion object(s) that are currently active.
+	 */
+	@Transactional
+	public List<Promotion> getByIsActive(boolean isActive) {
+		return promotionRepository.findByIsActive(isActive);
+	}
 }
