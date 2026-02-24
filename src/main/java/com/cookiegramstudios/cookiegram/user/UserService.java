@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 2.1
+ * @version 2.2
  */
 @Service
 @Transactional
@@ -46,6 +46,7 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     /**
      * Finds a user by email address.
      * <p>
@@ -225,6 +226,11 @@ public class UserService {
 
     }
 
+    /**
+     * Deletes a user by their ID
+     * @param id the ID of the user to delete
+     * @throws UserNotFoundException if user not found
+     */
     public void deleteUser(Long id){
         logger.debug("Deleting user with ID: {}", id);
 
