@@ -20,7 +20,9 @@ Matthew - COMPLETED
 
 ## **1.2 Database Configuration**
 
-Who?
+This also follows suite for data.sql for loading data
+
+KYLE - COMPLETED
 ### Configure application.properties
 - [ ] Open `src/main/resources/application.properties`
 - [ ] Add datasource URL (H2/MySQL/PostgreSQL)
@@ -29,7 +31,7 @@ Who?
 - [ ] Add datasource password: `spring.datasource.password=`
 - [ ] Add driver class name (if not auto-detected): `spring.datasource.driver-class-name=`
 
-Who?
+KYLE - COMPLETED
 ### Configure JPA/Hibernate Properties
 - [ ] Set DDL auto strategy: `spring.jpa.hibernate.ddl-auto=update` (or `create-drop` for dev)
 - [ ] Enable SQL logging: `spring.jpa.show-sql=true` (optional, for debugging)
@@ -37,7 +39,7 @@ Who?
 - [ ] Set database dialect: `spring.jpa.properties.hibernate.dialect=` (if needed)
 - [ ] Configure H2 console (if using H2): `spring.h2.console.enabled=true`
 
-Who? 
+KYLE - COMPLETED
 ### Verify Database Connection
 - [ ] Add database dependency to `pom.xml` or `build.gradle` (H2, MySQL, PostgreSQL driver)
 - [ ] Test application startup to ensure database connection is successful

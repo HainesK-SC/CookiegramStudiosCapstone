@@ -4,13 +4,14 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **3.1 Public Controller**
 
-Matthew
+Matthew -- COMPLETED
 ### Create PublicController Class
 - [ ] Create `PublicController` class in `controller.common` or `controller` package
 - [ ] Add `@Controller` annotation
 - [ ] (Optional) Add `@RequestMapping` for common path if needed
 
-Matthew
+Matthew -- COMPLETED
+
 ### Create Home/Landing Page Endpoint
 - [ ] Create method for root endpoint: `@GetMapping("/")`
 - [ ] Method returns String: `"index"` (Thymeleaf template name)
@@ -18,7 +19,8 @@ Matthew
 - [ ] Add mock/placeholder promotions data to model (for now)
 - [ ] Example: `model.addAttribute("promotions", promotionsList)`
 
-Matthew
+Matthew -- COMPLETED
+
 ### Create Login Page Endpoint
 - [ ] Create method for login endpoint: `@GetMapping("/login")`
 - [ ] Method returns String: `"login"` (Thymeleaf template name)
@@ -86,18 +88,21 @@ Who?
 
 ## **3.3 Admin Controller**
 
-Matthew
+Matthew -- COMPLETED
+
 ### Create AdminController Class
 - [ ] Create `AdminController` class in `controller.admin` or `controller.auth` package
 - [ ] Add `@Controller` annotation
 - [ ] Add `@RequestMapping("/admin")` for common path
 
-Matthew
+Matthew -- COMPLETED
+
 ### Secure Controller with Role-Based Access
 - [ ] Add `@PreAuthorize("hasRole('ADMIN')")` annotation (or rely on SecurityConfig)
 - [ ] Verify SecurityConfig already restricts `/admin/**` to ADMIN role
 
-Matthew
+Matthew -- COMPLETED
+
 ### Create Admin Dashboard Endpoint
 - [ ] Create method for dashboard: `@GetMapping("/dashboard")`
 - [ ] Method returns String: `"admin/admin-dashboard"` (template path)
@@ -106,7 +111,8 @@ Matthew
 - [ ] Fetch user details from UserService (inject UserService)
 - [ ] Add user info to model: `model.addAttribute("user", user)`
 
-Matthew
+Matthew -- COMPLETED
+
 ### Add Placeholder Methods for Future Features
 - [ ] (Optional) Add commented-out methods for:
     - User management: `@GetMapping("/users")`

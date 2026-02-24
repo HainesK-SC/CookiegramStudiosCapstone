@@ -5,7 +5,7 @@ Purpose: this file contains the steps on how to setup the project for the first 
 
 ## **5.1 User Service**
 
-Matthew
+Matthew - COMPLETED
 ### Create UserService Interface
 - [ ] Create `UserService` interface in `user` package
 - [ ] Define method signatures:
@@ -17,7 +17,7 @@ Matthew
     - `List<User> getAllUsers();` (for admin user management)
     - `List<User> getUsersByRole(Role role);` (optional)
 
-Matthew
+Matthew - COMPLETED
 ### Create UserServiceImpl Implementation
 - [ ] Create `UserServiceImpl` class in `service.impl` package
 - [ ] Add `@Service` annotation
@@ -25,21 +25,21 @@ Matthew
 - [ ] Inject `UserRepository` via constructor
 - [ ] Inject `PasswordEncoder` via constructor (for createUser method)
 
-Matthew
+Matthew - COMPLETED
 ### Implement getUserByEmail Method
 - [ ] Call `userRepository.findByEmail(email)`
 - [ ] Return user if found
 - [ ] Throw `UsernameNotFoundException` or custom exception if not found
 - [ ] Add logging for user retrieval
 
-Matthew
+Matthew - COMPLETED
 ### Implement getUserById Method
 - [ ] Call `userRepository.findById(id)`
 - [ ] Return user if found
 - [ ] Throw `ResourceNotFoundException` or custom exception if not found
 - [ ] Add logging
 
-Matthew
+Matthew - COMPLETED
 ### Implement createUser Method
 - [ ] Validate user input (email not null, password not null)
 - [ ] Check if user already exists by email
@@ -50,7 +50,7 @@ Matthew
 - [ ] Return saved user
 - [ ] Add logging
 
-Matthew
+Matthew - COMPLETED
 ### Implement updateUser Method
 - [ ] Fetch existing user by id
 - [ ] Throw exception if user not found
@@ -58,20 +58,20 @@ Matthew
 - [ ] Save updated user: `userRepository.save(existingUser)`
 - [ ] Return updated user
 - [ ] Add logging
-
-Matthew
+- 
+Matthew - COMPLETED
 ### Implement getAllUsers Method (for Admin)
 - [ ] Call `userRepository.findAll()`
 - [ ] Return list of all users
 - [ ] Add logging
 
-Matthew
+Matthew - COMPLETED
 ### Implement getUsersByRole Method (Optional)
 - [ ] Call `userRepository.findAllByRole(role)`
 - [ ] Return filtered list
 - [ ] Add logging
 
-Matthew
+Matthew - COMPLETED
 ### Add Validation and Error Handling
 - [ ] Create custom exception classes if needed:
     - `UserNotFoundException`
