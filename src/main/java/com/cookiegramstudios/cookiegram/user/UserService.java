@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.1
+ * @version 2.0
  */
 @Service
 @Transactional
@@ -116,8 +116,37 @@ public class UserService {
 
     }
 
-    // Validates user data for update
+    /**
+     * Validates user data for update operations.
+     *
+     * @param user the user to validate
+     * @throws InvalidUserDataException if validation fails
+     */
     private void validateUserForUpdate(User user){
+
+        if (user == null) {
+            throw new InvalidUserDataException("User object cannot be null");
+        }
+
+        // Validate email
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            throw new InvalidUserDataException("Email is required");
+        }
+        if (!EMAIL_PATTERN.matcher(user.getEmail()).matches()) {
+            throw new InvalidUserDataException("Invalid email format: " + user.getEmail());
+        }
+
+        // Validate first name
+        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
+            throw new InvalidUserDataException("First name is required");
+        }
+
+        // Validate last name
+        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
+            throw new InvalidUserDataException("Last name is required");
+        }
+
+        logger.debug("User update validation passed for email: {}", user.getEmail());
 
     }
 }
