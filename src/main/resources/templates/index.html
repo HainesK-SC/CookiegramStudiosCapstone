@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:fragment="content">
-    <!-- promotion section would go here -->
+    <div th:replace="fragments/promotions-section :: activePromotions(${activePromotions})"></div>
     <div th:replace="fragments/order-preview :: orderPreview"></div>
 
 </div>
