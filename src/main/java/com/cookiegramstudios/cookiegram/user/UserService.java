@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.user;
 
 import com.cookiegramstudios.cookiegram.common.exceptions.InvalidUserDataException;
+import com.cookiegramstudios.cookiegram.common.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,9 +58,17 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+
     @Transactional
     public User getUserByEmail(String email) {
         logger.debug("Fetching user by email: {}", email);
+        User user = userRepository.findByEmail(email);
+
+        if (user == null){
+            logger.warn("User not found for email: {}", email);
+            throw new UserNotFoundException("User not found for email: " + email);
+        }
+        logger.info("User found for email: {}", email);
         return userRepository.findByEmail(email);
     }
 
