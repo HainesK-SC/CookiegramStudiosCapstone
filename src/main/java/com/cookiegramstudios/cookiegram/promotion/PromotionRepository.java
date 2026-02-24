@@ -32,7 +32,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
      * @param promoType: String - DOLLAR or PERCENT - ENUMURATION
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	List<Promotion> findByPromoType(String promoType);
+	List<Promotion> findByPromoType(PromotionTypes promoType);
 	
 	/**
      * Find a Promotion by promoValue (The dollar figure of the discount)
