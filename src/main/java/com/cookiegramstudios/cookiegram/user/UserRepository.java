@@ -33,8 +33,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     User findByRole(UserRole role);
 
+    /**
+     * Finds all users with a specific role.
+     * <p>
+     * Unlike {@link #findByRole(UserRole)} which returns a single user,
+     * this method returns all users matching the role.
+     * </p>
+     *
+     * @param role the role to filter by
+     * @return list of all users with the specified role
+     */
     List<User> findAllByRole(UserRole role);
 
+    /**
+     * Checks if a user exists with the given email.
+     * <p>
+     * More efficient than findByEmail when you only need to verify existence.
+     * </p>
+     *
+     * @param email the email to check
+     * @return true if a user exists with this email, false otherwise
+     */
     boolean existsByEmail(String email);
 
 }
