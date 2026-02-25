@@ -36,12 +36,25 @@ public class PromotionService {
 	}
 	
 	/**
+	 * Get all Promotion(s) objects.
+	 */
+	@Transactional
+	public List<Promotion> getAllPromotions() {
+		logger.info("Retrieving all promotions...");
+		List<Promotion> promotions = promotionRepository.findAll();
+		logger.info("All promotions retrieved!");
+		return promotions;
+	}
+	
+	/**
 	 * Get Promotion by ID (primary key) value.
 	 * @param id: long - The primary key ID value of the promotion.
 	 * @return promotionById: Promotion - A Promotion object with the corresponding ID.
 	 */
 	@Transactional
 	public Optional<Promotion> getById(long id) {
+		logger.info("Retrieving Promotion with ID:, {}", id);
+		
 		return promotionRepository.findById(id);
 	}
 	
@@ -87,6 +100,25 @@ public class PromotionService {
 	@Transactional
 	public List<Promotion> getByIsActive(boolean isActive) {
 		return promotionRepository.findByIsActive(isActive);
+	}
+	
+	// VALIDATIONS
+	
+	/**
+	 * Validates that any given user object is valid.
+	 * This checks if the overall object is null, as well as validating and verifying member variable
+	 * variables.
+	 * 
+	 * @param promotion: Promotion - The Promotion object to verify.
+	 * @return isValid: boolean - A truthy value whether the Promotion object is valid or not.
+	 * @throws InvalidPromotionDataException: RuntimeException - An exception that indicates to the user the
+	 * error or discrepancy related to the Promotion object they are working with.
+	 */
+	private boolean validatePromotionObject(Promotion promotion) {
+		boolean isValidPromo = false;
+		
+		
+		return isValidPromo;
 	}
 	
 	/**
