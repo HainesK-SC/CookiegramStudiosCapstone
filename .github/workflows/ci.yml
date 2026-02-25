@@ -1,5 +1,6 @@
 # Basic setup for a CI file for PRs into main
 # Expected to change over time
+# Basic setup for a CI file for PRs into main
 name: Build and Test
 
 permissions:
@@ -25,13 +26,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'  # Cache Maven dependencies for faster builds
+          cache: 'maven'
 
       - name: Build and run tests
         run: mvn clean verify
 
       - name: Upload test results
-        if: always()  # Run even if tests fail
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
@@ -39,15 +40,3 @@ jobs:
             **/target/surefire-reports/*.xml
             **/target/failsafe-reports/*.xml
           retention-days: 7
-
-      - name: Comment test results on PR
-        if: failure()  # Only comment if tests fail
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: ' [X] Tests failed. Please check the workflow run for details.'
-            })
