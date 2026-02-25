@@ -22,4 +22,25 @@ public class RecipientService {
     public RecipientService(RecipientRepository recipientRepository) {
         this.recipientRepository = recipientRepository;
     }
+
+    // Very important -- ensures recipient inputs all required fields properly
+    private void validateRecipient(Recipient recipient) {
+        if (recipient.getName() == null || recipient.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Recipient name is required");
+        }
+        if (recipient.getStreet() == null || recipient.getStreet().trim().isEmpty()) {
+            throw new IllegalArgumentException("Street address is required");
+        }
+        if (recipient.getCity() == null || recipient.getCity().trim().isEmpty()) {
+            throw new IllegalArgumentException("City is required");
+        }
+        if (recipient.getPostalCode() == null || recipient.getPostalCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Postal code is required");
+        }
+        if (recipient.getCountry() == null || recipient.getCountry().trim().isEmpty()) {
+            throw new IllegalArgumentException("Country is required");
+        }
+    }
+
+
 }
