@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * @author Matthew Samaha
  * @date 2026-02-24
- * @version 1.0
+ * @version 1.1
  */
 @Service
 public class RecipientService {
@@ -25,6 +25,93 @@ public class RecipientService {
 
     public RecipientService(RecipientRepository recipientRepository) {
         this.recipientRepository = recipientRepository;
+    }
+
+    /**
+     * CRUD Methods
+     * - create
+     * - update
+     * - delete
+     */
+
+    @Transactional
+    public Recipient createRecipient(Recipient recipient) {
+        validateRecipient(recipient);
+        return recipientRepository.save(recipient);
+    }
+
+    @Transactional
+    public Recipient updateRecipient(Recipient recipient) {
+        if (recipient.getId() == null || !recipientRepository.existsById(recipient.getId())) {
+            throw new IllegalArgumentException("Recipient does not exist with ID: " + recipient.getId());
+        }
+        validateRecipient(recipient);
+        return recipientRepository.save(recipient);
+    }
+
+    @Transactional
+    public void deleteRecipient(Long id) {
+        if (!recipientRepository.existsById(id)) {
+            throw new IllegalArgumentException("Recipient not found with ID: " + id);
+        }
+        recipientRepository.deleteById(id);
+    }
+
+    /**
+     * General Methods
+     */
+    public Optional<Recipient> findById(Long id) {
+        return recipientRepository.findById(id);
+    }
+
+    public List<Recipient> findAllRecipients() {
+        return recipientRepository.findAll();
+    }
+
+    public List<Recipient> findByName(String name) {
+        return recipientRepository.findByName(name);
+    }
+
+    public List<Recipient> findByNameIgnoreCase(String name) {
+        return recipientRepository.findByNameIgnoreCase(name);
+    }
+
+    public List<Recipient> searchByName(String namePattern) {
+        return recipientRepository.searchByNameContaining(namePattern);
+    }
+
+    public List<Recipient> findByCity(String city) {
+        return recipientRepository.findByCity(city);
+    }
+
+    public List<Recipient> findByPostalCode(String postalCode) {
+        return recipientRepository.findByPostalCode(postalCode);
+    }
+
+    public List<Recipient> findByCountry(String country) {
+        return recipientRepository.findByCountry(country);
+    }
+
+    public List<Recipient> findRecipientsWithSpecialInstructions() {
+        return recipientRepository.findBySpecialInstructionsIsNotNull();
+    }
+
+    public long countAllRecipients() {
+        return recipientRepository.count();
+    }
+
+    public boolean existsById(Long id) {
+        return recipientRepository.existsById(id);
+    }
+
+
+    /**
+     * Helper method
+     */
+    public String getFormattedAddress(Long id) {
+        Recipient recipient = recipientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Recipient not found with ID: " + id));
+        return recipient.getFullAddress();
     }
 
 
