@@ -1,4 +1,4 @@
-
+4
 # Git Clone & Onboarding Setup
 
 Purpose: this is for anyone who wants to contribute to the project -- DO THIS ONLY ONCE
