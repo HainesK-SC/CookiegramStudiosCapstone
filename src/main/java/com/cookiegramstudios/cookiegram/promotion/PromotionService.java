@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cookiegramstudios.cookiegram.common.exceptions.InvalidPromotionDataException;
+
 /**
  * The service layer for Promotion oriented business logic.
  * <p>
@@ -114,16 +116,67 @@ public class PromotionService {
 	 * @throws InvalidPromotionDataException: RuntimeException - An exception that indicates to the user the
 	 * error or discrepancy related to the Promotion object they are working with.
 	 */
-	private boolean validatePromotionObject(Promotion promotion) {
+	private boolean validatePromotionObject(Promotion promotion) throws InvalidPromotionDataException{
 		boolean isValidPromo = false;
 		
+		// Checking overall Promotion object
+		if(promotion == null) {
+			throw new InvalidPromotionDataException("Promotion is empty. Please try again or contact an administrator if the issue persists.");
+		}
+		
+		logger.debug("Invalid Promotion Object, Object ID: ", promotion.id);
+		
+		// Validate promoCode
+		if(promotion.promoCode.trim().strip().isEmpty() || promotion.promoCode == null) {
+			throw new InvalidPromotionDataException("Promotion Code cannot be blank. Please check your values.");
+		}
+		
+		// Validate description
+		if(promotion.description.trim().strip().isEmpty() || promotion.description == null) {
+			throw new InvalidPromotionDataException("Promotion description cannot be blank. Please check your values.");
+		}
+		
+		// Validate promoType is not blank
+		if(promotion.promoType.toString().trim().strip().isEmpty() || promotion.promoType == null) {
+			throw new InvalidPromotionDataException("Promotion Type cannot be blank. Please check your values. Must be either PromotionTypes.FIXED or PromotionTypes.PERCENTAGE.");
+		}
+		
+		// Validate promoType is valid data type and value
+		if(promotion.promoType != PromotionTypes.FIXED
+				|| promotion.promoType != PromotionTypes.PERCENTAGE) {
+			throw new InvalidPromotionDataException("Invalid Promotion Type. Please check your values. Must be either PromotionTypes.FIXED or PromotionTypes.PERCENTAGE.");
+		}
+		
+		// Validate promoValue
+		if(promotion.promoValue == 0 || Double.isNaN(promotion.promoValue)) {
+			// This will add a debug level log entry if the value is NaN.
+			// This really should never happen, but just in case
+			if(Double.isNaN(promotion.promoValue)) {
+				logger.debug("Promotion Object ID: {}. Attribute: promoValue has value of NaN.", promotion.id);
+			}
+			throw new InvalidPromotionDataException("Promotion value cannot be 0. The value must be a positive number greater than one.");
+		}
+		
+		// Validate startDate
+		if(promotion.startDate == null) {
+			throw new InvalidPromotionDataException("Promotion start date is empty. Please check your values.");
+		}
+		
+		// Validate endDate
+		if(promotion.endDate == null) {
+			throw new InvalidPromotionDataException("Promotion end date is empty. Please check your values.");
+		}
+		
+		// Validate isActive
+		if(promotion.isActive != true || promotion.isActive != false) {
+			throw new InvalidPromotionDataException("Promotion's active status cannot be blank. Please check your values.");
+		}
 		
 		return isValidPromo;
 	}
 	
 	/**
 	 * TO DOs for myself:
-	 * - Add Promotion object validation
 	 * - Add create, update, and delete methods
 	 * - Create promotion related exceptions 
 	 * - Add Exception handling
