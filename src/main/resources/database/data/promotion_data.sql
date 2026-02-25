@@ -1,5 +1,5 @@
 -- SCRIPT TO POPULATE THE PROMOTION TABLE WITH SEED DATA
-
+-- Recent edit: 2026-02-24 - fixed name
 -- SPRING5 PROMOTION
 INSERT INTO promotion (promoCode, description, promoType, promoValue, startDate, endDate, isActive)
 VALUES (
