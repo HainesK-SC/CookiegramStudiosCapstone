@@ -1,6 +1,10 @@
 package com.cookiegramstudios.cookiegram.recipient;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service layer for recipient-related business operations.
@@ -22,6 +26,7 @@ public class RecipientService {
     public RecipientService(RecipientRepository recipientRepository) {
         this.recipientRepository = recipientRepository;
     }
+
 
     // Very important -- ensures recipient inputs all required fields properly
     private void validateRecipient(Recipient recipient) {
