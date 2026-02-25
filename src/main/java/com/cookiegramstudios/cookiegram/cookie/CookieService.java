@@ -1,6 +1,6 @@
 package com.cookiegramstudios.cookiegram.cookie;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.*;
 import org.slf4j.*;
 import org.springframework.stereotype.Service;
