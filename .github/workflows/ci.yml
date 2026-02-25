@@ -1,4 +1,5 @@
 # Basic setup for a CI file for PRs into main
+# Expected to change over time
 name: Build and Test
 
 permissions:
