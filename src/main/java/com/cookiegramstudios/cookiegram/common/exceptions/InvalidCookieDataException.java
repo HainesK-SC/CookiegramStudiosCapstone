@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.cookie;
+package com.cookiegramstudios.cookiegram.common.exceptions;
 
 public class InvalidCookieDataException extends RuntimeException {
 
