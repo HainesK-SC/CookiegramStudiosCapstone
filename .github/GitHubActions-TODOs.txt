@@ -1,0 +1,5 @@
+Matthew - TODOs
+
+[#] Create test cases for existing models, repositories, services and controllers
+[#] Configure a ci.yml file which triggers test cases, ensure it triggers for PRs to main
+
