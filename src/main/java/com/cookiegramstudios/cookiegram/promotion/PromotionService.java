@@ -61,6 +61,18 @@ public class PromotionService {
 	}
 	
 	/**
+	 * Get Promotion by promotional code. Codes are unique, so only one Promotion
+	 * object should ever be returned.
+	 * @param promoCode: String - The unique promotional code of the Promotion (e.g. SPRING25)
+	 * @return promotion: Promotion - A Promotion object with the corresponding promoCode value.
+	 */
+	@Transactional
+	public Promotion getByPromoCode(String promoCode) {
+		Promotion promotion = promotionRepository.findByPromoCode(promoCode);
+		return promotion;
+	}
+	
+	/**
 	 * Get Promotion(s) by promotion type (FIXED or PERCENTAGE).
 	 * @param promoType: PromotionTypes - A value from the PromotionTypes enumeration (FIXED or PERCENTAGE).
 	 * @return List<Promotion> - Promotion object(s) that match the given type.
@@ -131,6 +143,12 @@ public class PromotionService {
 			throw new InvalidPromotionDataException("Promotion Code cannot be blank. Please check your values.");
 		}
 		
+		// Validate that the promoCode doesn't already exist in the system
+		Promotion promosByPromoCode = getByPromoCode(promotion.promoCode);
+		if(promosByPromoCode != null) {
+			throw new InvalidPromotionDataException("PROMO CODE already exists in the system.");
+		}
+		
 		// Validate description
 		if(promotion.description.trim().strip().isEmpty() || promotion.description == null) {
 			throw new InvalidPromotionDataException("Promotion description cannot be blank. Please check your values.");
@@ -176,9 +194,23 @@ public class PromotionService {
 	}
 	
 	/**
+	 * Method to create a new Promotion object and store it in the database.
+	 */
+	public Promotion createPromotion(Promotion promotion) {
+		// Validating the Promotion object
+		validatePromotionObject(promotion);
+		
+		Promotion savedPromotion = promotionRepository.save(promotion);
+		
+		logger.info("Promotion added. ID: {} PROMO CODE: {}", savedPromotion.id, savedPromotion.promoCode);
+		
+		// returning the Promotion object returned by the .save() method
+		// documentation recommends this approach, as the object may have been modified
+		return savedPromotion;
+	}
+	
+	/**
 	 * TO DOs for myself:
 	 * - Add create, update, and delete methods
-	 * - Create promotion related exceptions 
-	 * - Add Exception handling
 	 */
 }

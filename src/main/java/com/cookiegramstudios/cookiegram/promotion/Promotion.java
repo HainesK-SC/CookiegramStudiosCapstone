@@ -50,4 +50,54 @@ public class Promotion {
     LocalDate endDate; // YYYY-MM-DD
     @Column(nullable = false)
     boolean isActive; // whether promotion is currently active or not
+	public String getPromoCode() {
+		return promoCode;
+	}
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public PromotionTypes getPromoType() {
+		return promoType;
+	}
+	public void setPromoType(PromotionTypes promoType) {
+		this.promoType = promoType;
+	}
+	public double getPromoValue() {
+		return promoValue;
+	}
+	public void setPromoValue(double promoValue) {
+		this.promoValue = promoValue;
+	}
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+    
+    
 }
