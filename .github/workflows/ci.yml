@@ -67,7 +67,7 @@ jobs:
       # These provide detailed, formatted views of test execution
       - name: Generate HTML Test Report
         if: always()  # Generate even if tests fail
-        run: mvn surefire-report:report-only failsafe-report:report-only
+        run: mvn surefire-report:report-only surefire-report:failsafe-report-only
 
       # Step 7: Upload HTML test reports as artifacts
       # Download these to view nicely formatted test results in your browser
