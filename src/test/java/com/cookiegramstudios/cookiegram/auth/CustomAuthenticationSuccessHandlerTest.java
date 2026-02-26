@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
  * @version 1.0
  */
 
-public class CustomAuthenticationSucessHandlerTest {
+public class CustomAuthenticationSuccessHandlerTest {
 
     /**
      * The authentication success handler being tested.
