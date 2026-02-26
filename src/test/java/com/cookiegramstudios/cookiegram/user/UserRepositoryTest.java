@@ -28,7 +28,7 @@ public class UserRepositoryTest {
         testUser = new User();
         testUser.setEmail("test@example.com");
         testUser.setPassword("password123");
-        testUser.setRole(UserRole.BAKER);
+        testUser.setRole(UserRole.EMPLOYEE); // changed
         testUser.setFirstName("Test");
         testUser.setLastName("User");
         testUser.setCreatedAt(LocalDateTime.now());
@@ -46,14 +46,14 @@ public class UserRepositoryTest {
 
     @Test
     void testFindByRole() {
-        User found = userRepository.findByRole(UserRole.BAKER);
+        User found = userRepository.findByRole(UserRole.EMPLOYEE); // changed
         assertNotNull(found);
-        assertEquals(UserRole.BAKER, found.getRole());
+        assertEquals(UserRole.EMPLOYEE, found.getRole()); // changed
     }
 
     @Test
     void testFindAllByRole() {
-        List<User> users = userRepository.findAllByRole(UserRole.BAKER);
+        List<User> users = userRepository.findAllByRole(UserRole.EMPLOYEE); // changed
         assertEquals(1, users.size());
     }
 

@@ -15,13 +15,12 @@ import java.io.IOException;
  * <p>
  * After successful authentication, this handler examines the user's role and redirects
  * them to the appropriate dashboard:
- * </p>
- * <ul>
- * <li>ADMIN → /admin/dashboard</li>
- * <li>BAKER → /employee/dashboard</li>
- * <li>COURIER → /courier/dashboard</li>
- * </ul>
  * <p>
+ * Sprint 1 role model:
+ * <ul>
+ *     <li>EMPLOYEE -> /employee/dashboard</li>
+ *     <li>ADMIN -> /admin/dashboard</li>
+ * </ul>
  * If the user has multiple roles (unlikely in this system), the first role found
  * determines the redirect destination. If no recognized role is found, the user
  * is redirected to the home page.
@@ -48,18 +47,13 @@ import java.io.IOException;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.0
+ * @version 2.0
  */
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     /**
      * Handles successful authentication by redirecting to role-appropriate dashboard.
-     * <p>
-     * This method is automatically called by Spring Security after a user successfully
-     * authenticates. It examines the user's granted authorities (roles) and performs
-     * a redirect to the appropriate dashboard URL.
-     * </p>
      *
      * @param request the request which caused the successful authentication
      * @param response the response
@@ -73,40 +67,30 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
 
-        // Get user's authorities (roles)
-        var authorities = authentication.getAuthorities();
-
-        // Determine redirect URL based on role
-        String redirectUrl = determineRedirectUrl(authorities);
-
-        // Perform the redirect
+        String redirectUrl = determineRedirectUrl(authentication.getAuthorities());
         response.sendRedirect(redirectUrl);
     }
 
 
     /**
-     * Determines the appropriate redirect URL based on user's role.
-     * <p>
-     * Iterates through the user's granted authorities to find the first matching role
-     * and returns the corresponding dashboard URL. The role names are expected to be
-     * prefixed with "ROLE_" as per Spring Security conventions.
-     * </p>
+     * Determines redirect URL based on granted authorities.
      *
-     * @param authorities collection of granted authorities (roles) for the authenticated user
-     * @return the redirect URL for the user's dashboard
+     * @param authorities collection of granted authorities for the authenticated user
+     * @return redirect URL
      */
     private String determineRedirectUrl(Iterable<? extends GrantedAuthority> authorities) {
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
 
-            // check role and return appropriate dashboard URL - fix (cleaner)
-            if ("ROLE_ADMIN".equals(role)) return "/admin/dashboard";
-            if ("ROLE_BAKER".equals(role)) return "/employee/dashboard";
-            if ("ROLE_COURIER".equals(role)) return "/courier/dashboard";
+            if ("ROLE_ADMIN".equals(role)) {
+                return "/admin/dashboard";
+            }
+            if ("ROLE_EMPLOYEE".equals(role)) {
+                return "/employee/dashboard";
+            }
         }
 
-        // default redirect if no recognize role is found
-        // this shouldn't happen in any normal operation, since all users (excluding customers/visitors) has a role
+        // Safe fallback for unexpected role/authority state
         return "/";
     }
 }

@@ -48,16 +48,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     /**
-     * Loads user details by username (email in this case) for auth.
-     * <p>
-     *     Method is called by Spring Security during auth process.
-     *     It retrieves the user from the database using their email address and converts the User
-     *     entity into a UserDetails objects that Spring Security can use for authentication and authorization
-     * </p>
+     * Loads user details by username (email in this case) for authentication.
      *
-     * @param username the username identifying the user whose data is required.
-     * @return UserDetails object containing user auth information
-     * @throws UsernameNotFoundException
+     * @param username the username identifying the user whose data is required
+     * @return UserDetails object containing user authentication information
+     * @throws UsernameNotFoundException if no user is found with the provided email
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -84,27 +79,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * Converts the user's role to a Spring Security GrantedAuthority.
      * <p>
-     * Spring Security requires roles to be prefixed with "ROLE_" to function
-     * properly with role-based access control annotations and configurations.
-     * </p>
-     * <p>
-     * For example:
-     * <ul>
-     * <li>UserRole.ADMIN becomes "ROLE_ADMIN"</li>
-     * <li>UserRole.BAKER becomes "ROLE_BAKER"</li>
-     * <li>UserRole.COURIER becomes "ROLE_COURIER"</li>
-     * </ul>
+     * Spring Security requires roles to be prefixed with "ROLE_".
+     * For Sprint 1 authenticated users, valid roles are ADMIN and EMPLOYEE.
      * </p>
      *
      * @param user the user whose role needs to be converted
      * @return collection of GrantedAuthority objects representing the user's role
      */
     private Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        // Create authority with ROLE_ prefix as required by Spring Security
         String roleName = "ROLE_" + user.getRole().name();
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleName);
 
-        // Return as singleton collection (users have one role)
+        // Users have one role in Sprint 1
         return Collections.singletonList(authority);
     }
 

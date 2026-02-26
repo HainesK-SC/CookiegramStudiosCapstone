@@ -9,7 +9,7 @@ package com.cookiegramstudios.cookiegram.user;
  *
  * @author Matthew Samaha
  * @date 2026-02-18
- * @version 1.0
+ * @version 1.1
  */
 public enum UserRole {
 
@@ -27,14 +27,5 @@ public enum UserRole {
      * <b>Post-login redirect:</b> {@code /employee/dashboard/}
      * </p>
      */
-    BAKER,
-
-    /**
-     * Courier role for delivery personnel.
-     * <p>
-     * <b>Post-login redirect:</b> {@code /courier/dashboard/}
-     * </p>
-     */
-    COURIER
-
+    EMPLOYEE,
 }
