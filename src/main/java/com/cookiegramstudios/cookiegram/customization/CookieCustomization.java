@@ -1,4 +1,5 @@
 package com.cookiegramstudios.cookiegram.customization;
+import com.cookiegramstudios.cookiegram.cookie.Cookie;
 import jakarta.persistence.*;
 import lombok.*;
 
