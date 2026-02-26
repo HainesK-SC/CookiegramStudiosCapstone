@@ -37,7 +37,7 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * @author Matthew Samaha
  * @date 2026-02-23
- * @version 1.5
+ * @version 1.6
  */
 @Configuration
 public class SecurityConfig {
@@ -77,7 +77,7 @@ public class SecurityConfig {
      * This method sets up:
      * <ul>
      * <li>Public endpoints (home page, login, static resources)</li>
-     * <li>Role-based access control for ADMIN, BAKER, and COURIER roles</li>
+     * <li>Role-based access control for EMPLOYEE, and ADMIN roles</li>
      * <li>Form-based login with custom login page and success handler</li>
      * <li>Logout configuration with session invalidation</li>
      * <li>H2 console access (development only)</li>
@@ -87,8 +87,7 @@ public class SecurityConfig {
      * <b>Role-Based Access:</b>
      * <ul>
      * <li>ADMIN: Full access to /admin/** endpoints</li>
-     * <li>BAKER: Access to /employee/** endpoints</li>
-     * <li>COURIER: Access to /courier/** endpoints</li>
+     * <li>EMPLOYEE: Access to /employee/** endpoints</li>
      * </ul>
      * </p>
      *
@@ -116,10 +115,9 @@ public class SecurityConfig {
                         // Anyone can access
                         .requestMatchers("/h2-console/**").permitAll()
 
-                        // Role-based access control - added :: redirect to URl if user has role
+                        // Role-based protected routes
+                        .requestMatchers("/employee/**").hasRole("EMPLOYEE")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/employee/**").hasRole("BAKER")
-                        .requestMatchers("/courier/**").hasRole("COURIER")
 
                         // All other requests require authentication
                         .anyRequest().authenticated()
@@ -144,14 +142,10 @@ public class SecurityConfig {
                         .permitAll()                            // Allow everyone to logout
                 )
 
-                // H2 Console specific settings (for development)
-                // TODO: Remove in production
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**")  // Disable CSRF for H2 console
-                )
-                .headers(headers -> headers
-                        .frameOptions(frame -> frame.sameOrigin())  // Allow frames from same origin (for H2)
-                );
+                // H2 Console development settings
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+
 
         return http.build();
     }
