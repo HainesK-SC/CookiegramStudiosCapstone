@@ -234,6 +234,18 @@ public class PromotionService {
 		return updatedPromotion;
 	}
 	
+	/**
+	 * Method to delete a record from the system.
+	 */
+	public void deletePromotion(long id) throws InvalidPromotionDataException {
+		Promotion promotion = getById(id);
+		
+		if(promotion == null) {
+			throw new InvalidPromotionDataException("Promotion not found. Check ID: {} exists in the system.", id);
+		}
+		
+		promotionRepository.deleteById(id);
+	}
 	
 	/**
 	 * TO DOs for myself:
