@@ -8,7 +8,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.security.Principal;
 
 /**
- * Adds common model attributes for all MVC views.
+ * Provides common model attributes to all MVC controllers.
+ * <p>
+ * This {@code @ControllerAdvice} component automatically injects shared data
+ * into the model for every view rendered by Spring MVC controllers.
+ * Currently adds the authenticated user object to all templates via the
+ * {@code currentUser} attribute.
+ * </p>
+ *
+ * @author Matthew Samaha
+ * @date 2026-02-27
+ * @version 1.0
  */
 @ControllerAdvice
 public class GlobalModelAttributes {
