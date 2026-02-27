@@ -246,9 +246,5 @@ public class PromotionService {
 		
 		promotionRepository.deleteById(id);
 	}
-	
-	/**
-	 * TO DOs for myself:
-	 * - Add create, update, and delete methods
-	 */
+
 }
