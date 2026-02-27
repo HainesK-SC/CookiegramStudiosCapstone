@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/public-layout :: layout(~{::content})"
+      lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | Cookie Gram</title>
+    <title>Admin Dashboard | CookieGram</title>
 </head>
 <body>
+<div th:fragment="content" class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <span class="badge text-bg-danger mb-2">ADMIN</span>
+            <h1 class="h3 mb-1">Admin Dashboard</h1>
+            <p class="text-muted mb-0">Administrative control area for team and system oversight.</p>
+        </div>
 
+        <form th:action="@{/logout}" method="post" class="m-0">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+        </form>
+    </div>
+
+    <div class="card border-danger-subtle shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h5 mb-3 d-flex align-items-center gap-2">
+                <span class="badge text-bg-dark">Admin View</span>
+                Minimal Setup
+            </h2>
+            <p class="mb-0">
+                This starter dashboard is intentionally lightweight and will expand into admin tools
+                like user management, reporting, and global operations controls in future sprints.
+            </p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
