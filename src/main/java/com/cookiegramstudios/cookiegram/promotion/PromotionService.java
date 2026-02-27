@@ -54,10 +54,13 @@ public class PromotionService {
 	 * @return promotionById: Promotion - A Promotion object with the corresponding ID.
 	 */
 	@Transactional
-	public Optional<Promotion> getById(long id) {
+	public Promotion getById(long id) {
 		logger.info("Retrieving Promotion with ID:, {}", id);
 		
-		return promotionRepository.findById(id);
+		Optional<Promotion> promoOptional = promotionRepository.findById(id);
+		
+		// returns the contents of the promoOptional - a Promotion object
+		return promoOptional.get();
 	}
 	
 	/**
@@ -210,7 +213,38 @@ public class PromotionService {
 	}
 	
 	/**
-	 * TO DOs for myself:
-	 * - Add create, update, and delete methods
+	 * Method to update an existing Promotion in the system. 
 	 */
+	@Transactional
+	public Promotion updatePromotion(long id, Promotion promotion) {
+		
+		Promotion existingPromotion = getById(id);
+		this.validatePromotionObject(promotion);
+		
+		existingPromotion.setPromoCode(promotion.getPromoCode());
+		existingPromotion.setDescription(promotion.getDescription());
+		existingPromotion.setPromoType(promotion.getPromoType());
+		existingPromotion.setPromoValue(promotion.getPromoValue());
+		existingPromotion.setStartDate(promotion.getStartDate());
+		existingPromotion.setEndDate(promotion.getEndDate());
+		existingPromotion.setIsActive(promotion.getIsActive());
+		
+		Promotion updatedPromotion = promotionRepository.save(existingPromotion);
+		
+		return updatedPromotion;
+	}
+	
+	/**
+	 * Method to delete a record from the system.
+	 */
+	public void deletePromotion(long id) throws InvalidPromotionDataException {
+		Promotion promotion = getById(id);
+		
+		if(promotion == null) {
+			throw new InvalidPromotionDataException("Promotion not found. Check ID: {} exists in the system.", id);
+		}
+		
+		promotionRepository.deleteById(id);
+	}
+
 }
