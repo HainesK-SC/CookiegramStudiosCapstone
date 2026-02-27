@@ -34,67 +34,83 @@ import java.time.LocalDate;
 public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
     @Column(nullable = false, unique = true)
-    String promoCode;
+    private String promoCode;
     @Column(nullable = false)
-    String description; // short description
+    private String description; // short description
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    PromotionTypes promoType; // FIXED or PERCENTAGE
+    private PromotionTypes promoType; // FIXED or PERCENTAGE
     @Column(nullable = false)
-    double promoValue; // fixed $ or %
+    private double promoValue; // fixed $ or %
     @Column(nullable = false)
-    LocalDate startDate; // YYYY-MM-DD
+    private LocalDate startDate; // YYYY-MM-DD
     @Column(nullable = false)
     LocalDate endDate; // YYYY-MM-DD
     @Column(nullable = false)
-    boolean isActive; // whether promotion is currently active or not
-	public String getPromoCode() {
+    private boolean isActive; // whether promotion is currently active or not
+	
+    public String getPromoCode() {
 		return promoCode;
 	}
+    
 	public void setPromoCode(String promoCode) {
 		this.promoCode = promoCode;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public PromotionTypes getPromoType() {
 		return promoType;
 	}
+	
 	public void setPromoType(PromotionTypes promoType) {
 		this.promoType = promoType;
 	}
+	
 	public double getPromoValue() {
 		return promoValue;
 	}
+	
 	public void setPromoValue(double promoValue) {
 		this.promoValue = promoValue;
 	}
+	
 	public LocalDate getStartDate() {
 		return startDate;
 	}
+	
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
 	public LocalDate getEndDate() {
 		return endDate;
 	}
+	
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	
 	public boolean isActive() {
 		return isActive;
 	}
+	
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
