@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard | CookieGram</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <span class="badge text-bg-primary mb-2">EMPLOYEE</span>
+            <h1 class="h3 mb-1">Employee Dashboard</h1>
+            <p class="text-muted mb-0">Welcome! This is the foundation for future order workflow tools.</p>
+        </div>
+
+    </div>
+
+    <div class="card border-primary-subtle shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h5 mb-3">Employee Dashboard Content</h2>
+            <p class="mb-3">
+                In upcoming sprints, this area will support day-to-day order handling for staff.
+            </p>
+            <ul class="mb-0">
+                <li>View incoming orders in a live queue</li>
+                <li>Track preparation status and updates</li>
+                <li>Manage order handoff and completion</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
