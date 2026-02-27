@@ -12,6 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Basic tests for {@link UserController}.
+ * @author Matthew Samaha
+ * @date 2026-02-27
+ * @version 1.0
  */
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
