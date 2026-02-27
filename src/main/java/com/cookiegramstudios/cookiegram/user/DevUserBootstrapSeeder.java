@@ -13,9 +13,28 @@ import java.time.LocalDateTime;
 /**
  * Seeds optional development login users from environment variables.
  * <p>
- * This avoids storing plaintext credentials in source-controlled SQL files.
- * Seeder runs only when explicitly enabled through APP_BOOTSTRAP_USERS_ENABLED.
+ * This component creates initial admin and employee users during application startup
+ * when explicitly enabled via {@code app.bootstrap.users.enabled}. Credentials are
+ * sourced from environment variables to avoid storing plaintext passwords in
+ * source-controlled SQL files.
  * </p>
+ * <p>
+ * The seeder runs only when enabled and skips users that already exist in the database.
+ * Designed for development and testing environments only.
+ * </p>
+ * <p>
+ * <b>Required Environment Variables (when enabled):</b>
+ * <ul>
+ *   <li>{@code app.bootstrap.users.admin.email}</li>
+ *   <li>{@code app.bootstrap.users.admin.password}</li>
+ *   <li>{@code app.bootstrap.users.employee.email}</li>
+ *   <li>{@code app.bootstrap.users.employee.password}</li>
+ * </ul>
+ * </p>
+ *
+ * @author Matthew Samaha
+ * @date 2026-02-27
+ * @version 1.0
  */
 @Component
 public class DevUserBootstrapSeeder implements CommandLineRunner {
