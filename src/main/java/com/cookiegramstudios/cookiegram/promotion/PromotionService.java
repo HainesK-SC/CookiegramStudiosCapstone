@@ -54,10 +54,13 @@ public class PromotionService {
 	 * @return promotionById: Promotion - A Promotion object with the corresponding ID.
 	 */
 	@Transactional
-	public Optional<Promotion> getById(long id) {
+	public Promotion getById(long id) {
 		logger.info("Retrieving Promotion with ID:, {}", id);
 		
-		return promotionRepository.findById(id);
+		Optional<Promotion> promoOptional = promotionRepository.findById(id);
+		
+		// returns the contents of the promoOptional - a Promotion object
+		return promoOptional.get();
 	}
 	
 	/**
@@ -208,6 +211,28 @@ public class PromotionService {
 		// documentation recommends this approach, as the object may have been modified
 		return savedPromotion;
 	}
+	
+	/**
+	 * Method to update an existing Promotion in the system. 
+	 */
+	public Promotion updatePromotion(long id, Promotion promotion) {
+		
+		Promotion existingPromotion = getById(id);
+		this.validatePromotionObject(existingPromotion);
+		
+		existingPromotion.setPromoCode(promotion.promoCode);
+		existingPromotion.setDescription(promotion.description);
+		existingPromotion.setPromoType(promotion.promoType);
+		existingPromotion.setPromoValue(promotion.promoValue);
+		existingPromotion.setStartDate(promotion.startDate);
+		existingPromotion.setEndDate(promotion.endDate);
+		existingPromotion.setActive(promotion.isActive);
+		
+		Promotion updatedPromotion = promotionRepository.save(existingPromotion);
+		
+		return updatedPromotion;
+	}
+	
 	
 	/**
 	 * TO DOs for myself:
