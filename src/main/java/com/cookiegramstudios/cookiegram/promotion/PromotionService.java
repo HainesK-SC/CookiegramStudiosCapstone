@@ -215,18 +215,19 @@ public class PromotionService {
 	/**
 	 * Method to update an existing Promotion in the system. 
 	 */
+	@Transactional
 	public Promotion updatePromotion(long id, Promotion promotion) {
 		
 		Promotion existingPromotion = getById(id);
-		this.validatePromotionObject(existingPromotion);
+		this.validatePromotionObject(promotion);
 		
-		existingPromotion.setPromoCode(promotion.promoCode);
-		existingPromotion.setDescription(promotion.description);
-		existingPromotion.setPromoType(promotion.promoType);
-		existingPromotion.setPromoValue(promotion.promoValue);
-		existingPromotion.setStartDate(promotion.startDate);
-		existingPromotion.setEndDate(promotion.endDate);
-		existingPromotion.setActive(promotion.isActive);
+		existingPromotion.setPromoCode(promotion.getPromoCode());
+		existingPromotion.setDescription(promotion.getDescription());
+		existingPromotion.setPromoType(promotion.getPromoType());
+		existingPromotion.setPromoValue(promotion.getPromoValue());
+		existingPromotion.setStartDate(promotion.getStartDate());
+		existingPromotion.setEndDate(promotion.getEndDate());
+		existingPromotion.setIsActive(promotion.getIsActive());
 		
 		Promotion updatedPromotion = promotionRepository.save(existingPromotion);
 		
