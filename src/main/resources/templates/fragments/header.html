@@ -13,11 +13,25 @@
             <h4 class="mb-0 text-dark">CookieGram</h4>
         </a>
 
-        <div>
-            <span class="me-2 text-muted small">Staff Login</span>
-            <a th:href="@{/login}" class="btn btn-outline-primary btn-sm">
-                Login
-            </a>
+        <div class="d-flex align-items-center gap-2">
+            <div th:if="${currentUser != null}" class="text-muted small d-flex align-items-center gap-2">
+                <span>Signed in as:</span>
+                <strong th:text="${currentUser.lastName}">Last</strong>
+                <span class="text-secondary">|</span>
+                <span class="badge text-bg-light border" th:text="${currentUser.role}">ROLE</span>
+            </div>
+
+            <form th:if="${currentUser != null}" th:action="@{/logout}" method="post" class="m-0">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+            </form>
+
+            <div th:if="${currentUser == null}">
+                <span class="me-2 text-muted small">Staff Login</span>
+                <a th:href="@{/login}" class="btn btn-outline-primary btn-sm">
+                    Login
+                </a>
+            </div>
         </div>
 
     </div>
