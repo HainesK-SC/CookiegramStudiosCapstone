@@ -1,0 +1,8 @@
+/* Minimal public styles */
+body {
+    background-color: #f8f9fa;
+}
+
+main {
+    min-height: 70vh;
+}

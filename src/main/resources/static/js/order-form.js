@@ -1,0 +1,1 @@
+// Placeholder script for public layout pages.
