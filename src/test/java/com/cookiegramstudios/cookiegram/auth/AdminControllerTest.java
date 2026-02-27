@@ -30,6 +30,23 @@ public class AdminControllerTest {
     private UserService userService;
     
     // adminCanAccessAdminDashboard test
+    @Test
+    @WithMockUser(username = "admin@test.com", roles = "ADMIN")
+    void adminCanAccessDashboard() throws Exception {
+        User user = new User();
+        user.setEmail("admin@test.com");
+        user.setRole(UserRole.ADMIN);
+        user.setFirstName("Admin");
+        user.setLastName("User");
+        user.setPassword("password");
+        user.setCreatedAt(LocalDateTime.now());
+
+        when(userService.findByEmail("admin@test.com")).thenReturn(user);
+
+        mockMvc.perform(get("/admin/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("admin/admin-dashboard"));
+    }
 
 
 }
