@@ -48,9 +48,37 @@ public class SecurityAccessTest {
      * without authentication.
      *
      * @throws Exception if request execution fails
-     */    @Test
+     */
+    @Test
     void landingPage_isPublic() throws Exception {
         mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Test the the about page is accessible to all users.
+     */
+    @Test
+    public void whenAnonymousUser_shouldSeeAboutPage() throws Exception {
+        mockMvc.perform(get("/about"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Test that the FAQ page is accessible to all users.
+     */
+    @Test
+    void whenAnonymousUser_shouldSeeFAQPage() throws Exception {
+        mockMvc.perform(get("/faq"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Test the Contact Us page is accessible to all users.
+     */
+    @Test
+    void whenAnonymousUser_shouldSeeContactPage() throws Exception {
+        mockMvc.perform(get("/contact"))
                 .andExpect(status().isOk());
     }
 
@@ -93,5 +121,24 @@ public class SecurityAccessTest {
     void employee_cannotAccessAdminDashboard() throws Exception {
         mockMvc.perform(get("/admin/dashboard"))
                 .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Test that auth users can access public pages
+     */
+    @Test
+    @WithMockUser(roles = "EMPLOYEE")
+    public void whenAuthenticatedUser_thenPublicPagesAreAccessible() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/about"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/faq"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/contact"))
+                .andExpect(status().isOk());
     }
 }

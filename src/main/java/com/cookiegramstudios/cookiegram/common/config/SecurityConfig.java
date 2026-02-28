@@ -102,13 +102,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // Public endpoints - accessible to everyone (standard)
                         .requestMatchers(
-                                "/",              // Home page
-                                "/order/**", // Order page
-                                "/login",         // Login page
-                                "/css/**",        // CSS files
-                                "/js/**",         // JavaScript files
-                                "/images/**",     // Image files
-                                "/error"          // Error pages
+                                "/",
+                                "/order/**",
+                                "/login",
+                                "/about",
+                                "/contact",
+                                "/faq",
+                                "/shipping-policy",
+                                "/privacy-policy",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/error"
                         ).permitAll()
 
                         // H2 Console access (for development only)
