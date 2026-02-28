@@ -1,29 +1,27 @@
-html, body {
-	height: 100%;
-	width: 100%;
-}
+/* Section spacing */
 .promotion-section {
+	padding: 30px 0;
 	width: 100%;
-	height: 100%;
-	margin-top: 10px;
-	padding: 60px 0;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Outer container */
 .promo-container {
-	width: 100%;
-	height: 100%;
-	margin: auto;
-	display: flex; 
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	max-width: 80%;
+	margin: 0;
+	padding: 0 20px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Header */
 .promo-header {
-	align-self: flex-start;
-	font-weight: 600;
+	margin: 0 0 14px 0;
 	font-size: 2rem;
-	margin-bottom: 40px;
+	font-weight: 700;
 }
 
 .promo-header::after {
@@ -36,71 +34,84 @@ html, body {
   border-radius: 4px;
 }
 
-.promo-list {
-	height: 100%;
-	width: 80%;
-	display: flex;
-	flex-wrap: nowrap;
-	align-items: stretch;
-	gap: 5%;
-	list-style: none;
-	
-	background-color: var(--bg-card);
-	border-radius: 12px;
-	border: 1px solid var(--border-soft);
-	padding: 20px;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+/* Beige rounded panel behind the cards */
+.promo-panel {
+	background: #cfc6b6; /* warm beige */
+	border-radius: 14px;
+	padding: 22px;
 }
 
-.promo-li {
+/* Card layout */
+.promo-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: 26px;
+	justify-content: center;
+	align-items: stretch;
+	flex-wrap: wrap; /* collapses nicely on mobile */
+}
+
+/* Individual promo card */
+.promo-card {
+	background: #ffffff;
+	border-radius: 10px;
+	padding: 18px 18px 16px 18px;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	width: 320px; /* matches the screenshot proportions */
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	height: auto;
-	padding: 10px;
+	gap: 10px;
 }
 
-.promo-li:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+.promo-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Promo image */
 .promo-image {
-	height: 60%;
-	width: 60%;
-	align-self: center;
+	width: 100%;
+	height: 180px; /* consistent image size */
+	object-fit: contain; /* keep the logo visible */
+	display: block;
 }
 
-.promo-title {
-  background-color: var(--accent);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+/* Orange pill promo code */
+.promo-code {
+	background: #c5743d; /* orange-brown */
+	color: #fff;
+	font-weight: 700;
+	border-radius: 999px;
+	padding: 8px 14px;
+	letter-spacing: 0.5px;
+	font-size: 0.95rem;
 }
 
-@media (max-width: 767px) {
-	.promo-container {
-	  align-items: stretch;   /* stop centering everything */
-	  padding: 0 15px;
-	}
-	
-	.promo-header {
-	  text-align: center;
-	  align-self: auto;
-	}
-	
-	.promo-list {
+/* Text */
+.promo-desc {
+	margin: 0;
+	font-size: 1.05rem;
+}
+
+.promo-value {
+	margin: 0;
+	font-size: 1rem;
+}
+
+/* Mobile: cards become full width */
+@media ( max-width : 768px) {
+	.promo-card {
 		width: 100%;
-		outline: 1px solid red;
-		flex-direction: column;
-		align-items: center;
+		max-width: 420px;
 	}
-	
-	.promo-li {
-	  max-width: none;
-	  width: 100%;            /* single column cards */
+	.promo-header {
+		text-align: center;
+	}
+	.promo-list {
+		justify-content: center;
 	}
 }
