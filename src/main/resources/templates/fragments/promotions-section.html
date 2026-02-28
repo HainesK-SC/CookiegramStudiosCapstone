@@ -7,23 +7,35 @@
 		<link rel="stylesheet" th:href="@{/css/promotion-section-styling.css}">
 	</head>
 	<body>
+		
+		<!-- NO BOOTSTRAP -->
 		<section th:fragment="activePromotions(promotions)" class="promotion-section">
-			<div class="promo-container container">
-				<h2 class="promo-header">Current Promotions</h2>
-				<ul class="promo-list">
-					<li th:each="promo : ${promotions}" class="promo-li card shadow-sm w-50">
-						<img th:src="@{/images/promotions/promotion_placeholder_image.jpg}" alt="Promotion Image" class="promo-image">
-					    <strong th:text="${promo.promoCode}" class="promo-title">Promo code</strong>
-					    <span th:text="${promo.description}">Promo description</span>
-					    <div th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).FIXED}">
-						    <span th:text="'Promo Value: $' + ${promo.promoValue}">Promo value</span>
-						</div>
-						<div th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).PERCENTAGE}">
-						    <span th:text="'Promo Value: ' + ${promo.promoValue} + '%'">Promo value</span>
-						</div>
-						
-					</li>
-				</ul>		
+			<div class="promo-container">
+			  <h2 class="promo-header">Current Promotions</h2>
+			
+			  <div class="promo-panel">
+			    <ul class="promo-list">
+			      <li th:each="promo : ${promotions}" class="promo-card">
+			        <img th:src="@{/images/promotions/promotion_placeholder_image.jpg}"
+			             alt="Promotion Image"
+			             class="promo-image">
+			
+			        <div class="promo-code" th:text="${promo.promoCode}">PROMO</div>
+			
+			        <p class="promo-desc" th:text="${promo.description}">Promo description</p>
+			
+			        <p class="promo-value" th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).FIXED}"
+			           th:text="${'Promo Value: $' + promo.promoValue}">
+			          Promo Value:
+			        </p>
+			
+			        <p class="promo-value" th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).PERCENTAGE}"
+			           th:text="${'Promo Value: ' + promo.promoValue + '%'}">
+			          Promo Value:
+			        </p>
+			      </li>
+			    </ul>
+			  </div>
 			</div>
 		</section>
 	</body>
