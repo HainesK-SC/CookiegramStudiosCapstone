@@ -27,28 +27,70 @@ main {
     min-height: 70vh;
 }
 
-
+/* HEADER */
 .site-header {
+	height: 4rem;
+	background-color: var(--accent);
+}
+
+.site-header h4 {
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.login-tag,
+.login-button {
+	color: var(--text-primary);
+}
+
+.login-button {
+	padding: 0.25rem;
+	text-decoration: none;
+	border: 2px solid var(--text-primary);
+	border-radius: 10%;
+}
+
+.login-button:hover {
+	text-decoration: none;
+	background-color: var(--text-primary);
+	color: var(--accent);
+
+	border-radius: 10%;
+}
+
+/* FOOTER */
+.site-footer {
 	background-color: var(--accent-dark);
 }
 
 /* ORDER PREVIEW STYLING - CAN BE MOVED TO ITS OWN SHEET IF PREFERABLE */
 /* Section spacing */
 .order-preview-section {
+	width: 100%;
+	margin: 0;
     padding: 60px 20px;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Container */
 .order-container {
-    max-width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.order-header {
+	font-size: 2rem;
+	font-weight: 700;
+}
+
 /* Header */
-.preview-header::after {
+.order-header::after {
   content: '';
   display: block;
   width: 100%;
@@ -66,8 +108,7 @@ main {
 
 /* Card Row */
 .order-card-row {
-	min-width: 80%;
-	max-width: 100%;
+	width: 80%;
     display: flex;
     justify-content: space-evenly;
     gap: 30px;
