@@ -1,0 +1,106 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+.promotion-section {
+	width: 100%;
+	height: 100%;
+	margin-top: 10px;
+	padding: 60px 0;
+}
+
+.promo-container {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	display: flex; 
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.promo-header {
+	align-self: flex-start;
+	font-weight: 600;
+	font-size: 2rem;
+	margin-bottom: 40px;
+}
+
+.promo-header::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent);
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.promo-list {
+	height: 100%;
+	width: 80%;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: stretch;
+	gap: 5%;
+	list-style: none;
+	
+	background-color: var(--bg-card);
+	border-radius: 12px;
+	border: 1px solid var(--border-soft);
+	padding: 20px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promo-li {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: auto;
+	padding: 10px;
+}
+
+.promo-li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.promo-image {
+	height: 60%;
+	width: 60%;
+	align-self: center;
+}
+
+.promo-title {
+  background-color: var(--accent);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 767px) {
+	.promo-container {
+	  align-items: stretch;   /* stop centering everything */
+	  padding: 0 15px;
+	}
+	
+	.promo-header {
+	  text-align: center;
+	  align-self: auto;
+	}
+	
+	.promo-list {
+		width: 100%;
+		outline: 1px solid red;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.promo-li {
+	  max-width: none;
+	  width: 100%;            /* single column cards */
+	}
+}
