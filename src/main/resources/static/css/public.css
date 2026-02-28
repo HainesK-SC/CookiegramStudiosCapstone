@@ -1,4 +1,9 @@
 /* Minimal public styles */
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 body {
     background-color: #f8f9fa;
 }
@@ -6,3 +11,4 @@ body {
 main {
     min-height: 70vh;
 }
+
