@@ -3,23 +3,31 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<link rel="stylesheet" th:href="@{/css/public.css}">
+		<link rel="stylesheet" th:href="@{/css/promotion-section-styling.css}">
 	</head>
 	<body>
-		<section th:fragment="activePromotions(promotions)">
-		<div class="container">
-			<h2>Current Promotions</h2>
-			<ul>
-				<li th:each="promo : ${promotions}">
-				    <strong th:text="${promo.promoCode}">CODE</strong>
-				    -
-				    <span th:text="${promo.description}">Promo description</span>
-				    (
-				    <span th:text="${promo.promoValue}">value</span>
-				    )
-				</li>
-			</ul>
-			
-		</div>
+		<section th:fragment="activePromotions(promotions)" class="promotion-section">
+			<div class="promo-container container">
+				<h2 class="promo-header">Current Promotions</h2>
+				<ul class="promo-list">
+					<li th:each="promo : ${promotions}" class="promo-li card shadow-sm w-50">
+						<img th:src="@{/images/promotions/promotion_placeholder_image.jpg}" alt="Promotion Image" class="promo-image">
+					    <strong th:text="${promo.promoCode}" class="promo-title">Promo code</strong>
+					    <span th:text="${promo.description}">Promo description</span>
+					    <div th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).FIXED}">
+						    <span th:text="'Promo Value: $' + ${promo.promoValue}">Promo value</span>
+						</div>
+						<div th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).PERCENTAGE}">
+						    <span th:text="'Promo Value: ' + ${promo.promoValue} + '%'">Promo value</span>
+						</div>
+						
+					</li>
+				</ul>		
+			</div>
 		</section>
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
 	</body>
 </html>
