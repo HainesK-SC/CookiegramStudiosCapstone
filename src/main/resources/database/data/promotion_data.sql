@@ -16,12 +16,12 @@ VALUES (
 INSERT INTO promotions (promo_code, description, promo_type, promo_value, start_date, end_date, is_active)
 VALUES (
            'SWEET25',
-           '25% entire order',
+           'Discount off entire order',
            'PERCENTAGE',
            25.00,
            '2026-04-01',
            '2026-06-30',
-           false
+           true
        );
 
 -- BDAY10 PROMOTION
