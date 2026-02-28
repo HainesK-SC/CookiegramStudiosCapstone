@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>CookieGram | Privacy Policy</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <div class="policy-card">
+
+        <h1 class="mb-3">Privacy Policy</h1>
+
+        <p>
+            At CookieGram, we respect your privacy and are committed to protecting your personal information.
+        </p>
+
+        <h5>Information We Collect</h5>
+        <p>
+            We collect only the information necessary to process your orders and improve your experience.
+            This may include your name, email address, shipping details, and payment-related information.
+        </p>
+
+        <h5>How We Use Your Information</h5>
+        <p>Your information is used solely to:</p>
+        <ul>
+            <li>Process and fulfill orders</li>
+            <li>Provide delivery updates</li>
+            <li>Improve our services and customer experience</li>
+            <li>Communicate important order-related notifications</li>
+        </ul>
+
+        <h5>Data Protection</h5>
+        <p>
+            We implement reasonable security measures to protect your personal data.
+            CookieGram does not sell, rent, or share your personal information with third parties
+            except where required for order fulfillment.
+        </p>
+
+        <h5>Cookies</h5>
+        <p>
+            Our website may use basic cookies to enhance functionality and improve your browsing experience.
+        </p>
+
+        <h5>Your Rights</h5>
+        <p>
+            You may request access, correction, or deletion of your personal information by contacting us.
+        </p>
+
+        <p class="mb-0 mt-4">
+            By using CookieGram, you agree to the practices outlined in this Privacy Policy.
+        </p>
+
+    </div>
+</div>
+</body>
+</html>

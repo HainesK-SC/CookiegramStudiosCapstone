@@ -131,4 +131,20 @@ public class PublicController {
     public String contactPage(){
         return "contact";
     }
+
+    /**
+     * Shipping Policy
+     */
+    @GetMapping("/shipping-policy")
+    public String shippingPolicy(){
+        return "shipping-policy";
+    }
+
+    /**
+     * Privacy Policy
+     */
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "privacy-policy";
+    }
 }

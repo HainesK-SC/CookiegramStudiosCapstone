@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>CookieGram | Shipping Policy</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <div class="policy-card">
+
+        <h1 class="mb-3">Shipping Policy</h1>
+
+        <p>
+            CookieGram proudly ships across Canada to ensure your cookie gifts arrive fresh and on time.
+        </p>
+
+        <h5>Shipping Carrier</h5>
+        <p>
+            All orders are shipped using Purolator Canada.
+        </p>
+
+        <h5>Processing Time</h5>
+        <p>
+            Orders are typically processed within 1–2 business days before shipment.
+            During peak seasons or holidays, processing times may be slightly longer.
+        </p>
+
+        <h5>Delivery Times</h5>
+        <p>
+            Delivery timelines depend on the destination and selected shipping option.
+            Estimated delivery times provided by Purolator begin once the order has been shipped.
+        </p>
+
+        <h5>Tracking</h5>
+        <p>
+            Once your order ships, tracking information will be provided so you can monitor its journey.
+        </p>
+
+        <h5>Shipping Responsibility</h5>
+        <p>
+            CookieGram is not responsible for delays caused by the carrier,
+            weather conditions, or incorrect shipping information provided at checkout.
+        </p>
+
+        <h5>Freshness Commitment</h5>
+        <p>
+            We package all cookie gifts carefully to maintain freshness during transit.
+            Please ensure someone is available to receive the package when delivered.
+        </p>
+
+        <p class="mb-0 mt-4">
+            If you experience any issues with your shipment, please contact our support team for assistance.
+        </p>
+
+    </div>
+</div>
+</body>
+</html>
