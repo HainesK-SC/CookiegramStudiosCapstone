@@ -105,6 +105,9 @@ public class SecurityConfig {
                                 "/",              // Home page
                                 "/order/**", // Order page
                                 "/login",         // Login page
+                                "/about",         // About page
+                                "/contact",       // Contact page
+                                "/faq",           // FAQ page
                                 "/css/**",        // CSS files
                                 "/js/**",         // JavaScript files
                                 "/images/**",     // Image files
