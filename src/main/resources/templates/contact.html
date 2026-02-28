@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>CookieGram | Contact</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <h1 class="mb-3">Contact Us</h1>
+    <p class="text-muted mb-0">
+        This Contact page is now wired to the reusable header quick links. You can add
+        business contact details, support channels, and inquiry form content here.
+    </p>
+</div>
+</body>
+</html>

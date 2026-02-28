@@ -7,13 +7,21 @@
 <body>
 
 <header th:fragment="header" class="border-bottom sticky-top site-header">
-    <div class="container d-flex justify-content-between align-items-center py-3">
+    <div class="container site-header-inner">
 
-        <a th:href="@{/}" class="text-decoration-none">
-            <h4 class="mb-0">CookieGram</h4>
-        </a>
+        <div class="site-header-brand">
+            <a th:href="@{/}" class="text-decoration-none">
+                <h4 class="mb-0">CookieGram</h4>
+            </a>
+        </div>
 
-        <div class="d-flex align-items-center gap-2">
+        <nav class="site-header-nav" aria-label="Quick links">
+            <a th:href="@{/about}" class="site-header-link">About</a>
+            <a th:href="@{/faq}" class="site-header-link">FAQ</a>
+            <a th:href="@{/contact}" class="site-header-link">Contact</a>
+        </nav>
+
+        <div class="site-header-auth">
             <div th:if="${currentUser != null}" class="text-muted small d-flex align-items-center gap-2">
                 <span>Signed in as:</span>
                 <strong th:text="${currentUser.lastName}">Last</strong>
