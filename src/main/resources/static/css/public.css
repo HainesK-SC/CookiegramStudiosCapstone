@@ -1,3 +1,16 @@
+/* CSS VARIABLE DECLARATIONS */
+:root {
+  --bg-main: #f6f1e8;        /* warm cream */
+  --bg-card: #D0C7B7;
+  --accent: #c26d3b;         /* cinnamon */
+  --accent-dark: #9e542b;
+  --text-primary: #3e2c23;   /* dark cocoa */
+  --text-muted: #7a6a5f;
+  --border-soft: #e5ddd3;
+  --order-preview-card: #DDCAA8;
+}
+
+
 /* Minimal public styles */
 html, body {
 	height: 100%;
@@ -6,9 +19,105 @@ html, body {
 
 body {
     background-color: #f8f9fa;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
 }
 
 main {
     min-height: 70vh;
 }
 
+
+.site-header {
+	background-color: var(--accent-dark);
+}
+
+/* ORDER PREVIEW STYLING - CAN BE MOVED TO ITS OWN SHEET IF PREFERABLE */
+/* Section spacing */
+.order-preview-section {
+    padding: 60px 20px;
+}
+
+/* Container */
+.order-container {
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.preview-header::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent);
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+/* Subtext */
+.order-subtext {
+    color: #7a6a5f;
+    margin-bottom: 40px;
+}
+
+/* Card Row */
+.order-card-row {
+	min-width: 80%;
+	max-width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    flex-wrap: wrap; /* allows collapse on mobile */
+    background-color: var(--bg-card);
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+/* Individual Card */
+.order-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    flex: 1 1 280px;      /* responsive width */
+    max-width: 320px;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* Card body layout */
+.order-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Image preview block */
+.order-preview-card {
+    height: 150px;
+    width: 100%;
+    background: #f3f0eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+/* Image sizing */
+.order-preview-image {
+	height: 90%;
+	width: 90%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
