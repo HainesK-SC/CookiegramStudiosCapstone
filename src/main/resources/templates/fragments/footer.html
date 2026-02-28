@@ -7,27 +7,42 @@
 <body>
 
 <footer th:fragment="footer"
-        class="bg-dark text-light py-4 mt-5">
-    <div class="container text-center">
+        class="text-light py-4 mt-5 site-footer">
+    <div class="container">
+        
+        <!-- Two-column footer structure -->
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h6>Customer Care</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/shipping-policy" class="footer-link">Shipping Policy</a></li>
+                    <li><a href="/faq" class="footer-link">FAQ</a></li>
+                    <li><a href="/privacy-policy" class="footer-link">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h6>About & Contact</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/about" class="footer-link">About</a></li>
+                    <li><a href="/contact" class="footer-link">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
 
-        <p class="mb-1">
-            © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
-            CookieGram
-        </p>
+        <!-- Divider -->
+        <hr class="footer-divider">
 
-        <p> This is code </p>
+        <!-- Contact info and copyright -->
+        <div class="footer-contact">
+            <p class="mb-1">
+                © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
+                CookieGram
+            </p>
 
-        <small class="text-light">
-            contact@cookiegrams.com | (123) 456-7890
-        </small>
-
-        <div class="footer-social mt-3">
-            <a href="#" class="text-light me-3 text-decoration-none">
-                Instagram
-            </a>
-            <a href="#" class="text-light text-decoration-none">
-                Facebook
-            </a>
+            <small>
+                contact@cookiegrams.com | (123) 456-7890
+            </small>
         </div>
 
     </div>

@@ -1,0 +1,117 @@
+/* Section spacing */
+.promotion-section {
+	padding: 30px 0;
+	width: 100%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Outer container */
+.promo-container {
+	max-width: 80%;
+	margin: 0;
+	padding: 0 20px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.promo-header {
+	margin: 0 0 14px 0;
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.promo-header::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent);
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+
+/* Beige rounded panel behind the cards */
+.promo-panel {
+	background: #cfc6b6; /* warm beige */
+	border-radius: 14px;
+	padding: 22px;
+}
+
+/* Card layout */
+.promo-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: 26px;
+	justify-content: center;
+	align-items: stretch;
+	flex-wrap: wrap; /* collapses nicely on mobile */
+}
+
+/* Individual promo card */
+.promo-card {
+	background: #ffffff;
+	border-radius: 10px;
+	padding: 18px 18px 16px 18px;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	width: 320px; /* matches the screenshot proportions */
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.promo-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Promo image */
+.promo-image {
+	width: 100%;
+	height: 180px; /* consistent image size */
+	object-fit: contain; /* keep the logo visible */
+	display: block;
+}
+
+/* Orange pill promo code */
+.promo-code {
+	background: #c5743d; /* orange-brown */
+	color: #fff;
+	font-weight: 700;
+	border-radius: 999px;
+	padding: 8px 14px;
+	letter-spacing: 0.5px;
+	font-size: 0.95rem;
+}
+
+/* Text */
+.promo-desc {
+	margin: 0;
+	font-size: 1.05rem;
+}
+
+.promo-value {
+	margin: 0;
+	font-size: 1rem;
+}
+
+/* Mobile: cards become full width */
+@media ( max-width : 768px) {
+	.promo-card {
+		width: 100%;
+		max-width: 420px;
+	}
+	.promo-header {
+		text-align: center;
+	}
+	.promo-list {
+		justify-content: center;
+	}
+}

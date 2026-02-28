@@ -13,5 +13,9 @@ public class InvalidPromotionDataException extends RuntimeException {
 	public InvalidPromotionDataException(String message) {
 		super(message);
 	}
+	
+	public InvalidPromotionDataException(String message, long id) {
+		super(message);
+	}
 
 }

@@ -160,3 +160,9 @@ buildNumber.properties
 
 #docs
 /GitWorkflows.md
+
+# Local environment secrets
+.env
+.env.local
+.env.*
+!.env.example

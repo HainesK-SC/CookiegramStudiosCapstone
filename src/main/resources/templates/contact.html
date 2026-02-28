@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>CookieGram | Contact</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <div class="policy-card">
+
+        <h1 class="mb-3">Contact Us</h1>
+
+        <p>
+            We’re here to help! Reach out to CookieGram for any inquiries, order support, or feedback.
+        </p>
+
+        <h5>Online Support</h5>
+        <p>
+            For shipping questions, order updates, or general inquiries, please visit our
+            <a href="/faq">FAQ page</a> or review our
+            <a href="/shipping-policy">Shipping Policy</a> and
+            <a href="/privacy-policy">Privacy Policy</a>.
+        </p>
+
+        <h5>Feedback & Collaboration</h5>
+        <p>
+            We love hearing from you! For partnership inquiries, media requests, or custom orders, email us at
+            <a href="mailto:contact@cookiegrams.com">contact@cookiegrams.com</a>.
+        </p>
+
+    </div>
+</div>
+</body>
+</html>
