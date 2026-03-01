@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/public-layout :: layout(~{::content})}"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CookieGram | Login</title>
-</head>
-<body>
+	<head>
+	    <meta charset="UTF-8">
+	    <title>CookieGram | Login</title>
+	</head>
+	<body>
+<!--  
 <div th:fragment="content" class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-5">
@@ -42,5 +43,34 @@
         </div>
     </div>
 </div>
-</body>
+-->
+		<section th:fragment="content" class="login-section">
+			<div class="login-form-header">
+			     <h1 class="">Staff Login</h1>
+			     <p class="">Sign in to access your dashboard.</p>
+			</div>
+		     <div th:if="${param.error}" class="alert alert-danger" role="alert">
+		         Invalid username or password.
+		     </div>
+		
+		     <div th:if="${param.logout}" class="alert alert-success" role="alert">
+		         You have been logged out successfully.
+		     </div>
+		
+		     <form method="post" action="/login" class="login-form">
+		         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		         <div class="form-username-container">
+		             <label for="username" class="form-label">Email</label>
+		             <input id="username" type="text" name="username" class="form-control" placeholder="Enter your email" required />
+		         </div>
+		
+		         <div class="form-password-container">
+		             <label for="password" class="form-label">Password</label>
+		             <input id="password" type="password" name="password" class="form-control" placeholder="Enter your password" required />
+		         </div>
+		
+		         <button type="submit" class="sign-in-button">Sign in</button>
+		     </form>			
+		</section>
+	</body>
 </html>
