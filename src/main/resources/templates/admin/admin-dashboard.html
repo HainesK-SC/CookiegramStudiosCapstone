@@ -2,33 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/public-layout :: layout(~{::content})}"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard | CookieGram</title>
-</head>
-<body>
-<div th:fragment="content" class="container py-5">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-        <div>
-            <span class="badge text-bg-danger mb-2">ADMIN</span>
-            <h1 class="h3 mb-1">Admin Dashboard</h1>
-            <p class="text-muted mb-0">Administrative control area for team and system oversight.</p>
-        </div>
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Admin Dashboard | CookieGram</title>
+	</head>
+	<body>
+		<div th:fragment="content" class="admin-dashboard-container">
+		<div class="admin-dashboard-header">
+			<h1>Admin Dashboard</h1>
+			<h2 th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h2>
+			<h3>Today at a Glance</h3>
+		</div>
+		
+		<div class="today-at-a-glance">
+			
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/orders_due_icon.png}" alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Orders Due</h4>
+					<span class="card-value"><strong>47</strong></span>
+				</div>				
+			</div>
+			
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/cookies_due_icon.png}" alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Cookies Due</h4>
+					<span class="card-value"><strong>150</strong></span>
+				</div>				
+			</div>
 
-    </div>
-
-    <div class="card border-danger-subtle shadow-sm">
-        <div class="card-body p-4">
-            <h2 class="h5 mb-3 d-flex align-items-center gap-2">
-                <span class="badge text-bg-dark">Admin View</span>
-                Minimal Setup
-            </h2>
-            <p class="mb-0">
-                This starter dashboard is intentionally lightweight and will expand into admin tools
-                like user management, reporting, and global operations controls in future sprints.
-            </p>
-        </div>
-    </div>
-</div>
-</body>
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/baked_today_icon.png}" alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Baked Today</h4>
+					<span class="card-value"><strong>68%</strong></span>
+				</div>				
+			</div>
+			
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/ready_to_ship_icon.png}" alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Ready to Ship</h4>
+					<span class="card-value"><strong>23</strong></span>
+				</div>				
+			</div>
+			
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/shipped_icon.png}" alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Shipped</h4>
+					<span class="card-value"><strong>10</strong></span>
+				</div>				
+			</div>
+			
+		</div>
+			<!--  
+		    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+		        <div>
+		            <span class="badge text-bg-danger mb-2">ADMIN</span>
+		            <h1 class="h3 mb-1">Admin Dashboard</h1>
+		            <p class="text-muted mb-0">Administrative control area for team and system oversight.</p>
+		        </div>
+		
+		    </div>
+		
+		    <div class="card border-danger-subtle shadow-sm">
+		        <div class="card-body p-4">
+		            <h2 class="h5 mb-3 d-flex align-items-center gap-2">
+		                <span class="badge text-bg-dark">Admin View</span>
+		                Minimal Setup
+		            </h2>
+		            <p class="mb-0">
+		                This starter dashboard is intentionally lightweight and will expand into admin tools
+		                like user management, reporting, and global operations controls in future sprints.
+		            </p>
+		        </div>
+		    </div>
+		    -->
+		</div>
+	</body>
 </html>
