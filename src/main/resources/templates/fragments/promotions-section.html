@@ -25,12 +25,12 @@
 			        <p class="promo-desc" th:text="${promo.description}">Promo description</p>
 			
 			        <p class="promo-value" th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).FIXED}"
-			           th:text="${'Promo Value: $' + promo.promoValue}">
+			           th:text="${'Promo Value: $' + #numbers.formatDecimal(promo.promoValue, 0, 2)}"> {}
 			          Promo Value:
 			        </p>
 			
 			        <p class="promo-value" th:if="${promo.promoType == T(com.cookiegramstudios.cookiegram.promotion.PromotionTypes).PERCENTAGE}"
-			           th:text="${'Promo Value: ' + promo.promoValue + '%'}">
+			           th:text="${'Promo Value: ' + #numbers.formatDecimal(promo.promoValue, 0, 0) + '%'}">
 			          Promo Value:
 			        </p>
 			      </li>
