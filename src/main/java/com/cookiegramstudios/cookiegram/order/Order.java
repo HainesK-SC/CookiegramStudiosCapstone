@@ -7,6 +7,7 @@ import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -16,10 +17,50 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
+ * Represents a production order within the CookieGram system.
+ * <p>
+ * Orders are internal entities that track customer purchases,
+ * recipient details, and order workflow statuses. This entity
+ * is used for managing order processing, delivery scheduling,
+ * and administrative notes.
+ * </p>
+ * <p>
+ * <b>Fields include:</b>
+ * <ul>
+ *     <li><b>id</b> - Unique identifier for the order</li>
+ *     <li><b>orderNumber</b> - System-generated unique number for tracking</li>
+ *     <li><b>customerProfile</b> - The customer who placed the order</li>
+ *     <li><b>recipientUser</b> - Recipient of the order</li>
+ *     <li><b>status</b> - Current workflow status (PLACED, IN_PROGRESS, BAKED, SHIPPED, DELIVERED)</li>
+ *     <li><b>deliveryDate</b> - Scheduled delivery date</li>
+ *     <li><b>totalPrice</b> - Total amount of the order</li>
+ *     <li><b>notes</b> - Optional administrative or special instructions</li>
+ *     <li><b>createdAt</b> - Timestamp when the order was created</li>
+ *     <li><b>updatedAt</b> - Timestamp when the order was last updated</li>
+ * </ul>
+ * </p>
+ * <p>
+ * <b>Future Considerations:</b>
+ * <ul>
+ *     <li>Integrate with receipts and payment records</li>
+ *     <li>Support automated status updates for delivery tracking</li>
+ *     <li>Enhance auditing and reporting features</li>
+ * </ul>
+ * </p>
  * 
+ * @author Matthew Samaha
+ * @date 2026-02-28
+ * @version 1.0
  */
+@Entity
+@Table(name = "orders")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
 
 	@Id
