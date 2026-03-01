@@ -4,6 +4,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	padding: 1rem;
 }
 
 .admin-dashboard-header {
@@ -11,14 +12,17 @@
 }
 
 .today-at-a-glance {
-	outline: 3px solid red;
-	height: 6rem;
+	height: auto;
 	min-width: 90%;
 	max-width: auto;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	gap: 2rem;
+	border: 2px solid var(--accent-dark);
+	border-radius: var(--dashboard-border-radius);
+	padding: 2rem;
+	margin-top: 0.5rem;
 }
 
 .today-at-a-glance h3 {
@@ -27,22 +31,36 @@
 
 .today-glance-card {
 	height: 90%;
-	width: 20%;
+	width: 15%;
 	display: flex;
 	justify-content: space-evenly;
 	gap: 1rem;
 	border: 1px solid var(--accent-dark);
 	background-color: var(--bg-card);
 	border-radius: var(--card-border-radius);
+	padding: 1rem;
 }
 
 .card-left {
+	width:15%;
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	justify-self: flex-start;
 }
 
 .card-right {
+	width: 70%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
+}
+
+.card-right h4 {
+	text-align: center;
+}
+
+.card-rigth,
+.card-left {
+	border-bottom: 2px solid var(--accent);
 }

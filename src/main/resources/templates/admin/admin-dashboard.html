@@ -10,11 +10,14 @@
 		<div th:fragment="content" class="admin-dashboard-container">
 		<div class="admin-dashboard-header">
 			<h1>Admin Dashboard</h1>
-			<h2 th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h2>
-			<h3>Today at a Glance</h3>
+			<h2 th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></h2>
+			
 		</div>
 		
 		<div class="today-at-a-glance">
+			<div class="today-glance-header">
+				<h3>Today at a Glance</h3>
+			</div>
 			
 			<div class="today-glance-card">
 				<div class="card-left">
@@ -61,9 +64,20 @@
 					<img th:src="@{/images/admin/dashboard/shipped_icon.png}" alt="Clock: orders due icon">
 				</div>
 				<div class="card-right">
-					<h4>Shipped</h4>
+					<h4>Shipped Today</h4>
 					<span class="card-value"><strong>10</strong></span>
 				</div>				
+			</div>
+			
+			<div class="dashboard-two-panel">
+				<div class="capacity-overview-container">
+					<h3>Capacity Overview</h3>
+				</div>
+				<div class="dashboard-card">
+					<div class="dashboard-card-header">
+						<img th:src="@{/images/admin/dashboard/factory_icon.png}" /><span></span>
+					</div>
+				</div>
 			</div>
 			
 		</div>
