@@ -458,3 +458,17 @@ didn't seem to make a difference.
 	border: 2px solid var(--text-primary);
 	border-radius: 10%;
 }
+
+.login-error-container {
+    min-height: 3rem;   /* reserve space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-error {
+    background: #f8d7da;
+    color: #842029;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+}

@@ -48,11 +48,13 @@
 			<div class="login-form-header">
 			     <h1 class="">Staff Login</h1>
 			     <p class="">Sign in to access your dashboard.</p>
+			     
+			     <div class="login-error-container">
+				<div th:if="${param.error}" class="alert alert-danger login-error" role="alert">
+		         	Invalid username or password.
+		     	</div>
 			</div>
-		     <div th:if="${param.error}" class="alert alert-danger" role="alert">
-		         Invalid username or password.
-		     </div>
-		
+			</div>
 		     <div th:if="${param.logout}" class="alert alert-success" role="alert">
 		         You have been logged out successfully.
 		     </div>
