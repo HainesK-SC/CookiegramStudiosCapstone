@@ -1,8 +1,12 @@
 package com.cookiegramstudios.cookiegram.receipt;
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.cookiegramstudios.cookiegram.order.Order;
 
 @Service
 public class OrderReceiptService {
@@ -23,11 +27,11 @@ public class OrderReceiptService {
         OrderReceipt receipt = new OrderReceipt();
         receipt.setOrder(order);
         receipt.setOrderNumber(order.hashCode()); // Example logic for unique number
-        receipt.setTotalPrice(order.getTotalAmount());
+        receipt.setTotalPrice(order.getTotalPrice());
         receipt.setDeliveryDate(LocalDate.now().plusDays(3)); // Default logic
 
         // Auto-generate summary from Order details
-        receipt.setSummaryText("Receipt for " + order.getCustomerName() + ". Total: $" + order.getTotalAmount());
+        receipt.setSummaryText("Receipt for " + order.getCustomerProfile().getEmail() + ". Total: $" + order.getTotalPrice());
 
         return receiptRepository.save(receipt);
     }
