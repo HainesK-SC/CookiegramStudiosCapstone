@@ -153,6 +153,7 @@ main {
 .site-footer {
 	background-color: var(--accent-dark);
 	padding: 3rem 0 2rem;
+	text-align: center;
 }
 
 /* Footer Columns Layout */
