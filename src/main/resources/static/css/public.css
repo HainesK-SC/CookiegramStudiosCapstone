@@ -327,7 +327,7 @@ didn't seem to make a difference.
 
 /* Card Row */
 .order-card-row {
-	width: 80%;
+	width: 100%;
     display: flex;
     justify-content: space-evenly;
     gap: 30px;
