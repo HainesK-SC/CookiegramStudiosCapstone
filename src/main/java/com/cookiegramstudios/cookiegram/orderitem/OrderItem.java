@@ -11,10 +11,42 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents an individual item within a production order in the CookieGram system.
+ * <p>
+ * Each OrderItem links to a parent Order and a specific CookieCustomization,
+ * tracking quantity, price, and optional special instructions.
+ * </p>
+ * <p>
+ * <b>Fields include:</b>
+ * <ul>
+ *     <li><b>id</b> - Unique identifier for the order item</li>
+ *     <li><b>order</b> - Parent order (Many-to-One)</li>
+ *     <li><b>cookieCustomization</b> - The cookie variant or customization</li>
+ *     <li><b>quantity</b> - Number of this item in the order</li>
+ *     <li><b>price</b> - Total price for this item (base + customization cost × quantity)</li>
+ *     <li><b>specialInstructions</b> - Optional instructions for this item</li>
+ * </ul>
+ * </p>
+ * 
+ * <p><b>Future Considerations:</b>
+ * <ul>
+ *     <li>Support ingredient-level customization tracking</li>
+ *     <li>Integration with inventory management</li>
+ *     <li>Automated price calculation based on recipe and customization</li>
+ * </ul>
+ * </p>
+ * 
+ * @author Matthew
+ * @date 2026-02-28
+ * @version 1.0
+ */
 @Entity
 @Table(name = "order_items")
 @AllArgsConstructor
@@ -41,6 +73,23 @@ public class OrderItem {
 	
 	@Column(columnDefinition = "TEXT")
 	private String specialInstructions;
+	
+	 /**
+     * Calculates and updates the price based on quantity and cookie customization costs.
+     * <p>
+     * Formula: price = quantity × (basePrice + customizationCost)
+     * </p>
+     */
+	// --- Lifecycle Hooks ---
+    @PrePersist
+    @PreUpdate
+    private void calculatePrice() {
+        if (cookieCustomization != null && cookieCustomization.getCookie() != null) {
+            this.price = quantity * (cookieCustomization.getCookie().getBasePrice() + cookieCustomization.getAdditionalCost());
+        } else {
+            this.price = 0;
+        }
+    }
 
 	public Long getId() {
 		return id;
