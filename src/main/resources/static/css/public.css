@@ -39,21 +39,22 @@ main {
 
 /* HEADER */
 .site-header {
-	outline: 1px solid red;
 	background-color: var(--accent);
-	height: 64px;              /* px for debugging */
+	height: 4rem;
 	border-bottom: 1px solid rgba(0,0,0,.15);
 	position: sticky;
 	top: 0;
 	z-index: 1000;
+	display: flex;
+	justify-content: center;
 }
 
 .site-header-inner {
-	outline: 2px solid green;
-	height: 100%;
+	height: 4rem;
+	width: 80%;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	gap: 1rem;
 }
 
