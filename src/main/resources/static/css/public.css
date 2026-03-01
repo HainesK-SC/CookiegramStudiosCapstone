@@ -39,21 +39,22 @@ main {
 
 /* HEADER */
 .site-header {
-	outline: 1px solid red;
 	background-color: var(--accent);
-	height: 64px;              /* px for debugging */
+	height: 4rem;
 	border-bottom: 1px solid rgba(0,0,0,.15);
 	position: sticky;
 	top: 0;
 	z-index: 1000;
+	display: flex;
+	justify-content: center;
 }
 
 .site-header-inner {
-	outline: 2px solid green;
-	height: 100%;
+	height: 4rem;
+	width: 80%;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	gap: 1rem;
 }
 
@@ -152,6 +153,7 @@ main {
 .site-footer {
 	background-color: var(--accent-dark);
 	padding: 3rem 0 2rem;
+	text-align: center;
 }
 
 /* Footer Columns Layout */
@@ -326,7 +328,7 @@ didn't seem to make a difference.
 
 /* Card Row */
 .order-card-row {
-	width: 80%;
+	width: 100%;
     display: flex;
     justify-content: space-evenly;
     gap: 30px;
@@ -456,4 +458,18 @@ didn't seem to make a difference.
 	color: var(--text-primary);
 	border: 2px solid var(--text-primary);
 	border-radius: 10%;
+}
+
+.login-error-container {
+    min-height: 3rem;   /* reserve space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-error {
+    background: #f8d7da;
+    color: #842029;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
 }

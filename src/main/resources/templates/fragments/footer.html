@@ -7,8 +7,8 @@
 <body>
 
 <footer th:fragment="footer"
-        class="text-light py-4 mt-5 site-footer">
-    <div class="container">
+        class="site-footer">
+    <div class="footer-container">
         
         <!-- Two-column footer structure -->
         <div class="footer-columns">
@@ -35,7 +35,7 @@
 
         <!-- Contact info and copyright -->
         <div class="footer-contact">
-            <p class="mb-1">
+            <p class="">
                 © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
                 CookieGram
             </p>
