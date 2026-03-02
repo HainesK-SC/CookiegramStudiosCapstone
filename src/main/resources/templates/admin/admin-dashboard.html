@@ -14,7 +14,7 @@
 			
 		</div>
 		
-		<div class="today-at-a-glance">
+		<div class="today-at-a-glance item-container">
 			<div class="today-glance-header">
 				<h3>Today at a Glance</h3>
 			</div>
@@ -68,19 +68,68 @@
 					<span class="card-value"><strong>10</strong></span>
 				</div>				
 			</div>
-			
-			<div class="dashboard-two-panel">
-				<div class="capacity-overview-container">
+		</div>
+		
+		<div class="dashboard-two-panel">
+			<!-- CAPACITY OVERVIEW PANEL -->
+				<div class="capacity-overview-container left-panel item-container">
 					<h3>Capacity Overview</h3>
+					<div class="dashboard-card">
+						<div class="dashboard-card-header">
+							<img th:src="@{/images/admin/dashboard/factory_icon.png}" /><span>Daily Production Capacity</span>
+						</div>
+						<div class="capacity-fields">
+							<h5>Total Capacity</h5>
+							<span>2,000 cookies</span>
+						</div>
+						<div class="capacity-fields">
+							<h5>Remaining Today</h5>
+							<span>750 cookies</span>
+							<div><p>63% capacity reached</p></div>
+						</div>
+					</div>
 				</div>
-				<div class="dashboard-card">
-					<div class="dashboard-card-header">
-						<img th:src="@{/images/admin/dashboard/factory_icon.png}" /><span></span>
+				<!--  RECENT ACTIVITY PANEL -->
+				<div class="recent-activity-container right-panel item-container">
+					<h3>Recent Activity</h3>
+					<div class="dashboard-card">
+						<div class="dashboard-card-header">
+							<img th:src="@{/images/admin/dashboard/cancel_order_icon.png}"  /><span>Cancellations This Week</span>
+						</div>
+						<div id="total-cancelled">
+						<span>Total Cancelled</span>
+						<span>3 orders cancelled</span>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="dashboard-two-panel">
+				<!-- ACTIVE PROMOTIONS -->
+				<div class="active-promotions-container left-panel item-container">
+					<h3>Active Promotions</h3>
+					<div class="dashboard-card">
+						<div class="dashboard-card-header">
+							<img th:src="@{/images/admin/dashboard/promo_tag_icon.png}" /> <span>Current Offers</span>
+						</div>
+					</div>
+				</div>
+				<!-- ORDER BOOKING STATUS -->
+				<div class="order-booking-container right-panel item-container">
+					<h3>Order Booking Status</h3>
+				</div>
+			</div>
 			
-		</div>
+			<div class="next-week-production full-width item-container">
+				<h3>Next 7 Days Production</h3>
+				<div class="dashboard-card">
+						<div class="dashboard-card-header">
+							<img th:src="@{/images/admin/dashboard/calendar_checkmark_icon.png}" /> <span>Current Offers</span>
+						</div>
+						<div class="calendar-day">
+							<p>Monday, March 2</p><span>850 Cookies</span>
+						</div>
+					</div>
+			</div>
 			<!--  
 		    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
 		        <div>

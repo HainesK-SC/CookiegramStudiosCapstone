@@ -1,10 +1,15 @@
+.main {
+	flex-direction: column;
+}
+
 .admin-dashboard-container {
 	height: 100%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1rem;
+	gap: 2rem;
+	padding: 2rem 3rem;
 }
 
 .admin-dashboard-header {
@@ -21,8 +26,6 @@
 	gap: 2rem;
 	border: 2px solid var(--accent-dark);
 	border-radius: var(--dashboard-border-radius);
-	padding: 2rem;
-	margin-top: 0.5rem;
 }
 
 .today-at-a-glance h3 {
@@ -36,7 +39,8 @@
 	justify-content: space-evenly;
 	gap: 1rem;
 	border: 1px solid var(--accent-dark);
-	background-color: var(--bg-card);
+	background-color: var(--text-muted);
+	background-color: #A68F7F;
 	border-radius: var(--card-border-radius);
 	padding: 1rem;
 }
@@ -63,4 +67,48 @@
 .card-rigth,
 .card-left {
 	border-bottom: 2px solid var(--accent);
+}
+
+.dashboard-two-panel {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.left-panel,
+.right-panel {
+	width: 45%;
+}
+
+.item-container {
+	padding: 1rem 2rem;
+	border: 2px solid var(--accent-dark);
+	border-radius: var(--dashboard-border-radius);
+	background-color: var(--bg-card);
+}
+
+.dashboard-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.dashboard-card-header {
+	display: flex;
+	gap: 1rem;
+}
+
+.capacity-fields {
+	display: flex;
+	justify-content: space-between;
+}
+
+.remaining-percent {
+	width: 80%;
+	flex-wrap: wrap;
+}
+
+.full-width {
+	min-width: 90%;
+	max-width: auto;
 }
