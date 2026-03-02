@@ -1,0 +1,117 @@
+/* Employee Dashboard styles - component scoped to Today's Bake List */
+:root{
+  --cg-badge-radius:12px;
+  --cg-border-color:#e6e6e6;
+  --cg-muted:#6b7280;
+  --cg-dropdown-bg:#ffffff;
+  --cg-dropdown-shadow:0 8px 24px rgba(16,24,40,0.08);
+}
+
+.table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+.cg-table{width:100%;border-collapse:separate;border-spacing:0 10px;font-family:inherit}
+.cg-table thead th{padding:0.5rem 0.75rem;text-align:left;font-size:0.85rem;color:#374151;font-weight:600}
+.cg-table tbody tr{background:#ffffff;border-radius:8px;box-shadow:0 1px 0 rgba(16,24,40,0.03);}
+.cg-table td{padding:0.75rem 0.75rem;vertical-align:middle;color:#111827;border-top:0}
+
+/* Slight card wrapper spacing (keeps consistent with existing site styles) */
+#today-bake-list.card{background:transparent;border:0;padding:0}
+#today-bake-list .card-body{padding:0}
+
+/* Badge base */
+.cg-badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:var(--cg-badge-radius);font-weight:600;font-size:0.78rem;color:#fff;background:#6b7280;text-transform:uppercase;letter-spacing:0.02em}
+
+/* Status badge color mapping (accessible contrast) */
+.cg-badge--placed{background:#d97706}        /* amber / placed */
+.cg-badge--in-progress{background:#2563eb}   /* blue / in progress */
+.cg-badge--baked{background:#16a34a}         /* green / baked */
+.cg-badge--shipped{background:#7c3aed}       /* indigo / shipped */
+.cg-badge--delivered{background:#374151}     /* slate/dark for delivered */
+
+/* Badge focus styles for keyboard accessibility */
+.cg-badge:focus{outline:2px solid rgba(59,130,246,0.35);outline-offset:2px;border-radius:calc(var(--cg-badge-radius) + 2px)}
+
+/* Notes truncation */
+.cg-notes{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;color:var(--cg-muted);display:inline-block;vertical-align:middle}
+
+/* Make notes focusable and show outline for keyboard users */
+.cg-notes[tabindex]{cursor:help}
+.cg-notes:focus{outline:2px solid rgba(59,130,246,0.25);outline-offset:3px;border-radius:4px}
+.cg-notes:focus-visible{outline:2px solid rgba(59,130,246,0.35);outline-offset:3px;border-radius:4px}
+
+/* Actions button & dropdown */
+.cg-action-wrap{display:inline-block;overflow:visible}
+.cg-action-btn{background:#f3f4f6;border:1px solid var(--cg-border-color);padding:0.35rem 0.6rem;border-radius:6px;cursor:pointer;font-weight:600;font-size:0.85rem;color:#111827}
+.cg-action-btn:hover{background:#eef2ff}
+.cg-action-btn:focus{outline:3px solid rgba(59,130,246,0.18);outline-offset:2px}
+
+.cg-dropdown{position:absolute;right:0;top:calc(100% + 8px);min-width:12rem;background:var(--cg-dropdown-bg);box-shadow:var(--cg-dropdown-shadow);border-radius:8px;border:1px solid rgba(16,24,40,0.04);padding:0.35rem;z-index:9999;display:none !important;pointer-events:auto}
+.cg-dropdown[aria-hidden="true"]{display:none !important}
+.cg-dropdown[aria-hidden="false"]{display:block !important}
+
+.cg-dropdown-list{list-style:none;margin:0;padding:0}
+.cg-dropdown-item{padding:0.45rem 0.6rem;display:flex;align-items:center;gap:0.6rem;cursor:pointer;border-radius:6px}
+.cg-dropdown-item:hover{background:#f8fafc}
+.cg-dropdown-item[aria-current="true"],.cg-dropdown-item.active{background:#eef2ff}
+.cg-dropdown-item .cg-badge{font-size:0.72rem;padding:0.2rem 0.5rem}
+
+/* Ensure dropdown doesn't overflow viewport on the right */
+.cg-action-wrap{position:relative}
+.cg-dropdown{right:0;left:auto}
+
+/* If near right edge, dropdown can flip to left (JS will set .cg-dropdown--flip) */
+.cg-dropdown.cg-dropdown--flip{right:auto;left:0}
+
+/* Small adjustments for compact mode */
+@media (max-width:480px){
+  .cg-action-btn{padding:0.25rem 0.45rem;font-size:0.78rem}
+  .cg-dropdown{min-width:10rem}
+}
+
+/* Column priority placeholders - base display */
+.cg-col--priority-1,.cg-col--priority-2,.cg-col--priority-3,.cg-col--priority-4{display:table-cell}
+
+/* Row hover/focus */
+.cg-table tbody tr:hover{transform:translateY(-1px)}
+
+/* Small utilities */
+.cg-muted{color:var(--cg-muted)}
+
+/* Responsive column prioritization
+   - <=900px: hide priority-4 (least important)
+   - <=700px: hide priority-3
+   - <=480px: hide priority-2 (leave only priority-1)
+*/
+@media (max-width:900px){
+  .cg-col--priority-4{display:none}
+}
+
+@media (max-width:700px){
+  .cg-col--priority-3{display:none}
+}
+
+@media (max-width:480px){
+  .cg-col--priority-2{display:none}
+  /* Make remaining cells more compact on very small screens */
+  .cg-table thead th,.cg-table td{padding:0.5rem 0.5rem}
+  .cg-table thead th{font-size:0.8rem}
+}
+
+/* Keep table responsive as a fallback for very wide rows */
+@media (max-width:700px){
+  .table-responsive{overflow-x:auto}
+}
+
+/* Make table rows behave like cards on the smallest sizes for readability */
+@media (max-width:420px){
+  .cg-table thead{display:none}
+  .cg-table, .cg-table tbody, .cg-table tr, .cg-table td{display:block;width:100%}
+  .cg-table tr{margin-bottom:0.75rem;padding:0.5rem;border-radius:8px;background:#fff}
+  .cg-table td{padding:0.5rem;border-top:0}
+  .cg-table td:before{content:attr(data-label);font-weight:600;display:block;color:#374151;margin-bottom:0.25rem}
+}
+
+/* Make table cells responsive on small screens (graceful fallback) */
+@media (max-width:700px){
+  .cg-notes{max-width:12rem}
+}

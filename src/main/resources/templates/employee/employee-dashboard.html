@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Dashboard | CookieGram</title>
+    <link rel="stylesheet" th:href="@{/css/employee-dashboard.css}" />
 </head>
 <body>
 <div th:fragment="content" class="container py-5">
@@ -17,19 +18,8 @@
 
     </div>
 
-    <div class="card border-primary-subtle shadow-sm">
-        <div class="card-body p-4">
-            <h2 class="h5 mb-3">Employee Dashboard Content</h2>
-            <p class="mb-3">
-                In upcoming sprints, this area will support day-to-day order handling for staff.
-            </p>
-            <ul class="mb-0">
-                <li>View incoming orders in a live queue</li>
-                <li>Track preparation status and updates</li>
-                <li>Manage order handoff and completion</li>
-            </ul>
-        </div>
-    </div>
+    <!-- Include Today's Bake List fragment -->
+    <div th:replace="~{fragments/orders-today :: ordersToday}"></div>
 </div>
 </body>
 </html>
