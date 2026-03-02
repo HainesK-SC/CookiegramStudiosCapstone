@@ -142,7 +142,7 @@ public class PromotionService {
 		logger.debug("Invalid Promotion Object, Object ID: ", promotion.id);
 		
 		// Validate promoCode
-		if(promotion.promoCode.trim().strip().isEmpty() || promotion.promoCode == null) {
+		if(promotion.promoCode == null || promotion.promoCode.trim().strip().isEmpty()) {
 			throw new InvalidPromotionDataException("Promotion Code cannot be blank. Please check your values.");
 		}
 		
@@ -153,12 +153,12 @@ public class PromotionService {
 		}
 		
 		// Validate description
-		if(promotion.description.trim().strip().isEmpty() || promotion.description == null) {
+		if(promotion.description == null || promotion.description.trim().strip().isEmpty()) {
 			throw new InvalidPromotionDataException("Promotion description cannot be blank. Please check your values.");
 		}
 		
 		// Validate promoType is not blank
-		if(promotion.promoType.toString().trim().strip().isEmpty() || promotion.promoType == null) {
+		if( promotion.promoType == null || promotion.promoType.toString().trim().strip().isEmpty()) {
 			throw new InvalidPromotionDataException("Promotion Type cannot be blank. Please check your values. Must be either PromotionTypes.FIXED or PromotionTypes.PERCENTAGE.");
 		}
 		
