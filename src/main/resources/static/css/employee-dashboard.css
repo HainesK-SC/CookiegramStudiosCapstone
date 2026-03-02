@@ -3,6 +3,8 @@
   --cg-badge-radius:12px;
   --cg-border-color:#e6e6e6;
   --cg-muted:#6b7280;
+  --cg-dropdown-bg:#ffffff;
+  --cg-dropdown-shadow:0 8px 24px rgba(16,24,40,0.08);
 }
 
 .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -36,6 +38,35 @@
 .cg-notes[tabindex]{cursor:help}
 .cg-notes:focus{outline:2px solid rgba(59,130,246,0.25);outline-offset:3px;border-radius:4px}
 .cg-notes:focus-visible{outline:2px solid rgba(59,130,246,0.35);outline-offset:3px;border-radius:4px}
+
+/* Actions button & dropdown */
+.cg-action-wrap{display:inline-block;overflow:visible}
+.cg-action-btn{background:#f3f4f6;border:1px solid var(--cg-border-color);padding:0.35rem 0.6rem;border-radius:6px;cursor:pointer;font-weight:600;font-size:0.85rem;color:#111827}
+.cg-action-btn:hover{background:#eef2ff}
+.cg-action-btn:focus{outline:3px solid rgba(59,130,246,0.18);outline-offset:2px}
+
+.cg-dropdown{position:absolute;right:0;top:calc(100% + 8px);min-width:12rem;background:var(--cg-dropdown-bg);box-shadow:var(--cg-dropdown-shadow);border-radius:8px;border:1px solid rgba(16,24,40,0.04);padding:0.35rem;z-index:9999;display:none !important;pointer-events:auto}
+.cg-dropdown[aria-hidden="true"]{display:none !important}
+.cg-dropdown[aria-hidden="false"]{display:block !important}
+
+.cg-dropdown-list{list-style:none;margin:0;padding:0}
+.cg-dropdown-item{padding:0.45rem 0.6rem;display:flex;align-items:center;gap:0.6rem;cursor:pointer;border-radius:6px}
+.cg-dropdown-item:hover{background:#f8fafc}
+.cg-dropdown-item[aria-current="true"],.cg-dropdown-item.active{background:#eef2ff}
+.cg-dropdown-item .cg-badge{font-size:0.72rem;padding:0.2rem 0.5rem}
+
+/* Ensure dropdown doesn't overflow viewport on the right */
+.cg-action-wrap{position:relative}
+.cg-dropdown{right:0;left:auto}
+
+/* If near right edge, dropdown can flip to left (JS will set .cg-dropdown--flip) */
+.cg-dropdown.cg-dropdown--flip{right:auto;left:0}
+
+/* Small adjustments for compact mode */
+@media (max-width:480px){
+  .cg-action-btn{padding:0.25rem 0.45rem;font-size:0.78rem}
+  .cg-dropdown{min-width:10rem}
+}
 
 /* Column priority placeholders - base display */
 .cg-col--priority-1,.cg-col--priority-2,.cg-col--priority-3,.cg-col--priority-4{display:table-cell}
