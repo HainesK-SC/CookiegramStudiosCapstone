@@ -164,7 +164,7 @@ public class PromotionService {
 		
 		// Validate promoType is valid data type and value
 		if(promotion.promoType != PromotionTypes.FIXED
-				|| promotion.promoType != PromotionTypes.PERCENTAGE) {
+				&& promotion.promoType != PromotionTypes.PERCENTAGE) {
 			throw new InvalidPromotionDataException("Invalid Promotion Type. Please check your values. Must be either PromotionTypes.FIXED or PromotionTypes.PERCENTAGE.");
 		}
 		
