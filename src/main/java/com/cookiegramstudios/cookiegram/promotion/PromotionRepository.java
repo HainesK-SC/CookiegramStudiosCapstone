@@ -60,5 +60,5 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
      * @param isActive: boolean - True (ACTIVE) / False (INACTIVE)
      * @return promotions: List - Promotion object(s) of the given promotion type
      */
-	List<Promotion> findByIsActive(boolean isActive);
+	List<Promotion> findByIsActive(boolean isActive);boolean existsByPromoCodeAndIdNot(String promoCode, long id);
 }
