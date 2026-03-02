@@ -93,11 +93,6 @@
 	gap: 0.5rem;
 }
 
-.dashboard-card-header {
-	display: flex;
-	gap: 1rem;
-}
-
 .capacity-fields {
 	display: flex;
 	justify-content: space-between;
@@ -111,4 +106,55 @@
 .full-width {
 	min-width: 90%;
 	max-width: auto;
+}
+
+.promos {
+	flex-direction: row;
+}
+
+.promo-card {
+	width: 25%;
+	border: 1px solid var(--accent);
+}
+
+.order-booking-container {
+	flex-direction: row;
+}
+
+.booking-status p {
+	margin: 0;
+	padding: 0;
+}
+
+.booking-statuses {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.booking-status {
+	height: 50%;
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border: 1px solid var(--accent);
+	border-radius: var(--dashboard-border-radius);
+}
+
+.calendar-day p {
+	margin: 0;
+	padding: 0;
+}
+
+.calendar-day {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 500;
+	padding: 0.5rem;
+	background-color: var(--accent-dark-rgba-35);
+	border-radius: var(--dashboard-border-radius);
 }
