@@ -1,0 +1,96 @@
+<div th:fragment="ordersToday">
+    <section id="today-bake-list" class="card mt-4">
+        <div class="card-body p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h6 mb-0">Today's Bake List</h2>
+                <p class="text-muted mb-0 small">Orders scheduled for Mar 1, 2026</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="cg-table table" aria-label="Today's bake list">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="cg-col--priority-1">Order #</th>
+                            <th scope="col" class="cg-col--priority-2">Customer</th>
+                            <th scope="col" class="cg-col--priority-2">Recipient</th>
+                            <th scope="col" class="cg-col--priority-1">Status</th>
+                            <th scope="col" class="cg-col--priority-1">Delivery Date</th>
+                            <th scope="col" class="cg-col--priority-2">Total</th>
+                            <th scope="col" class="cg-col--priority-3">Notes</th>
+                            <th scope="col" class="cg-col--priority-4">Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Mock data rows: realistic variations to demonstrate visuals -->
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1001</td>
+                            <td class="cg-customer cg-col--priority-2">Patricia Gomez</td>
+                            <td class="cg-recipient cg-col--priority-2">Office - Suite 210</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--in-progress">IN_PROGRESS</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$42.00</td>
+                            <td class="cg-notes cg-col--priority-3" title="Extra chocolate chips; leave at front desk if not home">Extra chocolate chips; leave at front desk...</td>
+                            <td class="cg-created cg-col--priority-4">Feb 28, 2026</td>
+                        </tr>
+
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1002</td>
+                            <td class="cg-customer cg-col--priority-2">Marcus Lee</td>
+                            <td class="cg-recipient cg-col--priority-2">Home</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--placed">PLACED</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$28.50</td>
+                            <td class="cg-notes cg-col--priority-3" title="No nuts; birthday message: 'Happy 7th'">No nuts; birthday message: 'Happy 7th'</td>
+                            <td class="cg-created cg-col--priority-4">Feb 28, 2026</td>
+                        </tr>
+
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1003</td>
+                            <td class="cg-customer cg-col--priority-2">Sofia Martinez</td>
+                            <td class="cg-recipient cg-col--priority-2">Event Center</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--baked">BAKED</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$96.75</td>
+                            <td class="cg-notes cg-col--priority-3" title="Gluten-free batch; separate packaging required">Gluten-free batch; separate packaging...</td>
+                            <td class="cg-created cg-col--priority-4">Feb 27, 2026</td>
+                        </tr>
+
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1004</td>
+                            <td class="cg-customer cg-col--priority-2">Greenwood Bakery (Wholesale)</td>
+                            <td class="cg-recipient cg-col--priority-2">Kitchen Pickup</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--shipped">SHIPPED</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$210.00</td>
+                            <td class="cg-notes cg-col--priority-3" title="Deliver to loading dock B; ring bell">Deliver to loading dock B; ring bell</td>
+                            <td class="cg-created cg-col--priority-4">Feb 20, 2026</td>
+                        </tr>
+
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1005</td>
+                            <td class="cg-customer cg-col--priority-2">Ava Thompson</td>
+                            <td class="cg-recipient cg-col--priority-2">Home</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--delivered">DELIVERED</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$15.00</td>
+                            <td class="cg-notes cg-col--priority-3" title="Left at back porch">Left at back porch</td>
+                            <td class="cg-created cg-col--priority-4">Feb 28, 2026</td>
+                        </tr>
+
+                        <tr>
+                            <td class="cg-order-number cg-col--priority-1">#1006</td>
+                            <td class="cg-customer cg-col--priority-2">Noah Patel</td>
+                            <td class="cg-recipient cg-col--priority-2">Office</td>
+                            <td class="cg-status cg-col--priority-1"><span class="cg-badge cg-badge--in-progress">IN_PROGRESS</span></td>
+                            <td class="cg-delivery cg-col--priority-1">Mar 1, 2026</td>
+                            <td class="cg-total cg-col--priority-2">$34.25</td>
+                            <td class="cg-notes cg-col--priority-3" title="Allergic to strawberries; use blueberry filling instead">Allergic to strawberries; use blueberry filling...</td>
+                            <td class="cg-created cg-col--priority-4">Feb 28, 2026</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
