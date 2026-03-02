@@ -17,7 +17,17 @@
 #today-bake-list .card-body{padding:0}
 
 /* Badge base */
-.cg-badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:var(--cg-badge-radius);font-weight:600;font-size:0.78rem;color:#fff;background:#6b7280}
+.cg-badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:var(--cg-badge-radius);font-weight:600;font-size:0.78rem;color:#fff;background:#6b7280;text-transform:uppercase;letter-spacing:0.02em}
+
+/* Status badge color mapping (accessible contrast) */
+.cg-badge--placed{background:#d97706}        /* amber / placed */
+.cg-badge--in-progress{background:#2563eb}   /* blue / in progress */
+.cg-badge--baked{background:#16a34a}         /* green / baked */
+.cg-badge--shipped{background:#7c3aed}       /* indigo / shipped */
+.cg-badge--delivered{background:#374151}     /* slate/dark for delivered */
+
+/* Badge focus styles for keyboard accessibility */
+.cg-badge:focus{outline:2px solid rgba(59,130,246,0.35);outline-offset:2px;border-radius:calc(var(--cg-badge-radius) + 2px)}
 
 /* Notes truncation */
 .cg-notes{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;color:var(--cg-muted)}
