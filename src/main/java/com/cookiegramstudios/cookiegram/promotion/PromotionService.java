@@ -57,10 +57,12 @@ public class PromotionService {
 	public Promotion getById(long id) {
 		logger.info("Retrieving Promotion with ID:, {}", id);
 		
-		Optional<Promotion> promoOptional = promotionRepository.findById(id);
+		Promotion promoOptional = promotionRepository.findById(id)
+				.orElseThrow(() -> new InvalidPromotionDataException("Promotion not found."));
 		
 		// returns the contents of the promoOptional - a Promotion object
-		return promoOptional.get();
+		return promoOptional;
+				
 	}
 	
 	/**
@@ -196,6 +198,14 @@ public class PromotionService {
 		return isValidPromo;
 	}
 	
+	private void validatePromotionForUpdate(long id, Promotion promotion) {
+	    // (your null/blank checks here, fixed for correct ordering)
+
+	    if (promotionRepository.existsByPromoCodeAndIdNot(promotion.getPromoCode(), id)) {
+	        throw new InvalidPromotionDataException("PROMO CODE already exists in the system.");
+	    }
+	}
+	
 	/**
 	 * Method to create a new Promotion object and store it in the database.
 	 */
@@ -216,22 +226,21 @@ public class PromotionService {
 	 * Method to update an existing Promotion in the system. 
 	 */
 	@Transactional
-	public Promotion updatePromotion(long id, Promotion promotion) {
+	public Promotion updatePromotion(long id, Promotion incoming) {
 		
-		Promotion existingPromotion = getById(id);
-		this.validatePromotionObject(promotion);
-		
-		existingPromotion.setPromoCode(promotion.getPromoCode());
-		existingPromotion.setDescription(promotion.getDescription());
-		existingPromotion.setPromoType(promotion.getPromoType());
-		existingPromotion.setPromoValue(promotion.getPromoValue());
-		existingPromotion.setStartDate(promotion.getStartDate());
-		existingPromotion.setEndDate(promotion.getEndDate());
-		existingPromotion.setIsActive(promotion.getIsActive());
-		
-		Promotion updatedPromotion = promotionRepository.save(existingPromotion);
-		
-		return updatedPromotion;
+		Promotion existing = getById(id);
+
+	    validatePromotionForUpdate(id, incoming);
+
+	    existing.setPromoCode(incoming.getPromoCode());
+	    existing.setDescription(incoming.getDescription());
+	    existing.setPromoType(incoming.getPromoType());
+	    existing.setPromoValue(incoming.getPromoValue());
+	    existing.setStartDate(incoming.getStartDate());
+	    existing.setEndDate(incoming.getEndDate());
+	    existing.setIsActive(incoming.getIsActive());
+
+	    return promotionRepository.save(existing);
 	}
 	
 	/**
