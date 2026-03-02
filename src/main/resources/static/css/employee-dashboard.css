@@ -1,0 +1,37 @@
+/* Employee Dashboard styles - component scoped to Today's Bake List */
+:root{
+  --cg-badge-radius:12px;
+  --cg-border-color:#e6e6e6;
+  --cg-muted:#6b7280;
+}
+
+.table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+.cg-table{width:100%;border-collapse:separate;border-spacing:0 10px;font-family:inherit}
+.cg-table thead th{padding:0.5rem 0.75rem;text-align:left;font-size:0.85rem;color:#374151;font-weight:600}
+.cg-table tbody tr{background:#ffffff;border-radius:8px;box-shadow:0 1px 0 rgba(16,24,40,0.03);}
+.cg-table td{padding:0.75rem 0.75rem;vertical-align:middle;color:#111827;border-top:0}
+
+/* Slight card wrapper spacing (keeps consistent with existing site styles) */
+#today-bake-list.card{background:transparent;border:0;padding:0}
+#today-bake-list .card-body{padding:0}
+
+/* Badge base */
+.cg-badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:var(--cg-badge-radius);font-weight:600;font-size:0.78rem;color:#fff;background:#6b7280}
+
+/* Notes truncation */
+.cg-notes{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;color:var(--cg-muted)}
+
+/* Column priority placeholders (detailed responsive rules added in next batches) */
+.cg-col--priority-1,.cg-col--priority-2,.cg-col--priority-3,.cg-col--priority-4{display:table-cell}
+
+/* Row hover/focus */
+.cg-table tbody tr:hover{transform:translateY(-1px)}
+
+/* Small utilities */
+.cg-muted{color:var(--cg-muted)}
+
+/* Make table cells responsive on small screens (graceful fallback) */
+@media (max-width:700px){
+  .cg-notes{max-width:12rem}
+}
