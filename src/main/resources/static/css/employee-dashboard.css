@@ -30,9 +30,14 @@
 .cg-badge:focus{outline:2px solid rgba(59,130,246,0.35);outline-offset:2px;border-radius:calc(var(--cg-badge-radius) + 2px)}
 
 /* Notes truncation */
-.cg-notes{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;color:var(--cg-muted)}
+.cg-notes{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;color:var(--cg-muted);display:inline-block;vertical-align:middle}
 
-/* Column priority placeholders (detailed responsive rules added in next batches) */
+/* Make notes focusable and show outline for keyboard users */
+.cg-notes[tabindex]{cursor:help}
+.cg-notes:focus{outline:2px solid rgba(59,130,246,0.25);outline-offset:3px;border-radius:4px}
+.cg-notes:focus-visible{outline:2px solid rgba(59,130,246,0.35);outline-offset:3px;border-radius:4px}
+
+/* Column priority placeholders - base display */
 .cg-col--priority-1,.cg-col--priority-2,.cg-col--priority-3,.cg-col--priority-4{display:table-cell}
 
 /* Row hover/focus */
@@ -40,6 +45,40 @@
 
 /* Small utilities */
 .cg-muted{color:var(--cg-muted)}
+
+/* Responsive column prioritization
+   - <=900px: hide priority-4 (least important)
+   - <=700px: hide priority-3
+   - <=480px: hide priority-2 (leave only priority-1)
+*/
+@media (max-width:900px){
+  .cg-col--priority-4{display:none}
+}
+
+@media (max-width:700px){
+  .cg-col--priority-3{display:none}
+}
+
+@media (max-width:480px){
+  .cg-col--priority-2{display:none}
+  /* Make remaining cells more compact on very small screens */
+  .cg-table thead th,.cg-table td{padding:0.5rem 0.5rem}
+  .cg-table thead th{font-size:0.8rem}
+}
+
+/* Keep table responsive as a fallback for very wide rows */
+@media (max-width:700px){
+  .table-responsive{overflow-x:auto}
+}
+
+/* Make table rows behave like cards on the smallest sizes for readability */
+@media (max-width:420px){
+  .cg-table thead{display:none}
+  .cg-table, .cg-table tbody, .cg-table tr, .cg-table td{display:block;width:100%}
+  .cg-table tr{margin-bottom:0.75rem;padding:0.5rem;border-radius:8px;background:#fff}
+  .cg-table td{padding:0.5rem;border-top:0}
+  .cg-table td:before{content:attr(data-label);font-weight:600;display:block;color:#374151;margin-bottom:0.25rem}
+}
 
 /* Make table cells responsive on small screens (graceful fallback) */
 @media (max-width:700px){
