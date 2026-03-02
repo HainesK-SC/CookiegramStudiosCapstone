@@ -148,8 +148,8 @@ public class PromotionService {
 		
 		// Validate that the promoCode doesn't already exist in the system
 		Promotion promosByPromoCode = getByPromoCode(promotion.promoCode);
-		if(promosByPromoCode != null) {
-			throw new InvalidPromotionDataException("PROMO CODE already exists in the system.");
+		if(promosByPromoCode == null) {
+			throw new InvalidPromotionDataException("PROMO CODE not in the system.");
 		}
 		
 		// Validate description
