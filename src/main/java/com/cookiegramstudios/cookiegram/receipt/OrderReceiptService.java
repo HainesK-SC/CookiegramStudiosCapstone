@@ -8,6 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cookiegramstudios.cookiegram.order.Order;
 
+/**
+ * Service class responsible for generating and retrieving OrderReceipts.
+ *
+ * @name Nguyen Anh Khoa Tran
+ * @date 2026-02-28
+ * @version 1.0
+ */
 @Service
 public class OrderReceiptService {
     private static final Logger logger = LoggerFactory.getLogger(OrderReceiptService.class);
