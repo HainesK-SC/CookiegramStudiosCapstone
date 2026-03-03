@@ -3,9 +3,15 @@ package com.cookiegramstudios.cookiegram.cookie;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Cookie entity representing a product available in the system.
+ *
+ * @name Nguyen Anh Khoa Tran
+ * @date 2026-02-28
+ * @version 1.0
+ */
 @Entity
 @Table(name = "cookies")
-@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cookie {

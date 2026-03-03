@@ -5,7 +5,13 @@ import org.slf4j.*;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
-
+/**
+ * Cookie entity representing a product available in the system.
+ *
+ * @name Nguyen Anh Khoa Tran
+ * @date 2026-02-28
+ * @version 1.0
+ */
 @Service
 public class CookieService {
     private static final Logger logger = LoggerFactory.getLogger(CookieService.class);

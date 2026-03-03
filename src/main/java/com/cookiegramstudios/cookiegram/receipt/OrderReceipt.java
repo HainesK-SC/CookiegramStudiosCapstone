@@ -6,6 +6,13 @@ import java.time.LocalDateTime;
 
 import com.cookiegramstudios.cookiegram.order.Order;
 
+/**
+ * OrderReceipt entity representing a generated receipt for a completed order.
+ *
+ * @name Nguyen Anh Khoa Tran
+ * @date 2026-02-28
+ * @version 1.0	
+ */
 @Entity
 @Table(name = "order_receipts")
 @NoArgsConstructor
