@@ -27,4 +27,8 @@ public class OrderReceiptServiceTest {
 
         // Verify the summaryText logic we wrote actually contains the customer's name
         assertTrue(receipt.getSummaryText().contains("Alex Smith"), "Summary should include customer name");
+
+        // Confirm the receipt is linked to the correct Order ID
+        assertEquals(500L, receipt.getOrder().getId());
+    }
 }
