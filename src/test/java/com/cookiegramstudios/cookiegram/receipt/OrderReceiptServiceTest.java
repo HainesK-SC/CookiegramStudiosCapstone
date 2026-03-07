@@ -1,5 +1,8 @@
 package com.cookiegramstudios.cookiegram.receipt;
 
+import com.cookiegramstudios.cookiegram.order.Order;
+import com.cookiegramstudios.cookiegram.receipt.OrderReceipt;
+import com.cookiegramstudios.cookiegram.receipt.OrderReceiptRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
