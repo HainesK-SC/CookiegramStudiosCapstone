@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class CookieServiceTest {
@@ -22,4 +24,8 @@ public class CookieServiceTest {
 
         // ACT: Call the actual method in the Service
         List<Cookie> result = cookieService.getAllCookies();
+
+        // ASSERT: Verify the results match our expectations
+        assertEquals(1, result.size(), "Should return exactly one cookie");
+        assertEquals("Snickerdoodle", result.get(0).getName());
 }
