@@ -2,6 +2,8 @@ package com.cookiegramstudios.cookiegram.cookie;
 
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
+import java.util.List;
+
 @DataJpaTest // Starts a specialized, lightweight database for testing JPA components
 public class CookieRepositoryTest {
     @Autowired
@@ -13,4 +15,9 @@ public class CookieRepositoryTest {
         Cookie activeCookie = new Cookie(null, "Sugar Cookie", "Classic", "url", 2.00, true);
         Cookie inactiveCookie = new Cookie(null, "Old Recipe", "Discontinued", "url", 1.50, false);
 
+        cookieRepository.save(activeCookie);
+        cookieRepository.save(inactiveCookie);
+
+        // ACT: Retrieve only active cookies from the database
+        List<Cookie> activeList = cookieRepository.findByActive(true);
 }
