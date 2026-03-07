@@ -20,4 +20,8 @@ public class OrderReceiptServiceTest {
 
         // ACT: Generate the receipt
         OrderReceipt receipt = receiptService.generateReceipt(order);
+
+        // ASSERT: Check if the receipt was populated with the correct Order data
+        assertNotNull(receipt, "The generated receipt should not be null");
+        assertEquals(45.99, receipt.getTotalPrice(), "Price must match the Order total");
 }
