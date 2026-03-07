@@ -1,14 +1,15 @@
 package com.cookiegramstudios.cookiegram.cookie;
 
-
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class CookieServiceTest {
     @Mock // Creates a "fake" version of the respository so we don't need a real database
     private CookieRepository cookieRepository;
@@ -28,4 +29,8 @@ public class CookieServiceTest {
         // ASSERT: Verify the results match our expectations
         assertEquals(1, result.size(), "Should return exactly one cookie");
         assertEquals("Snickerdoodle", result.get(0).getName());
+
+        // Ensure the repository method was actually called exactly once
+        verify(cookieRepository, times(1)).findAll();
+    }
 }
