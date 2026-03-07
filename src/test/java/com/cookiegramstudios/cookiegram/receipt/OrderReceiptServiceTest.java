@@ -17,4 +17,7 @@ public class OrderReceiptServiceTest {
 
         // Tell Mockito to return whatever object it is asked to save (simulating a DB save)
         when(receiptRepository.save(any(OrderReceipt.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // ACT: Generate the receipt
+        OrderReceipt receipt = receiptService.generateReceipt(order);
 }
