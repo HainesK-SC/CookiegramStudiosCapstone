@@ -16,4 +16,11 @@ public class OrderReceiptRepositoryTest {
         order.setTotalAmount(10.00);
         entityManager.persist(order); // Saves the order so it has an ID
 
+        // Create the receipt linked to that order
+        OrderReceipt receipt = new OrderReceipt();
+        receipt.setOrder(order);
+        receipt.setOrderNumber(999888);
+        receipt.setTotalPrice(10.00);
+        receiptRepository.save(receipt);
+
 }
