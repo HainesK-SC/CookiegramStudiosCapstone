@@ -1,8 +1,11 @@
 package com.cookiegramstudios.cookiegram.cookie;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest // Starts a specialized, lightweight database for testing JPA components
 public class CookieRepositoryTest {
