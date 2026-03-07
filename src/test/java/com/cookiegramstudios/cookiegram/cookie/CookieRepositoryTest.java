@@ -20,4 +20,9 @@ public class CookieRepositoryTest {
 
         // ACT: Retrieve only active cookies from the database
         List<Cookie> activeList = cookieRepository.findByActive(true);
+
+        // ASSERT: Check that the filtering logic works correctly
+        assertEquals(1, activeList.size(), "Should only find 1 active cookie");
+        assertEquals("Sugar Cookie", activeList.get(0).getName());
+    }
 }
