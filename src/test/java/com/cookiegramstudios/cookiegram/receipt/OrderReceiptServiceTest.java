@@ -14,4 +14,7 @@ public class OrderReceiptServiceTest {
         order.setId(500L);
         order.setCustomerName("Alex Smith");
         order.setTotalAmount(45.99);
+
+        // Tell Mockito to return whatever object it is asked to save (simulating a DB save)
+        when(receiptRepository.save(any(OrderReceipt.class))).thenAnswer(invocation -> invocation.getArgument(0));
 }
