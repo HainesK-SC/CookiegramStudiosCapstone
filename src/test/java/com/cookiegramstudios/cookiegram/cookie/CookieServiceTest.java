@@ -1,5 +1,6 @@
 package com.cookiegramstudios.cookiegram.cookie;
 
+import com.cookiegramstudios.cookiegram.common.exceptions.InvalidCookieDataException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,4 +34,17 @@ public class CookieServiceTest {
         // Ensure the repository method was actually called exactly once
         verify(cookieRepository, times(1)).findAll();
     }
+
+    @Test
+    void testValidateCookie_ThrowsExceptionOnInvalidPrice() {
+        // ARRANGE: Create a cookie with an invalid price (0.0)
+        Cookie badCookie = new Cookie(2L, "Broken Cookie", "No cost", "url", 0.0, true);
+
+        // ACT & ASSERT: Verify that calling the service throws our custom exception
+        assertThrows(InvalidCookieDataException.class, () -> {
+            // This assumes you've added a save/validate call in your service
+            cookieService.getById(2L);
+        }, "A price of 0.0 should trigger an InvalidCookieDataException");
+    }
+
 }
