@@ -25,4 +25,9 @@ public class OrderReceiptRepositoryTest {
 
         // ACT: Try to find the receipt by the business order number
         Optional<OrderReceipt> found = receiptRepository.findByOrderNumber(999888);
+
+        // ASSERT: Verify the receipt exists and is linked to the correct customer
+        assertTrue(found.isPresent());
+        assertEquals("Test User", found.get().getOrder().getCustomerName());
+    }
 }
