@@ -1,8 +1,11 @@
 package com.cookiegramstudios.cookiegram.cookie;
 
 
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import java.util.List;
+import static org.mockito.Mockito.when;
 
 public class CookieServiceTest {
     @Mock // Creates a "fake" version of the respository so we don't need a real database
@@ -10,4 +13,13 @@ public class CookieServiceTest {
 
     @InjectMocks // Automatically injects the mocked repository into our service
     private CookieService cookieService;
+
+    @Test
+    void testGetAllCookies_Success() {
+        // ARRANGE: Setup the "mock" data we expect the repository to return
+        Cookie mockCookie = new Cookie(1L, "Snickerdoodle", "Cinnamon sugar", "url", 3.00, true);
+        when(cookieRepository.findAll()).thenReturn(List.of(mockCookie));
+
+        // ACT: Call the actual method in the Service
+        List<Cookie> result = cookieService.getAllCookies();
 }
