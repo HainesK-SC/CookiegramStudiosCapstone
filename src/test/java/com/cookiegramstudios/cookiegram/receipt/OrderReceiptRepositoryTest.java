@@ -23,4 +23,6 @@ public class OrderReceiptRepositoryTest {
         receipt.setTotalPrice(10.00);
         receiptRepository.save(receipt);
 
+        // ACT: Try to find the receipt by the business order number
+        Optional<OrderReceipt> found = receiptRepository.findByOrderNumber(999888);
 }
