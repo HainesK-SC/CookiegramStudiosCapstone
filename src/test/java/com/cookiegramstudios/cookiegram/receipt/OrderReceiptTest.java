@@ -25,3 +25,20 @@ public class OrderReceiptTest {
         assertEquals(20.00, receipt.getTotalPrice());
     }
 
+    /*
+     * Test that the total price can be updated correctly.
+     */
+    @Test
+    void testUpdateTotalPrice() {
+
+        // Create a receipt
+        OrderReceipt receipt = new OrderReceipt();
+        receipt.setCustomerName("Alice");
+
+        // Set the total price
+        receipt.setTotalPrice(50.00);
+
+        // Verify the price was updated
+        assertEquals(50.00, receipt.getTotalPrice());
+    }
+
