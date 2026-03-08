@@ -59,5 +59,17 @@ public class OrderReceiptTest {
 
         assertEquals(date, receipt.getDeliveryDate());
     }
+    /**
+     * Test email status flag.
+     */
+    @Test
+    void testEmailSentStatus() {
+
+        OrderReceipt receipt = new OrderReceipt();
+
+        receipt.setEmailSent(true);
+
+        assertTrue(receipt.isEmailSent());
+    }
 }
 
