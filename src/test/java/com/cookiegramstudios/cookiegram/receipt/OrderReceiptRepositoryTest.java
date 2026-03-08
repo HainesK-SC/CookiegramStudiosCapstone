@@ -32,4 +32,9 @@ public class OrderReceiptRepositoryTest {
 
         // Verify the receipt was saved and an ID was generated
         assertNotNull(savedReceipt.getId());
+
+        // Verify the stored data is correct
+        assertEquals(1001, savedReceipt.getOrderNumber());
+        assertEquals(25.50, savedReceipt.getTotalPrice());
+    }
 }
