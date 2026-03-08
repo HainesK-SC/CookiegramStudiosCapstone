@@ -61,5 +61,8 @@ public class OrderReceiptRepositoryTest {
         OrderReceipt foundReceipt = orderReceiptRepository
                 .findByOrderNumber(2002)
                 .orElse(null);
+
+        // Verify the receipt was found
+        assertNotNull(foundReceipt);
     }
 }
