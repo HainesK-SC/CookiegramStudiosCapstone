@@ -32,21 +32,19 @@ public class OrderReceiptTest {
         assertEquals(25.50, receipt.getTotalPrice());
     }
 
-    /*
-     * Test an edge case where the total price should not be negative.
-     * This ensures the system handles invalid data properly.
+
+    /**
+     * Test setting and retrieving summary text.
      */
     @Test
-    void testInvalidTotalPrice() {
+    void testSetSummaryText() {
 
         OrderReceipt receipt = new OrderReceipt();
 
-        // Verify that a negative price is not allowed
-        receipt.setTotalPrice(-10);
+        receipt.setSummaryText("Order completed successfully");
 
-        // The expected behavior depends on your implementation
-        // Here we simply verify that the value was set
-        assertEquals(-10, receipt.getTotalPrice());
+        assertEquals("Order completed successfully", receipt.getSummaryText());
     }
+
 }
 
