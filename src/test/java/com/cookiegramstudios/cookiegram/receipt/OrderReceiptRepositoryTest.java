@@ -64,5 +64,9 @@ public class OrderReceiptRepositoryTest {
 
         // Verify the receipt was found
         assertNotNull(foundReceipt);
+
+        // Verify the retrieved data is correct
+        assertEquals(2002, foundReceipt.getOrderNumber());
+        assertEquals(40.00, foundReceipt.getTotalPrice());
     }
 }
