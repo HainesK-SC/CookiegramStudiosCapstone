@@ -17,5 +17,11 @@ public class OrderReceiptTest {
      */
     @Test
     void testOrderReceiptCreation() {
+        // Create a new OrderReceipt object
+        OrderReceipt receipt = new OrderReceipt("Alex", 20.00);
 
+        // Verify that the fields were initialized correctly
+        assertEquals("Alex", receipt.getCustomerName());
+        assertEquals(20.00, receipt.getTotalPrice());
     }
+
