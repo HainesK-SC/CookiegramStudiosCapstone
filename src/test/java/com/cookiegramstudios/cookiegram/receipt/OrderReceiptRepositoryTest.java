@@ -46,5 +46,15 @@ public class OrderReceiptRepositoryTest {
     void testFindByOrderNumber() {
         // Create a dummy Order object
         Order order = new Order();
+
+        // Create and save a receipt
+        OrderReceipt receipt = new OrderReceipt();
+        receipt.setOrderNumber(2002);
+        receipt.setOrder(order);
+        receipt.setSummaryText("Lookup test receipt");
+        receipt.setTotalPrice(40.00);
+        receipt.setDeliveryDate(LocalDate.now());
+
+        orderReceiptRepository.save(receipt);
     }
 }
