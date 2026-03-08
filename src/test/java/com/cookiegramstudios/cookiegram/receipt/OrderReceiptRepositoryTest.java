@@ -1,13 +1,14 @@
 package com.cookiegramstudios.cookiegram.receipt;
+
 import com.cookiegramstudios.cookiegram.order.Order;
+import com.cookiegramstudios.cookiegram.receipt.OrderReceipt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
-import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
 public class OrderReceiptRepositoryTest {
     @Autowired
