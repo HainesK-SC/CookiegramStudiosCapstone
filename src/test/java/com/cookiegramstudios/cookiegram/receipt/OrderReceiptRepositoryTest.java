@@ -56,5 +56,10 @@ public class OrderReceiptRepositoryTest {
         receipt.setDeliveryDate(LocalDate.now());
 
         orderReceiptRepository.save(receipt);
+
+        // Attempt to retrieve the receipt using the custom query method
+        OrderReceipt foundReceipt = orderReceiptRepository
+                .findByOrderNumber(2002)
+                .orElse(null);
     }
 }
