@@ -1,20 +1,22 @@
 package com.cookiegramstudios.cookiegram.receipt;
 
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderReceiptTest {
     /*
-     * Test that the OrderReceipt constructor correctly assigns values.
+     * Test setting and retrieving order number
      */
     @Test
-    void testOrderReceiptCreation() {
-        // Create a new OrderReceipt object
-        OrderReceipt receipt = new OrderReceipt("Alex", 20.00);
+    void testSetOrderNumber() {
 
-        // Verify that the fields were initialized correctly
-        assertEquals("Alex", receipt.getCustomerName());
-        assertEquals(20.00, receipt.getTotalPrice());
+        OrderReceipt receipt = new OrderReceipt();
+
+        receipt.setOrderNumber(1001);
+
+        assertEquals(1001, receipt.getOrderNumber());
     }
 
     /*
