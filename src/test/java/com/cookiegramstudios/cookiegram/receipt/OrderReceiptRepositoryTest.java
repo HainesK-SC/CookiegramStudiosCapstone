@@ -37,4 +37,11 @@ public class OrderReceiptRepositoryTest {
         assertEquals(1001, savedReceipt.getOrderNumber());
         assertEquals(25.50, savedReceipt.getTotalPrice());
     }
+
+    /**
+     * Test retrieving an OrderReceipt using the custom
+     * repository method findByOrderNumber().
+     */
+    @Test
+    void testFindByOrderNumber() {
 }
