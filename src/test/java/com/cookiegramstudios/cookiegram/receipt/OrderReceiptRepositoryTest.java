@@ -29,4 +29,7 @@ public class OrderReceiptRepositoryTest {
 
         // Save the receipt to the database
         OrderReceipt savedReceipt = orderReceiptRepository.save(receipt);
+
+        // Verify the receipt was saved and an ID was generated
+        assertNotNull(savedReceipt.getId());
 }
