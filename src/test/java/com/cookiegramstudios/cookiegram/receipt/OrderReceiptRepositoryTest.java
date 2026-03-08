@@ -44,4 +44,7 @@ public class OrderReceiptRepositoryTest {
      */
     @Test
     void testFindByOrderNumber() {
+        // Create a dummy Order object
+        Order order = new Order();
+    }
 }
