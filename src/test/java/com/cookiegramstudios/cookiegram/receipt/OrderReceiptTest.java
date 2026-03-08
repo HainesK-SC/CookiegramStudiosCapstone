@@ -46,5 +46,18 @@ public class OrderReceiptTest {
         assertEquals("Order completed successfully", receipt.getSummaryText());
     }
 
+    /**
+     * Test setting and retrieving delivery date.
+     */
+    @Test
+    void testSetDeliveryDate() {
+
+        OrderReceipt receipt = new OrderReceipt();
+
+        LocalDate date = LocalDate.of(2026, 3, 1);
+        receipt.setDeliveryDate(date);
+
+        assertEquals(date, receipt.getDeliveryDate());
+    }
 }
 
