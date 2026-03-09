@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrderReceiptTest {
+public class OrderReceiptServiceTest {
     /*
      * Test setting and retrieving order number
      */
