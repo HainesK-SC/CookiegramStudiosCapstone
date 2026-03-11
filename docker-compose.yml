@@ -13,10 +13,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test:
-        - CMD-SHELL
-        - mysqladmin ping -h localhost -u${MYSQL_USER} -p${MYSQL_PASSWORD} ||
-          exit 1
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u${MYSQL_USER} -p${MYSQL_PASSWORD} || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -26,7 +23,8 @@ services:
     image: hainesksc/cookiegramproject:experimental
     container_name: cookiegram-app
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - 8080:8080
     environment:
