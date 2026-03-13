@@ -1,0 +1,20 @@
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.order-container {
+	min-width: 60%;
+	max-width: 80%;
+	background-color: var(--warm-beige);
+}
+
+.order-item-card {
+	outline: 1px solid red;
+	width: 10%;
+}
+
+.order-card-image {
+	width: 90%;
+}
