@@ -36,6 +36,7 @@ body {
 }
 
 main {
+	height: 100vh;
 	flex: 1;
 	display: flex;
 	justify-content: center;
@@ -155,8 +156,6 @@ main {
 
 /* FOOTER */
 .site-footer {
-	position: sticky;
-	bottom: 0px;
 	background-color: var(--accent-dark);
 	padding: 3rem 0 2rem;
 	text-align: center;
@@ -478,4 +477,8 @@ didn't seem to make a difference.
     color: #842029;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
+}
+
+.faq-container {
+	overflow: scroll;
 }
