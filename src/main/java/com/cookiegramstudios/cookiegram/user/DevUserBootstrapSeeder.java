@@ -1,14 +1,15 @@
 package com.cookiegramstudios.cookiegram.user;
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 /**
  * Seeds optional development login users from environment variables.
@@ -36,6 +37,7 @@ import java.time.LocalDateTime;
  * @date 2026-02-27
  * @version 1.0
  */
+@Profile("dev")
 @Component
 public class DevUserBootstrapSeeder implements CommandLineRunner {
 
