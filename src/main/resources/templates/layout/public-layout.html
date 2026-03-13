@@ -18,8 +18,8 @@
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<main>
-    <div th:replace="${content}"></div>
+<main th:insert="${content}">
+    <!--  <div th:replace="${content}"></div> -->
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
