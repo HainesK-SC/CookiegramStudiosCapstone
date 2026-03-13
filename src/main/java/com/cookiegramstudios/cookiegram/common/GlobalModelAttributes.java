@@ -1,11 +1,14 @@
 package com.cookiegramstudios.cookiegram.common;
 
-import com.cookiegramstudios.cookiegram.user.User;
-import com.cookiegramstudios.cookiegram.user.UserService;
+import java.security.Principal;
+
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.security.Principal;
+import com.cookiegramstudios.cookiegram.user.User;
+import com.cookiegramstudios.cookiegram.user.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Provides common model attributes to all MVC controllers.
@@ -17,8 +20,9 @@ import java.security.Principal;
  * </p>
  *
  * @author Matthew Samaha
+ * @author Kyle Haines
  * @date 2026-02-27
- * @version 1.0
+ * @version 1.1
  */
 @ControllerAdvice
 public class GlobalModelAttributes {
@@ -35,5 +39,10 @@ public class GlobalModelAttributes {
             return null;
         }
         return userService.findByEmail(principal.getName());
+    }
+    
+    @ModelAttribute("currentUri")
+    public String currentUri(HttpServletRequest request) {
+        return request.getRequestURI();
     }
 }
