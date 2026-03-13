@@ -14,18 +14,30 @@ main {
 }
 .orders-container {
 	height: 100%;
-	min-width: 80%;
-	max-width: 90%;
+	width: 85%;
 	background-color: var(--warm-beige);
 	display: flex;
 	justify-content: space-evenly;
+	flex-wrap: wrap;
 }
 
 .order-item-card {
-	outline: 1px solid red;
-	width: 10%;
+	border: 1px solid var(--text-primary); /* dark cocoa */
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 1rem;
+	
 }
 
 .order-card-image {
-	width: 90%;
+	width: 70%;
+	margin: auto;
+	border: 1px solid var(--accent);
+}
+
+.order-item-card > h2 {
+	font-size: 1rem;
 }
