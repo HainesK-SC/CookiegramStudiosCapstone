@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+<meta charset="UTF-8">
+<title>CookieGram | Order</title>
+</head>
+<body>
+	<div th:fragment="content">
+		<section th:replace="fragments/order-fragment :: orderLanding"></section>
+	</div>
+</body>
+</html>
