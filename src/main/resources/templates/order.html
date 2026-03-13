@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div th:fragment="content">
-		<section th:replace="fragments/order-fragment :: orderLanding"></section>
+		<section th:replace="fragments/order-fragment :: orderLanding(${currentProducts})"></section>
 	</div>
 </body>
 </html>
