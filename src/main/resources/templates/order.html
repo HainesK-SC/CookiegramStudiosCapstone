@@ -6,8 +6,20 @@
 <title>CookieGram | Order</title>
 </head>
 <body>
-	<div th:fragment="content">
-		<section th:replace="fragments/order-fragment :: orderLanding(${currentProducts})"></section>
-	</div>
+	<section th:fragment="content" class="order-section">
+		<h1>Order</h1>
+		<div class="orders-container">
+			<div class=order-item-card>
+				<div>
+					<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
+					<h2>$10.99</h2>
+					<span>Qty: <span id="order-qty-number">0</span></span>
+					<button id="add-to-cart-btn">Add to Cart</button>
+					<a th:href="@{/}">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	
 </body>
 </html>
