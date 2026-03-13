@@ -11,6 +11,8 @@
             <a th:href="@{/about}" class="site-header-link">About</a>
             <a th:href="@{/faq}" class="site-header-link">FAQ</a>
             <a th:href="@{/contact}" class="site-header-link">Contact</a>
+            <!-- This will only display the Order link if the URI starts with /order -->
+            <a th:if="${!#request.requestURI.startsWith('/order')}" th:href="@{/order}" ...>Order</a>
         </nav>
 
         <div class="site-header-auth">
