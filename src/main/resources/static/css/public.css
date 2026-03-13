@@ -155,6 +155,8 @@ main {
 
 /* FOOTER */
 .site-footer {
+	position: sticky;
+	bottom: 0px;
 	background-color: var(--accent-dark);
 	padding: 3rem 0 2rem;
 	text-align: center;
