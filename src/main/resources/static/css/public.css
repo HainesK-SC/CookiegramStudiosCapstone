@@ -4,13 +4,14 @@
   --bg-card: #D0C7B7;
   --accent: #c26d3b;         /* cinnamon */
   --accent-dark: #9e542b;
-  --accent-dark-rgba-35: rgb(158, 84, 43, 0.35);
+  --accent-dark-rgba-35: rgb(158,84,43,0.35);
   --text-primary: #3e2c23;   /* dark cocoa */
   --text-muted: #7a6a5f;
   --border-soft: #e5ddd3;
   --order-preview-card: #DDCAA8;
   --card-border-radius: 10px;
   --dashboard-border-radius: 10px;
+  --warm-beige: #cfc6b6;
 }
 
 

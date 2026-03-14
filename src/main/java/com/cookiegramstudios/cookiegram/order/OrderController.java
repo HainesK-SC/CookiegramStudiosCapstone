@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * </p>
  *
  * @author Matthew Samaha
+ * @auhor Kyle Haines
  * @date 2026-02-23
- * @version 1.0
+ * @date 2026-03-13
+ * @version 1.1
  */
 @Controller
-@RequestMapping("/order")
 public class OrderController {
-
-
+	@RequestMapping("/order")
+	public String order() {
+		return "order";
+	}
 }
