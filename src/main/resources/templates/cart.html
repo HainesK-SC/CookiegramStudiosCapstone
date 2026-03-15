@@ -17,7 +17,10 @@
 			<div class="cart-actions">
 				<a th:href="@{/order/checkout}">Checkout</a>
 				<a th:href="@{/order}">Continue Shopping</a>
-				<a th:href="@{/order/cart/clear}">Clear Cart</a>
+				<form th:action="@{/order/cart/clear}" method="POST">
+				<button type="submit">Clear Cart</button>
+				</form>
+				
 			</div>
 		</div>
 	</section>
