@@ -23,4 +23,22 @@ public class Cart {
 		this.timeCreated = timeCreated;
 		this.cartItems = cartItems;
 	}
+
+	public LocalDateTime getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(LocalDateTime timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+	
+	
 }
