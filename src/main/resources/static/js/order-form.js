@@ -9,12 +9,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		const incrementBtn = card.querySelector('.qty-btn:last-of-type');
 		const qtyDisplay = card.querySelector('.order-qty-number');
 		const qtyInput = card.querySelector('input[name="productQuantity"]');
-	});
 	
-	incrementBtn.addEventListener('click', function() {
-		let currentQty = parseInt(qtyDisplay.textContent);
-		currentQty++;
-		qtyDisplay.textContent = currentQty;
-		qtyInput.value = currentQty.
+		incrementBtn.addEventListener('click', function() {
+				let currentQty = parseInt(qtyDisplay.textContent);
+				currentQty++;
+				qtyDisplay.textContent = currentQty;
+				qtyInput.value = currentQty;
+		});
+			
+		decrementBtn.addEventListener('click', function() {
+				let currentQty = parseInt(qtyDisplay.textContent);
+				if(currentQty >= 1) {
+					currentQty--;
+					qtyDisplay.textContent = currentQty;
+					qtyInput.value = currentQty;	
+				}
+		});
+		
 	});
 });
