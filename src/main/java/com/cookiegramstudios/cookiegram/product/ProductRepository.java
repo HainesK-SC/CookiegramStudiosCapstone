@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	Product findByBasePrice(double price);
 	
+	Product findByProductType(String productType);
+	
 	@Override
 	Optional<Product> findById(Long id);
 	
