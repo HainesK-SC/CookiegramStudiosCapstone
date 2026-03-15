@@ -1,7 +1,6 @@
 package com.cookiegramstudios.cookiegram.promotion;
 
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.slf4j.Logger;
