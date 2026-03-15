@@ -9,17 +9,14 @@
 	<section th:fragment="content" class="order-section">
 		<h1>Order</h1>
 		<div class="orders-container">
-			<div class=order-item-card>
-
-					<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
-					<h2>$10.99</h2>
-					<span>Qty: <span id="order-qty-number"><button class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button>0<button class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span></span>
-					<div class="order-card-actions">
-					<button id="add-to-cart-btn">Add to Cart</button>
-					<a th:href="@{/}">Cancel</a>
-					</div>
-					
-
+			<div th:each="product : ${currentProducts}" class="order-item-card">
+				<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
+				<h2 th:text="${product.basePrice}"></h2>
+				<span>Qty: <span id="order-qty-number"><button class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button>0<button class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span></span>
+				<div class="order-card-actions">
+				<button class="add-to-cart-btn">Add to Cart</button>
+				<a th:href="@{/}">Cancel</a>
+				</div>
 			</div>
 		</div>
 	</section>
