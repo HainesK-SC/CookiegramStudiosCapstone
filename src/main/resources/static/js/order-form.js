@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	cards.forEach(function(card) {
 		const decrementBtn = card.querySelector('.qty-btn:first-of-type');
 		const incrementBtn = card.querySelector('.qty-btn:last-of-type');
-		const qtyDisplay = card.querySelector('.order-qty-number');
+		const qtyDisplay = card.querySelector('.qty-display');
 		const qtyInput = card.querySelector('input[name="productQuantity"]');
 	
 		incrementBtn.addEventListener('click', function() {
