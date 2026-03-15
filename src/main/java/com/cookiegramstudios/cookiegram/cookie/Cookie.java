@@ -12,8 +12,6 @@ import lombok.*;
  */
 @Entity
 @Table(name = "cookies")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cookie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
