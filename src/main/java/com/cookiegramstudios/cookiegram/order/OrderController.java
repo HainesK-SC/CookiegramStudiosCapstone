@@ -1,7 +1,13 @@
 package com.cookiegramstudios.cookiegram.order;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.cookiegramstudios.cookiegram.product.Product;
+import com.cookiegramstudios.cookiegram.product.ProductRepository;
 
 /**
  * Controller for order-related web endpoints.
@@ -22,8 +28,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class OrderController {
-	@RequestMapping("/order")
-	public String order() {
+	
+	private final ProductRepository productRepository;
+	
+	public OrderController(ProductRepository prodRepo) {
+		this.productRepository = prodRepo;
+	}
+	
+	@GetMapping("/order")
+	public String order(Model model) {
+		List<Product> currentProducts = productRepository.findAll();
+		model.addAttribute("currentProducts", currentProducts);
 		return "order";
 	}
 }
