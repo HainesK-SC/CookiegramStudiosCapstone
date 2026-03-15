@@ -9,20 +9,20 @@
 	<section th:fragment="content" class="order-section">
 		<h1>Order</h1>
 		<div class="orders-container">
-			<div class=order-item-card>
-
-					<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
-					<h2>$10.99</h2>
-					<span>Qty: <span id="order-qty-number">0</span></span>
-					<div class="order-card-actions">
-					<button id="add-to-cart-btn">Add to Cart</button>
-					<a th:href="@{/}">Cancel</a>
-					</div>
-					
-
-			</div>
+			<form action="/order/cart/add" method="POST" th:each="product : ${currentProducts}" class="order-item-card">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" id="id-input" name="productId" th:value="${product.id}" />
+				<input type="hidden" id="item-qty" name="productQuantity" value="0" />
+				<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
+				<h2 th:text="${product.basePrice}"></h2>
+				<span>Qty: <button type="button" class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button><span class="qty-display">0</span><button type="button" class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span>
+				<div class="order-card-actions">
+				<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+				<a th:href="@{/}">Cancel</a>
+				</div>
+			</form>
 		</div>
 	</section>
-	
+	<script src="../static/js/order-form.js"></script>
 </body>
 </html>

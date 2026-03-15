@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+<meta charset="UTF-8">
+<title>Cookiegram | Cart</title>
+</head>
+<body>
+	<section th:fragment="content" class="cart-section">
+		<h1>Cart</h1>
+		<div class="cart-container">
+			<div th:each="item : ${cartItems}" class="order-item-card">
+				<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram">
+				<p>10.00</p>
+				<p th:text="${item.itemQty}"></p>
+			</div>
+			<div class="cart-actions">
+				<a th:href="@{/order/checkout}">Checkout</a>
+				<a th:href="@{/order}">Continue Shopping</a>
+				<form th:action="@{/order/cart/clear}" method="POST">
+				<button type="submit">Clear Cart</button>
+				</form>
+				
+			</div>
+		</div>
+	</section>
+</body>
+</html>
