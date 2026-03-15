@@ -1,7 +1,8 @@
 package com.cookiegramstudios.cookiegram.product;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 /**
  * Service class that will interact with the Product class to
@@ -10,6 +11,7 @@ import java.util.List;
  * 
  * @author Kyle Haines
  */
+@Service
 public class ProductService {
 	private final ProductRepository productRepository;
 	
