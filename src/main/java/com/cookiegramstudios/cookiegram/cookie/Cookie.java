@@ -15,22 +15,36 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cookie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String name;
+	@Column(nullable = false)
+	private String name;
 
-    private String description;
+	private String description;
 
-    private String imageUrl;
+	private String imageUrl;
 
-    @Column(nullable = false)
-    private double basePrice;
+	@Column(nullable = false)
+	private double basePrice;
 
-    @Column(nullable = false)
-    private boolean active;
+	@Column(nullable = false)
+	private boolean active;
+
+	// No-args constructor
+	public Cookie() {
+	}
+
+	// All-args constructor
+	public Cookie(Long id, String name, String description, String imageUrl, double basePrice, boolean active) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.basePrice = basePrice;
+		this.active = active;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,5 +94,4 @@ public class Cookie {
 		this.active = active;
 	}
 
-    
 }
