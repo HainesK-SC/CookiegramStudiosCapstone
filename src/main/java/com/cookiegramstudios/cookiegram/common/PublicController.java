@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cookiegramstudios.cookiegram.promotion.Promotion;
@@ -28,8 +27,8 @@ import com.cookiegramstudios.cookiegram.promotion.PromotionService;
  *
  * @author Matthew Samaha
  * @author Kyle Haines 
- * @date 2026-02-23
- * @version 1.1
+ * @date 2026-03-14
+ * @version 1.2
  */
 @Controller
 public class PublicController {
@@ -103,46 +102,26 @@ public class PublicController {
 
     }
 
-    // New request mappings for new pages
-    // /about - About Page
-    // /faq - Frequently Asked Questions Page
-    // /contact - Contact Page
-
-    /**
-     * About Page
-     */
-    @RequestMapping("/about")
+    @GetMapping("/about")
     public String aboutPage(){
         return "about";
     }
 
-    /**
-     * FAQ Page
-     */
     @GetMapping("/faq")
     public String faqPage(){
         return "faq";
     }
 
-    /**
-     * Contact Page
-     */
     @GetMapping("/contact")
     public String contactPage(){
         return "contact";
     }
 
-    /**
-     * Shipping Policy
-     */
     @GetMapping("/shipping-policy")
     public String shippingPolicy(){
         return "shipping-policy";
     }
 
-    /**
-     * Privacy Policy
-     */
     @GetMapping("/privacy-policy")
     public String privacyPolicy() {
         return "privacy-policy";
