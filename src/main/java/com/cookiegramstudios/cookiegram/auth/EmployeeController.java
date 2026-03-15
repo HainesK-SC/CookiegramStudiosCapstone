@@ -3,14 +3,20 @@ package com.cookiegramstudios.cookiegram.auth;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cookiegramstudios.cookiegram.order.Order;
 import com.cookiegramstudios.cookiegram.order.OrderService;
+import com.cookiegramstudios.cookiegram.order.OrderStatus;
 import com.cookiegramstudios.cookiegram.user.User;
 import com.cookiegramstudios.cookiegram.user.UserService;
 
@@ -51,5 +57,18 @@ public class EmployeeController {
         
         return "employee/employee-dashboard";
     }
-
+    
+    @PostMapping("/order/update-status")
+    @ResponseBody
+    public ResponseEntity<String> updateOrderStatus(
+            @RequestParam Long orderId, 
+            @RequestParam OrderStatus newStatus) {
+        try {
+            orderService.updateOrderStatus(orderId, newStatus);
+            return ResponseEntity.ok("Status updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Failed to update status: " + e.getMessage());
+        }
+    }
 }
