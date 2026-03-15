@@ -9,15 +9,17 @@
 	<section th:fragment="content" class="order-section">
 		<h1>Order</h1>
 		<div class="orders-container">
-			<div th:each="product : ${currentProducts}" class="order-item-card">
+			<form action="/order/cart/add" method="POST" th:each="product : ${currentProducts}" class="order-item-card">
+				<input type="hidden" id="id-input" name="productId" th:value="${product.id}" />
+				<input type="hidden" id="item-qty" name="productQuantity" value="1" />
 				<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
 				<h2 th:text="${product.basePrice}"></h2>
-				<span>Qty: <span id="order-qty-number"><button class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button>0<button class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span></span>
+				<span>Qty: <span class="order-qty-number"><button type="button" class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button>0<button type="button" class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span></span>
 				<div class="order-card-actions">
-				<button class="add-to-cart-btn">Add to Cart</button>
+				<button type="submit" class="add-to-cart-btn">Add to Cart</button>
 				<a th:href="@{/}">Cancel</a>
 				</div>
-			</div>
+			</form>
 		</div>
 	</section>
 	
