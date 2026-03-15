@@ -41,3 +41,8 @@ main {
 .order-item-card > h2 {
 	font-size: 1rem;
 }
+
+.qty-btn {
+	background: none;
+	border: none;
+}
