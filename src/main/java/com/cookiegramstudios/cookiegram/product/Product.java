@@ -25,6 +25,9 @@ public class Product {
 	private String baseName;
 	
 	@Column(nullable = false)
+	private String productType; // can only be Cookie as of now
+	
+	@Column(nullable = false)
 	private String baseDescription;
 	
 	private String imageUrl;
@@ -58,6 +61,15 @@ public class Product {
 	public void setBaseName(String baseName) {
 		this.baseName = baseName;
 	}
+	
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
 
 	public String getBaseDescription() {
 		return baseDescription;
