@@ -76,4 +76,10 @@ public class OrderController {
 		model.addAttribute("cartItems", cartItems);
 		return "cart";
 	}
+	
+	@PostMapping("/order/cart/clear")
+	public String clearCart(HttpSession session) {
+		session.removeAttribute("cart");
+		return "cart";
+	}
 }
