@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.cart;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class Cart {
 	private LocalDateTime timeCreated;
-	private List<CartItem> cartItems;
+	private List<CartItem> cartItems = new ArrayList<>();
 	
 	public Cart() {
 		
