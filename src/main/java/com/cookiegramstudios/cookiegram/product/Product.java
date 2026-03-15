@@ -10,6 +10,8 @@ import jakarta.persistence.*;
  * This will also make dynamic data retrieval possible for every product offered
  * for sale, and in cases where customization is an option, to display
  * the default and pre-customization values, mainly applicable for price.
+ * 
+ * @author Kyle Haines
  */
 
 @Entity
