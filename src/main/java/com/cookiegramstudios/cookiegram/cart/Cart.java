@@ -1,5 +1,8 @@
 package com.cookiegramstudios.cookiegram.cart;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * This is the intermediary step in the order process. This will allow
  * customers to add items into their cart and choose when they would like
@@ -9,5 +12,6 @@ package com.cookiegramstudios.cookiegram.cart;
  * @author Kyle Haines
  */
 public class Cart {
-
+	LocalDateTime timeCreated;
+	List<CartItem> cartItems;
 }
