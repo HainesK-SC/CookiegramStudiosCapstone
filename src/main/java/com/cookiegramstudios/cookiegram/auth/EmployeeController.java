@@ -29,7 +29,7 @@ import com.cookiegramstudios.cookiegram.user.UserService;
  *
  * @author Matthew Samaha
  * @date 2026-03-14
- * @version 1.0
+ * @version 1.1
  */
 @Controller
 @RequestMapping("/employee/dashboard")
