@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
+import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.cart.CartService;
 import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
@@ -65,6 +66,14 @@ public class OrderController {
 		
 		session.setAttribute("cart", cart);
 		
-		return "redirect:/order";
+		return "redirect:/order/cart";
+	}
+	
+	@GetMapping("/order/cart")
+	public String cart(HttpSession session, Model model) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		List<CartItem> cartItems = cart.getCartItems();
+		model.addAttribute("cartItems", cartItems);
+		return "cart";
 	}
 }
