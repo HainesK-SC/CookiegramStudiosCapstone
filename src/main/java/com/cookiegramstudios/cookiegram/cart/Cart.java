@@ -12,6 +12,15 @@ import java.util.List;
  * @author Kyle Haines
  */
 public class Cart {
-	LocalDateTime timeCreated;
-	List<CartItem> cartItems;
+	private LocalDateTime timeCreated;
+	private List<CartItem> cartItems;
+	
+	public Cart() {
+		
+	}
+	
+	public Cart(LocalDateTime timeCreated, List<CartItem> cartItems) {
+		this.timeCreated = timeCreated;
+		this.cartItems = cartItems;
+	}
 }
