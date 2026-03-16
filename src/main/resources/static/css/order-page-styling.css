@@ -23,21 +23,29 @@
 }
 
 .order-item-card {
-	border: 1px solid var(--text-primary); /* dark cocoa */
-	width: 20%;
+	border: 1px solid black; /* dark cocoa */
+	border-radius: 0.5rem;
+	width: 30%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin: 1rem;
-	
+	margin: 0.5rem;
+	padding: 0 0 1rem 0;
 }
 
 .order-card-image {
 	width: 70%;
 	margin: auto;
-	border: 1px solid var(--accent);
+	border-radius: 0.5rem;
 }
+
+hr {
+	width: 100%;
+	border: 1px solid black;
+	margin: 0.25rem;
+}
+
 
 .order-item-card > h2 {
 	font-size: 1rem;
@@ -46,4 +54,24 @@
 .qty-btn {
 	background: none;
 	border: none;
+}
+
+.order-card-actions {
+
+	width: 75%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.add-to-cart-btn {
+	padding: 0.25rem;
+	border-radius: 0.25rem;	
+	max-width: 50%;
+	font-size: 0.75rem;
+}
+
+.cancel-order-btn {
+	font-size: 0.65rem;
+	
+	align-self: flex-end;
 }
