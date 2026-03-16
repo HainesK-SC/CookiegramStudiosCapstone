@@ -14,11 +14,12 @@
 				<input type="hidden" id="id-input" name="productId" th:value="${product.id}" />
 				<input type="hidden" id="item-qty" name="productQuantity" value="0" />
 				<img th:src="@{images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
-				<h2 th:text="${product.basePrice}"></h2>
+				<hr>
+				<h2 th:text="'$'+ ${product.basePrice}"></h2>
 				<span>Qty: <button type="button" class="qty-btn"><img th:src="@{images/arrow_left_black.png}"/></button><span class="qty-display">0</span><button type="button" class="qty-btn"><img th:src="@{images/arrow_right_black.png}"/></button></span>
 				<div class="order-card-actions">
-				<button type="submit" class="add-to-cart-btn">Add to Cart</button>
-				<a th:href="@{/}">Cancel</a>
+					<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+					<a th:href="@{/}" class="cancel-order-btn">Cancel</a>
 				</div>
 			</form>
 		</div>

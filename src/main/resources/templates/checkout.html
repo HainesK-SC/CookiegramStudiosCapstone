@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/public-layout :: layout(~{::content})}">
+<head>
+<meta charset="UTF-8">
+<title>CookieGram | Order</title>
+</head>
+<body>
+	<section th:fragment="content" class="checkout-section">
+		<h1>Order Information</h1>
+		<div class="checkout-container">
+			<form action="/order/checkout" method="POST" class="order-information-cookieoptions">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				
+			</form>
+		</div>
+	</section>
+	<script src="../static/js/order-form.js"></script>
+</body>
+</html>

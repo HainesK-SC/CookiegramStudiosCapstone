@@ -167,3 +167,6 @@ buildNumber.properties
 .env.local
 .env.*
 !.env.example
+
+# logs
+logs/
