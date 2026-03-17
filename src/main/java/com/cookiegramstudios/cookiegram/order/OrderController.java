@@ -197,6 +197,11 @@ public class OrderController {
 				return "redirect:/order/";
 			}
 
+			// 3. Add order details to model
+			model.addAttribute("orderId", confirmedOrder.getId());
+			model.addAttribute("customerName", confirmedOrder.getCustomerName());
+			model.addAttribute("customerEmail", confirmedOrder.getCustomerEmail());
+
 
 		}
 	
