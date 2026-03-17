@@ -24,6 +24,73 @@
     gap: 1.5rem;
 }
 
+/* Custom Message Layout */
+
+.custom-messages-section {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.custom-messages-section h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.warning-message {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+}
+
+.message-input-group {
+    margin-bottom: 1.5rem;
+}
+
+.message-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.quantity-badge {
+    font-weight: normal;
+    color: #666;
+}
+
+.message-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 0.25rem;
+}
+
+.message-textarea:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.char-count {
+    display: block;
+    text-align: right;
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+
+/* Form Section Spacing */
+
+
+
 /* Order Summary Box/Container */
 
 .order-summary-box {
