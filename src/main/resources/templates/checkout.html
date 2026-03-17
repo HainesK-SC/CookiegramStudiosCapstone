@@ -16,20 +16,56 @@
 
 		<div class=checkout-container">
 			<!-- Order Summary (read-only) -->
+			<div class="order-summary-box">
+                <h2>Order Summary</h2>
+                <table class="order-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${cartItems}">
+                            <td th:text="${item.productType.baseName}">Cookie Name</td>
+                            <td th:text="${item.itemQty}">1</td>
+                            <td th:text="'$' + ${item.productType.basePrice}">$10.00</td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(item.productType.basePrice * item.itemQty, 1, 2)}">$10.00</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                            <td th:text="'$' + ${subtotal}">$10.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Tax (13%):</strong></td>
+                            <td th:text="'$' + ${tax}">$1.30</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                            <td><strong th:text="'$' + ${total}">$11.30</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
 			<!-- Checkout Form -->
-
-
-			<!-- 1. Custom Messages -->
-
-			<!-- 2. Recipient Information -->
-
-			<!-- 3. Delivery Details  -->
-
-			<!-- 4. Sender Information -->
+			<form th:action="@{/order/checkout}" method="POST" th:object="${checkoutForm}" class="checkout-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                
+				<!-- 1. Custom Messages -->
+	
+				<!-- 2. Recipient Information -->
+	
+				<!-- 3. Delivery Details  -->
+	
+				<!-- 4. Sender Information -->
 
 			<!-- Action Buttons - back to cart, proceed to payment -->
-
+ 			</form>
 		</div>
 
 
