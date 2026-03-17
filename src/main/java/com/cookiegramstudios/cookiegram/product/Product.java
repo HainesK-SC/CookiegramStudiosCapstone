@@ -63,6 +63,7 @@ public class Product {
 	}
 	
 	public String getProductType() {
+		productType = this.productType.toLowerCase();
 		return productType;
 	}
 

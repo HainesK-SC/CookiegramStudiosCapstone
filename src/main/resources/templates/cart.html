@@ -9,18 +9,30 @@
 	<section th:fragment="content" class="cart-section">
 		<h1>Cart</h1>
 		<div class="cart-container">
-			<div th:each="item : ${cartItems}" class="cart-item-card">
-				<img th:src="@{/images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="cart-item-image">
-				<p>10.00</p>
-				<p th:text="${item.itemQty}"></p>
+			<div th:if="${!#lists.isEmpty(cartItems)}">
+				<div th:each="item : ${cartItems}" class="order-item-card">
+					<img th:src="@{/images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
+					<p th:text="${item.getProductType.baseName}"></p>
+					<p th:text="'$'+ ${item.getProductType.basePrice}"></p>
+					<p th:text="'Qty: ' + ${item.itemQty}"></p>
+				</div>	
+				<div class="cart-actions">
+					<a th:href="@{/order/checkout}" class="cart-link-btn">Checkout</a>
+					<a th:href="@{/order}" class="cart-link-btn">Continue Shopping</a>
+					<form th:action="@{/order/cart/clear}" method="POST">
+					<button type="submit" class="cart-submit-btn">Clear Cart</button>
+					</form>
+				</div>
 			</div>
-			<div class="cart-actions">
-				<a th:href="@{/order/checkout}">Checkout</a>
-				<a th:href="@{/order}">Continue Shopping</a>
-				<form th:action="@{/order/cart/clear}" method="POST">
-				<button type="submit">Clear Cart</button>
-				</form>
-				
+			
+			<div th:if="${#lists.isEmpty(cartItems)}">
+				<p>
+					Wow! It's so empty in here! More room for goodies!
+				</p>
+				<div class="cart-actions">
+					<a th:href="@{/}" class="cart-link-btn">Home</a>
+					<a th:href="@{/order}" class="cart-link-btn">Continue Shopping</a>
+				</div>
 			</div>
 		</div>
 	</section>

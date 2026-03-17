@@ -7,13 +7,15 @@
 	background-color: var(--warm-beige);
 }
 
-.cart-item-card {
-	width: 20%;
+.order-item-card {
+	background-color: white;
+}
+
+.cart-link-btn,
+.cart-submit-btn {
+	text-decoration: none;
 	background-color: white;
 	border: 2px solid black;
+	padding: 0.5rem;
+	color: var(--text-primary);
 }
-
-.cart-item-image {
-	width: 150px;
-}
-
