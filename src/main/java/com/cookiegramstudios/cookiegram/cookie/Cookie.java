@@ -1,7 +1,6 @@
 package com.cookiegramstudios.cookiegram.cookie;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 /**
  * Cookie entity representing a product available in the system.
