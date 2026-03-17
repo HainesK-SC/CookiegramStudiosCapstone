@@ -14,7 +14,7 @@
 			<p th:text="${error}"></p>
 		</div>
 
-		<div class=checkout-container">
+		<div class="checkout-container">
 			<!-- Order Summary (read-only) -->
 			<div class="order-summary-box">
 				<h2>Order Summary</h2>
@@ -222,12 +222,34 @@
 	</section>
 
 	<script>
-    // Initialize character counters on page load
-    
-            // Update character count for a specific textarea
+		// Initialize character counters on page load
+		document.addEventListener('DOMContentLoaded', function() {
+			const textareas = document.querySelectorAll('.message-textarea');
+			textareas.forEach(function(textarea) {
+				updateCharCount(textarea);
+			});
+		});
 
+		// Update character count for a specific textarea
+		function updateCharCount(textarea) {
+			const index = textarea.dataset.index;
+			const charCountSpan = document
+					.getElementById('char-count-' + index);
+			const currentLength = textarea.value.length;
+			const maxLength = textarea.maxLength;
 
-	
+			charCountSpan.textContent = currentLength + ' / ' + maxLength
+					+ ' characters';
+
+			// Visual feedback when approaching limit
+			if (currentLength > maxLength * 0.9) {
+				charCountSpan.style.color = '#d32f2f';
+				charCountSpan.style.fontWeight = 'bold';
+			} else {
+				charCountSpan.style.color = '#666';
+				charCountSpan.style.fontWeight = 'normal';
+			}
+		}
 	</script>
 </body>
 </html>
