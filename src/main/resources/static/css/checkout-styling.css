@@ -2,7 +2,31 @@
 
 /* Page Layout */
 
+.checkout-section {
+    min-height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.checkout-section > h1 {
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.checkout-container {
+    width: 85%;
+    background-color: var(--warm-beige);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 /* Order Summary Box/Container */
+
+
 
 /* Order Summary Information */
 
