@@ -106,9 +106,8 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(Long id, int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
+	public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
 			LocalDate deliveryDate, double totalPrice, String notes, LocalDateTime createdAt, LocalDateTime updatedat) {
-		this.id = id;
 		this.orderNumber = orderNumber;
 		this.customerProfile = customerProfile;
 		this.recipientUser = recipientUser;

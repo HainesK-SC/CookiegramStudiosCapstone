@@ -97,9 +97,8 @@ public class OrderItem {
 	public OrderItem() {
 	}
 
-	public OrderItem(Long id, Order order, CookieCustomization cookieCustomization, int quantity, double price,
+	public OrderItem(Order order, CookieCustomization cookieCustomization, int quantity, double price,
 			String specialInstructions) {
-		this.id = id;
 		this.order = order;
 		this.cookieCustomization = cookieCustomization;
 		this.quantity = quantity;

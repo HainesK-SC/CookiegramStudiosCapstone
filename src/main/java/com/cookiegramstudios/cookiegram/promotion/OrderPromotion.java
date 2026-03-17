@@ -45,5 +45,65 @@ public class OrderPromotion {
 	double discountAmt;
 	@Column(nullable = false)
 
-	LocalDateTime appliedAt;	
+	LocalDateTime appliedAt;
+	
+	public OrderPromotion() {
+	}
+	
+	public OrderPromotion(long promoId, String promoCode, double discountAmt, LocalDateTime appliedAt) {
+		this.promoId = promoId;
+		this.promoCode = promoCode;
+		this.discountAmt = discountAmt;
+		this.appliedAt = appliedAt;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public long getPromoId() {
+		return promoId;
+	}
+
+	public void setPromoId(long promoId) {
+		this.promoId = promoId;
+	}
+
+	public String getPromoCode() {
+		return promoCode;
+	}
+
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
+	}
+
+	public double getDiscountAmt() {
+		return discountAmt;
+	}
+
+	public void setDiscountAmt(double discountAmt) {
+		this.discountAmt = discountAmt;
+	}
+
+	public LocalDateTime getAppliedAt() {
+		return appliedAt;
+	}
+
+	public void setAppliedAt(LocalDateTime appliedAt) {
+		this.appliedAt = appliedAt;
+	}
+	
+	
 }

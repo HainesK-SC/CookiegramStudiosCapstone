@@ -72,8 +72,7 @@ public class Customer {
     public Customer() {
 	}
     
-    public Customer(Long id, String email, LocalDateTime createdAt, LocalDateTime lastOrderDate) {
-		this.id = id;
+    public Customer(String email, LocalDateTime createdAt, LocalDateTime lastOrderDate) {
 		this.email = email;
 		this.createdAt = createdAt;
 		this.lastOrderDate = lastOrderDate;

@@ -35,8 +35,7 @@ public class Cookie {
 	}
 
 	// All-args constructor
-	public Cookie(Long id, String name, String description, String imageUrl, double basePrice, boolean active) {
-		this.id = id;
+	public Cookie(String name, String description, String imageUrl, double basePrice, boolean active) {
 		this.name = name;
 		this.description = description;
 		this.imageUrl = imageUrl;

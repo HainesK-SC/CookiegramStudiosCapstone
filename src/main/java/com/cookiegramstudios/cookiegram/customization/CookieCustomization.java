@@ -26,9 +26,8 @@ public class CookieCustomization {
 	public CookieCustomization() {
 	}
 
-	public CookieCustomization(Long id, Cookie cookie, String icingType, String toppings, String messageText,
+	public CookieCustomization(Cookie cookie, String icingType, String toppings, String messageText,
 			double additionalCost, String specialDietaryInfo) {
-		this.id = id;
 		this.cookie = cookie;
 		this.icingType = icingType;
 		this.toppings = toppings;
