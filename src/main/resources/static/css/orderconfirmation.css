@@ -98,3 +98,14 @@ hr {
 .btn-primary:hover {
     opacity: 0.9;
 }
+
+.secondary-link {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.secondary-link:hover {
+    text-decoration: underline;
+}
