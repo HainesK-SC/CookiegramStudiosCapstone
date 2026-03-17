@@ -43,6 +43,10 @@ public class Customer {
 
     @Column(nullable = true)
     private String email;
+    
+    private String firstName;
+    
+    private String lastName;
 
     @Column(nullable = true)
     private LocalDateTime createdAt;
