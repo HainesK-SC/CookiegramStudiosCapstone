@@ -12,55 +12,41 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 public class DevCustomerBootstrapSeeder implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(DevCustomerBootstrapSeeder.class);
+	private static final Logger logger = LoggerFactory.getLogger(DevCustomerBootstrapSeeder.class);
 
-    private final CustomerRepository customerRepository;
+	private final CustomerRepository customerRepository;
 
-    public DevCustomerBootstrapSeeder(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+	public DevCustomerBootstrapSeeder(CustomerRepository customerRepository) {
+		this.customerRepository = customerRepository;
+	}
 
-    @Override
-    public void run(String... args) {
+	@Override
+	public void run(String... args) {
 
-        logger.info("Bootstrapping dev customer data...");
+		logger.info("Bootstrapping dev customer data...");
 
-        createCustomerIfMissing(
-                "alice@example.com",
-                LocalDateTime.now().minusMonths(2),
-                LocalDateTime.now().minusDays(10)
-        );
+		createCustomerIfMissing("alice@example.com", "Alice", "Smith", LocalDateTime.now().minusMonths(2),
+				LocalDateTime.now().minusDays(10));
 
-        createCustomerIfMissing(
-                "bob@example.com",
-                LocalDateTime.now().minusMonths(3),
-                LocalDateTime.now().minusDays(20)
-        );
+		createCustomerIfMissing("bob@example.com", "Bob", "Jones", LocalDateTime.now().minusMonths(3),
+				LocalDateTime.now().minusDays(20));
 
-        createCustomerIfMissing(
-                "carol@example.com",
-                LocalDateTime.now().minusMonths(1),
-                null
-        );
-    }
+		createCustomerIfMissing("carol@example.com", "Carol", "White", LocalDateTime.now().minusMonths(1), null);
+	}
 
-    private void createCustomerIfMissing(
-            String email,
-            LocalDateTime createdAt,
-            LocalDateTime lastOrderDate) {
-
-        if (customerRepository.existsByEmail(email)) {
-            logger.info("Customer already exists. Skipping bootstrap: {}", email);
-            return;
-        }
-
-        Customer customer = new Customer();
-        customer.setEmail(email);
-        customer.setCreatedAt(createdAt);
-        customer.setLastOrderDate(lastOrderDate);
-
-        customerRepository.save(customer);
-
-        logger.info("Bootstrapped customer: {}", email);
-    }
+	private void createCustomerIfMissing(String email, String firstName, String lastName, LocalDateTime createdAt,
+			LocalDateTime lastOrderDate) {
+		if (customerRepository.existsByEmail(email)) {
+			logger.info("Customer already exists. Skipping bootstrap: {}", email);
+			return;
+		}
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setCreatedAt(createdAt);
+		customer.setLastOrderDate(lastOrderDate);
+		customerRepository.save(customer);
+		logger.info("Bootstrapped customer: {}", email);
+	}
 }

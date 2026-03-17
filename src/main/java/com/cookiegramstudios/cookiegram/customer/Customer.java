@@ -1,8 +1,7 @@
 package com.cookiegramstudios.cookiegram.customer;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 
@@ -44,6 +43,12 @@ public class Customer {
 
     @Column(nullable = true)
     private String email;
+    
+    @Column(nullable = true)
+    private String firstName;
+    
+    @Column(nullable = true)
+    private String lastName;
 
     @Column(nullable = true)
     private LocalDateTime createdAt;
@@ -72,11 +77,16 @@ public class Customer {
     public Customer() {
 	}
     
-    public Customer(String email, LocalDateTime createdAt, LocalDateTime lastOrderDate) {
-		this.email = email;
-		this.createdAt = createdAt;
-		this.lastOrderDate = lastOrderDate;
-	}
+    public Customer(String email, String firstName, String lastName,
+            LocalDateTime createdAt, LocalDateTime lastOrderDate) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.createdAt = createdAt;
+        this.lastOrderDate = lastOrderDate;
+    }
+    
+
 
     public Long getId() {
         return id;
@@ -92,6 +102,22 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDateTime getCreatedAt() {

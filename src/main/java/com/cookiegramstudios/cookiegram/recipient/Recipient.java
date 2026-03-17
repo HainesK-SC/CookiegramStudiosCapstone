@@ -2,8 +2,6 @@ package com.cookiegramstudios.cookiegram.recipient;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 /**
  * Represents a recipient of an order in the CookieGram system.
@@ -17,7 +15,7 @@ import lombok.NoArgsConstructor;
  * </p>
  * <ul>
  * <li><b>id</b> - Unique identifier for the recipient</li>
- * <li><b>name</b> - Full name of the recipient</li>
+ * <li><b>first & last</b> - Full name of the recipient</li>
  * <li><b>street</b> - Street address for delivery</li>
  * <li><b>city</b> - City for delivery</li>
  * <li><b>postalCode</b> - Postal/ZIP code for delivery</li>
@@ -36,8 +34,8 @@ import lombok.NoArgsConstructor;
  * </ul>
  *
  * @author Matthew Samaha
- * @date 2026-02-24
- * @version 1.0
+ * @date 2026-04-17
+ * @version 2.0
  */
 @Entity
 @Table(name = "recipients")
@@ -49,7 +47,11 @@ public class Recipient {
 
 	@Column(nullable = false)
 	@NotBlank(message = "Recipient name is required")
-	private String name;
+	private String firstName;
+
+	@Column(nullable = false)
+	@NotBlank(message = "Recipient last name is required")
+	private String lastName;
 
 	@Column(nullable = false)
 	@NotBlank(message = "Street address is required")
@@ -79,20 +81,21 @@ public class Recipient {
 	 * @return formatted address string
 	 */
 	public String getFullAddress() {
-		return String.format("%s, %s, %s, %s", street, city, postalCode, country);
+	    return String.format("%s, %s, %s, %s", street, city, postalCode, country);
 	}
 
 	public Recipient() {
 	}
 
-	public Recipient(String name, String street, String city, String postalCode, String country,
-			String specialInstructions) {
-		this.name = name;
-		this.street = street;
-		this.city = city;
-		this.postalCode = postalCode;
-		this.country = country;
-		this.specialInstructions = specialInstructions;
+	public Recipient(String firstName, String lastName, String street, String city,
+	        String postalCode, String country, String specialInstructions) {
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.street = street;
+	    this.city = city;
+	    this.postalCode = postalCode;
+	    this.country = country;
+	    this.specialInstructions = specialInstructions;
 	}
 
 	public Long getId() {
@@ -103,12 +106,20 @@ public class Recipient {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getStreet() {
@@ -151,10 +162,4 @@ public class Recipient {
 		this.specialInstructions = specialInstructions;
 	}
 
-	@Override
-	public String toString() {
-		return "Recipient{" + "id=" + id + ", name='" + name + '\'' + ", street='" + street + '\'' + ", city='" + city
-				+ '\'' + ", postalCode='" + postalCode + '\'' + ", country='" + country + '\''
-				+ ", specialInstructions='" + specialInstructions + '\'' + '}';
-	}
 }
