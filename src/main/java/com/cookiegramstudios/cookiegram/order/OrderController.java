@@ -191,6 +191,12 @@ public class OrderController {
 			// 1. Retrieve completed order from session
 			Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
 
+			// 2. Validate order exists
+			if (confirmedOrder == null) {
+				redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
+				return "redirect:/order/";
+			}
+
 
 		}
 	
