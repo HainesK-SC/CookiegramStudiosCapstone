@@ -48,7 +48,11 @@ public class Recipient {
 
 	@Column(nullable = false)
 	@NotBlank(message = "Recipient name is required")
-	private String name;
+	private String firstName;
+
+	@Column(nullable = false)
+	@NotBlank(message = "Recipient last name is required")
+	private String lastName;
 
 	@Column(nullable = false)
 	@NotBlank(message = "Street address is required")

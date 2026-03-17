@@ -77,6 +77,8 @@ public class EmployeeControllerTest {
 	private Order buildSampleOrder(int orderNumber) {
 	    Customer customer = new Customer();
 	    customer.setEmail("customer@example.com");
+	    customer.setFirstName("Test");
+	    customer.setLastName("Customer");
 
 	    Order order = new Order();
 	    order.setId((long) orderNumber);
