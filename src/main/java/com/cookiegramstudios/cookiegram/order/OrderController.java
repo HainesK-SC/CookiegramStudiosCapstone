@@ -139,9 +139,31 @@ public class OrderController {
 		
 		
 		// 1. if validation errors, return to checkout page with errors
-		
+		if (result.hasErrors()) {
 			// re-fetch cart and recalculate totals for display -- don't want to lose that info when returning to the form
-		
+
+			Cart cart = (Cart) session.getAttribute("cart");
+			
+			if (cart == null || cart.getCartItems().isEmpty()) {
+				redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
+				return "redirect:/order/"; // Redirect to order page or cart page as appropriate
+			}
+			
+			double subtotal = 0.0;
+	        for (CartItem item : cart.getCartItems()) {
+	            subtotal += item.getProductType().getBasePrice() * item.getItemQty();
+	        }
+	        double tax = subtotal * 0.13;
+	        double total = subtotal + tax;
+	        
+	        model.addAttribute("cartItems", cart.getCartItems());
+	        model.addAttribute("subtotal", String.format("%.2f", subtotal));
+	        model.addAttribute("tax", String.format("%.2f", tax));
+	        model.addAttribute("total", String.format("%.2f", total));
+	        
+	        return "checkout"; // Stay on checkout page with errors displayed
+			
+		}
 		
 		// 2. retrieve cart from session
 		
