@@ -117,8 +117,11 @@ public class RecipientService {
 
     // Very important -- ensures recipient inputs all required fields properly
     private void validateRecipient(Recipient recipient) {
-        if (recipient.getName() == null || recipient.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Recipient name is required");
+        if (recipient.getFirstName() == null || recipient.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Recipient first name is required");
+        }
+        if (recipient.getLastName() == null || recipient.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Recipient last name is required");
         }
         if (recipient.getStreet() == null || recipient.getStreet().trim().isEmpty()) {
             throw new IllegalArgumentException("Street address is required");

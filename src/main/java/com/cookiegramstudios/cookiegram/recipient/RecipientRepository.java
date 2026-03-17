@@ -22,80 +22,39 @@ import java.util.List;
 @Repository
 public interface RecipientRepository extends JpaRepository<Recipient, Long> {
 
-    /**
-     * Finds all recipients by name.
-     * <p>
-     * Case-sensitive search. Useful for finding all orders sent to a specific person.
-     * </p>
-     *
-     * @param name the recipient's name to search for
-     * @return list of recipients with matching name
+	 /**
+     * Finds all recipients by first name (case-sensitive).
      */
-    List<Recipient> findByName(String name);
+    List<Recipient> findByFirstName(String firstName);
 
     /**
-     * Finds all recipients by name (case-insensitive).
-     * <p>
-     * Useful for flexible name-based searches when exact casing is unknown.
-     * </p>
-     *
-     * @param name the recipient's name to search for (case-insensitive)
-     * @return list of recipients with matching name
+     * Finds all recipients by first name (case-insensitive).
      */
-    List<Recipient> findByNameIgnoreCase(String name);
+    List<Recipient> findByFirstNameIgnoreCase(String firstName);
 
     /**
      * Finds all recipients in a specific city.
-     * <p>
-     * Useful for delivery route optimization and regional analytics.
-     * </p>
-     *
-     * @param city the city to search for
-     * @return list of recipients in the specified city
      */
     List<Recipient> findByCity(String city);
 
     /**
      * Finds all recipients in a specific postal code.
-     * <p>
-     * Useful for delivery route optimization and targeted marketing.
-     * </p>
-     *
-     * @param postalCode the postal code to search for
-     * @return list of recipients with the specified postal code
      */
     List<Recipient> findByPostalCode(String postalCode);
 
     /**
      * Finds all recipients with special instructions.
-     * <p>
-     * Useful for identifying orders requiring extra attention during delivery.
-     * </p>
-     *
-     * @return list of recipients who have special instructions
      */
     List<Recipient> findBySpecialInstructionsIsNotNull();
 
     /**
      * Finds all recipients by country.
-     * <p>
-     * Useful for international order management and logistics.
-     * </p>
-     *
-     * @param country the country to search for
-     * @return list of recipients in the specified country
      */
     List<Recipient> findByCountry(String country);
 
     /**
-     * Searches for recipients by partial name match (case-insensitive).
-     * <p>
-     * Useful for autocomplete functionality and flexible search features.
-     * </p>
-     *
-     * @param namePattern the name pattern to search for (use % wildcards)
-     * @return list of recipients with names matching the pattern
+     * Searches for recipients by partial first name match (case-insensitive).
      */
-    @Query("SELECT r FROM Recipient r WHERE LOWER(r.name) LIKE LOWER(CONCAT('%', :namePattern, '%'))")
-    List<Recipient> searchByNameContaining(@Param("namePattern") String namePattern);
+    @Query("SELECT r FROM Recipient r WHERE LOWER(r.firstName) LIKE LOWER(CONCAT('%', :namePattern, '%'))")
+    List<Recipient> searchByFirstNameContaining(@Param("namePattern") String namePattern);
 }
