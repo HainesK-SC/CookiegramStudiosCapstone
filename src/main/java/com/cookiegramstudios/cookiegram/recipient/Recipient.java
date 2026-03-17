@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
  * </p>
  * <ul>
  * <li><b>id</b> - Unique identifier for the recipient</li>
- * <li><b>name</b> - Full name of the recipient</li>
+ * <li><b>first & last</b> - Full name of the recipient</li>
  * <li><b>street</b> - Street address for delivery</li>
  * <li><b>city</b> - City for delivery</li>
  * <li><b>postalCode</b> - Postal/ZIP code for delivery</li>
@@ -34,8 +34,8 @@ import jakarta.validation.constraints.NotBlank;
  * </ul>
  *
  * @author Matthew Samaha
- * @date 2026-02-24
- * @version 1.0
+ * @date 2026-04-17
+ * @version 2.0
  */
 @Entity
 @Table(name = "recipients")

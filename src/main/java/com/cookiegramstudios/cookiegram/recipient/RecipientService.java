@@ -15,8 +15,8 @@ import java.util.Optional;
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-02-24
- * @version 1.1
+ * @date 2026-03-17
+ * @version 2.0
  */
 @Service
 public class RecipientService {
@@ -26,13 +26,6 @@ public class RecipientService {
     public RecipientService(RecipientRepository recipientRepository) {
         this.recipientRepository = recipientRepository;
     }
-
-    /**
-     * CRUD Methods
-     * - create
-     * - update
-     * - delete
-     */
 
     @Transactional
     public Recipient createRecipient(Recipient recipient) {

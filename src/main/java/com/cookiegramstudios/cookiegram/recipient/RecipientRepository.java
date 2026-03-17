@@ -16,8 +16,8 @@ import java.util.List;
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-02-24
- * @version 1.0
+ * @date 2026-03-17
+ * @version 1.2
  */
 @Repository
 public interface RecipientRepository extends JpaRepository<Recipient, Long> {
