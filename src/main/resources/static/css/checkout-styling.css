@@ -218,7 +218,7 @@ textarea.form-control {
     min-height: 80px;
 }
 
-/* Form Row (ciyt/postal code) so it's side by side */
+/* Form Row (city/postal code) so it's side by side */
 
 .form-row {
     display: flex;
@@ -258,4 +258,44 @@ textarea.form-control {
 
 .radio-option span {
     font-weight: normal;
+}
+
+/* Action Buttons */
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #ddd;
+}
+
+.btn-secondary,
+.btn-primary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid black;
+    font-size: 1rem;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: black;
+}
+
+.btn-secondary:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-primary {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+}
+
+.btn-primary:hover {
+    background-color: #333;
 }
