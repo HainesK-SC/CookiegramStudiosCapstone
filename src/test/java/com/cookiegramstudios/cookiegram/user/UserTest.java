@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for the User entity
  * - tests validation constraints and business logic
  */
-
 public class UserTest {
 
     private Validator validator;

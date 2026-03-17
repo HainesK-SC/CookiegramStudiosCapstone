@@ -29,10 +29,10 @@ import com.cookiegramstudios.cookiegram.user.UserService;
  *
  * @author Matthew Samaha
  * @date 2026-03-14
- * @version 1.1
+ * @version 1.2
  */
-@Controller
-@RequestMapping("/employee/dashboard")
+@Controller 
+@RequestMapping("/employee")
 @PreAuthorize("hasRole('EMPLOYEE')")
 public class EmployeeController {
 	

@@ -15,8 +15,8 @@ import java.util.Optional;
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-02-24
- * @version 1.1
+ * @date 2026-03-17
+ * @version 2.0
  */
 @Service
 public class RecipientService {
@@ -26,13 +26,6 @@ public class RecipientService {
     public RecipientService(RecipientRepository recipientRepository) {
         this.recipientRepository = recipientRepository;
     }
-
-    /**
-     * CRUD Methods
-     * - create
-     * - update
-     * - delete
-     */
 
     @Transactional
     public Recipient createRecipient(Recipient recipient) {
@@ -69,15 +62,15 @@ public class RecipientService {
     }
 
     public List<Recipient> findByName(String name) {
-        return recipientRepository.findByName(name);
+        return recipientRepository.findByFirstName(name);
     }
 
     public List<Recipient> findByNameIgnoreCase(String name) {
-        return recipientRepository.findByNameIgnoreCase(name);
+        return recipientRepository.findByFirstNameIgnoreCase(name);
     }
 
     public List<Recipient> searchByName(String namePattern) {
-        return recipientRepository.searchByNameContaining(namePattern);
+        return recipientRepository.searchByFirstNameContaining(namePattern);
     }
 
     public List<Recipient> findByCity(String city) {
@@ -117,8 +110,11 @@ public class RecipientService {
 
     // Very important -- ensures recipient inputs all required fields properly
     private void validateRecipient(Recipient recipient) {
-        if (recipient.getName() == null || recipient.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Recipient name is required");
+        if (recipient.getFirstName() == null || recipient.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Recipient first name is required");
+        }
+        if (recipient.getLastName() == null || recipient.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Recipient last name is required");
         }
         if (recipient.getStreet() == null || recipient.getStreet().trim().isEmpty()) {
             throw new IllegalArgumentException("Street address is required");
