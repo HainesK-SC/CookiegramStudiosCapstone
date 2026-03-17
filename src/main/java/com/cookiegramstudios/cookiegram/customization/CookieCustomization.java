@@ -1,29 +1,41 @@
 package com.cookiegramstudios.cookiegram.customization;
+
 import com.cookiegramstudios.cookiegram.cookie.Cookie;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "cookie_customizations")
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CookieCustomization {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cookie_id", nullable = false)
-    private Cookie cookie;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cookie_id", nullable = false)
+	private Cookie cookie;
 
-    private String icingType;
-    private String toppings;
-    private String messageText;
-    private double additionalCost;
+	private String icingType;
+	private String toppings;
+	private String messageText;
+	private double additionalCost;
 
-    // Future-proofing for dietary info
-    private String specialDietaryInfo;
+	// Future-proofing for dietary info
+	private String specialDietaryInfo;
+
+	public CookieCustomization() {
+	}
+
+	public CookieCustomization(Long id, Cookie cookie, String icingType, String toppings, String messageText,
+			double additionalCost, String specialDietaryInfo) {
+		this.id = id;
+		this.cookie = cookie;
+		this.icingType = icingType;
+		this.toppings = toppings;
+		this.messageText = messageText;
+		this.additionalCost = additionalCost;
+		this.specialDietaryInfo = specialDietaryInfo;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,6 +92,5 @@ public class CookieCustomization {
 	public void setSpecialDietaryInfo(String specialDietaryInfo) {
 		this.specialDietaryInfo = specialDietaryInfo;
 	}
-    
-    
+
 }
