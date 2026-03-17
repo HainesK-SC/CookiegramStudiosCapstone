@@ -69,15 +69,15 @@ public class RecipientService {
     }
 
     public List<Recipient> findByName(String name) {
-        return recipientRepository.findByName(name);
+        return recipientRepository.findByFirstName(name);
     }
 
     public List<Recipient> findByNameIgnoreCase(String name) {
-        return recipientRepository.findByNameIgnoreCase(name);
+        return recipientRepository.findByFirstNameIgnoreCase(name);
     }
 
     public List<Recipient> searchByName(String namePattern) {
-        return recipientRepository.searchByNameContaining(namePattern);
+        return recipientRepository.searchByFirstNameContaining(namePattern);
     }
 
     public List<Recipient> findByCity(String city) {
