@@ -41,5 +41,9 @@
     border-bottom: 2px solid black;
 }
 
-/* Order Summary Information */
+/* Order Summary Information-Table */
 
+.order-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
