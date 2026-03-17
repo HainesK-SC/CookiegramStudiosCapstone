@@ -71,3 +71,13 @@ hr {
 .detail-row:last-child {
     margin-bottom: 0;
 }
+
+.label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.value {
+    font-weight: 600;
+    color: var(--text-main);
+}
