@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 /**
  * This is the intermediary step in the order process. This will allow
  * customers to add items into their cart and choose when they would like

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
@@ -82,4 +83,21 @@ public class OrderController {
 		session.removeAttribute("cart");
 		return "cart";
 	}
+	
+	@GetMapping("/order/checkout")
+	public String getCheckout(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+		// 1. retrieve cart from session
+		
+		// 2. validate cart exsists 
+		
+		// 3. calculate total price of cart items
+		
+		// 4. prepare checkout form with pre-init message list
+		
+		// 5. add attribute to model
+		
+		// 6. return checkout template
+		return "checkout";
+	}
+	
 }
