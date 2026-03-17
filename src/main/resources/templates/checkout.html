@@ -213,6 +213,44 @@
                 </div>
 	
 				<!-- 4. Sender Information -->
+				<div class="form-section sender-section">
+                    <h3>Your Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="senderName">Your Name <span class="required">*</span></label>
+                        <input type="text" 
+                               th:field="*{senderName}" 
+                               id="senderName"
+                               class="form-control"
+                               required
+                               placeholder="Enter your full name"/>
+                        <span th:if="${#fields.hasErrors('senderName')}" 
+                              th:errors="*{senderName}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senderEmail">Email Address <span class="required">*</span></label>
+                        <input type="email" 
+                               th:field="*{senderEmail}" 
+                               id="senderEmail"
+                               class="form-control"
+                               required
+                               placeholder="you@example.com"/>
+                        <span th:if="${#fields.hasErrors('senderEmail')}" 
+                              th:errors="*{senderEmail}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senderPhone">Phone Number (Optional)</label>
+                        <input type="tel" 
+                               th:field="*{senderPhone}" 
+                               id="senderPhone"
+                               class="form-control"
+                               placeholder="(555) 123-4567"/>
+                    </div>
+                </div>
 
 			<!-- Action Buttons - back to cart, proceed to payment -->
  			</form>
