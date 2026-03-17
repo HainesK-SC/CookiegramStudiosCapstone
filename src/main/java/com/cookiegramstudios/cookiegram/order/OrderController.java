@@ -207,6 +207,9 @@ public class OrderController {
 			session.removeAttribute("checkoutData");
 			session.removeAttribute("cart");
 
+			// 5. Return confirmation template
+			return "confirmation";
+
 		}
 	
 }
