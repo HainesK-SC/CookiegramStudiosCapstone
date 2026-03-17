@@ -61,3 +61,13 @@ hr {
     text-align: left;
     margin-bottom: 2rem;
 }
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
