@@ -40,3 +40,9 @@ body {
 .success-icon svg {
     width: 32px;
 }
+
+h1 {
+    color: var(--text-main);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+}
