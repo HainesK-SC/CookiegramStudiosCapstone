@@ -96,10 +96,31 @@ public class OrderController {
 		}
 		
 		// 3. calculate total price of cart items
+		double subtotal = 0.0;
+		for (CartItem i : cart.getCartItems()) {
+			double lineTotal = i.getProductType().getBasePrice() * i.getItemQty();
+			subtotal += lineTotal;
+		}
+		
+		// Ontario HST
+		double tax = subtotal * 0.13;
+		double total = subtotal + tax;
+		
 		
 		// 4. prepare checkout form with pre-init message list
+		CheckoutFormDTO checkoutForm = new CheckoutFormDTO();
+		for (int i = 0; i < cart.getCartItems().size(); i++) { // For each cart item, add a placeholder for a custom message
+			
+			checkoutForm.getCustomMessages().add(""); // Add empty string as placeholder for custom message
+			
+		} 
 		
 		// 5. add attribute to model
+		model.addAttribute("cartItems", cart.getCartItems());
+	    model.addAttribute("subtotal", String.format("%.2f", subtotal));
+	    model.addAttribute("tax", String.format("%.2f", tax));
+	    model.addAttribute("total", String.format("%.2f", total));
+	    model.addAttribute("checkoutForm", checkoutForm);
 		
 		// 6. return checkout template
 		return "checkout";
