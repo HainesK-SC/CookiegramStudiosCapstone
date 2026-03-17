@@ -57,8 +57,104 @@
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 
 				<!-- 1. Custom Messages -->
+				<div class="form-section custom-messages-section">
+                    <h3>Personalize Your Cookiegrams</h3>
+                    <p class="warning-message">
+                        ⚠️ <strong>Important:</strong> Custom messages are subject to approval. 
+                        Inappropriate content will result in order cancellation.
+                    </p>
+                    
+                    <div th:each="item, stat : ${cartItems}" class="message-input-group">
+                        <label th:for="'message-' + ${stat.index}" class="message-label">
+                            <strong>Message for:</strong> 
+                            <span th:text="${item.productType.baseName}">Cookie</span>
+                            <span class="quantity-badge" th:text="'(Qty: ' + ${item.itemQty} + ')'"></span>
+                        </label>
+                        <textarea 
+                            th:id="'message-' + ${stat.index}"
+                            th:field="*{customMessages[__${stat.index}__]}"
+                            maxlength="200"
+                            rows="3"
+                            placeholder="Enter your custom message (max 200 characters)"
+                            class="message-textarea"
+                            th:data-index="${stat.index}"
+                            oninput="updateCharCount(this)">
+                        </textarea>
+                        <span th:id="'char-count-' + ${stat.index}" class="char-count">0 / 200 characters</span>
+                    </div>
+                </div>
 	
 				<!-- 2. Recipient Information -->
+				 <div class="form-section recipient-section">
+                    <h3>Recipient Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="recipientName">Recipient Name <span class="required">*</span></label>
+                        <input type="text" 
+                               th:field="*{recipientName}" 
+                               id="recipientName"
+                               class="form-control"
+                               required
+                               placeholder="Enter recipient's full name"/>
+                        <span th:if="${#fields.hasErrors('recipientName')}" 
+                              th:errors="*{recipientName}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipientStreet">Street Address <span class="required">*</span></label>
+                        <input type="text" 
+                               th:field="*{recipientStreet}" 
+                               id="recipientStreet"
+                               class="form-control"
+                               required
+                               placeholder="123 Main Street, Apt 4B"/>
+                        <span th:if="${#fields.hasErrors('recipientStreet')}" 
+                              th:errors="*{recipientStreet}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="recipientCity">City <span class="required">*</span></label>
+                            <input type="text" 
+                                   th:field="*{recipientCity}" 
+                                   id="recipientCity"
+                                   class="form-control"
+                                   required
+                                   placeholder="Toronto"/>
+                            <span th:if="${#fields.hasErrors('recipientCity')}" 
+                                  th:errors="*{recipientCity}" 
+                                  class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="recipientPostalCode">Postal Code <span class="required">*</span></label>
+                            <input type="text" 
+                                   th:field="*{recipientPostalCode}" 
+                                   id="recipientPostalCode"
+                                   class="form-control"
+                                   required
+                                   placeholder="M5V 3A8"/>
+                            <span th:if="${#fields.hasErrors('recipientPostalCode')}" 
+                                  th:errors="*{recipientPostalCode}" 
+                                  class="error-message"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipientCountry">Country <span class="required">*</span></label>
+                        <input type="text" 
+                               th:field="*{recipientCountry}" 
+                               id="recipientCountry"
+                               class="form-control"
+                               required
+                               value="Canada"/>
+                        <span th:if="${#fields.hasErrors('recipientCountry')}" 
+                              th:errors="*{recipientCountry}" 
+                              class="error-message"></span>
+                    </div>
+                </div>
 	
 				<!-- 3. Delivery Details  -->
 	
