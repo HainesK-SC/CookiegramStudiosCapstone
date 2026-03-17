@@ -17,251 +17,216 @@
 		<div class=checkout-container">
 			<!-- Order Summary (read-only) -->
 			<div class="order-summary-box">
-                <h2>Order Summary</h2>
-                <table class="order-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="item : ${cartItems}">
-                            <td th:text="${item.productType.baseName}">Cookie Name</td>
-                            <td th:text="${item.itemQty}">1</td>
-                            <td th:text="'$' + ${item.productType.basePrice}">$10.00</td>
-                            <td th:text="'$' + ${#numbers.formatDecimal(item.productType.basePrice * item.itemQty, 1, 2)}">$10.00</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
-                            <td th:text="'$' + ${subtotal}">$10.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-right"><strong>Tax (13%):</strong></td>
-                            <td th:text="'$' + ${tax}">$1.30</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                            <td><strong th:text="'$' + ${total}">$11.30</strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+				<h2>Order Summary</h2>
+				<table class="order-summary-table">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${cartItems}">
+							<td th:text="${item.productType.baseName}">Cookie Name</td>
+							<td th:text="${item.itemQty}">1</td>
+							<td th:text="'$' + ${item.productType.basePrice}">$10.00</td>
+							<td
+								th:text="'$' + ${#numbers.formatDecimal(item.productType.basePrice * item.itemQty, 1, 2)}">$10.00</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+							<td th:text="'$' + ${subtotal}">$10.00</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="text-right"><strong>Tax
+									(13%):</strong></td>
+							<td th:text="'$' + ${tax}">$1.30</td>
+						</tr>
+						<tr class="total-row">
+							<td colspan="3" class="text-right"><strong>Total:</strong></td>
+							<td><strong th:text="'$' + ${total}">$11.30</strong></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 
 			<!-- Checkout Form -->
-			<form th:action="@{/order/checkout}" method="POST" th:object="${checkoutForm}" class="checkout-form">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                
+			<form th:action="@{/order/checkout}" method="POST"
+				th:object="${checkoutForm}" class="checkout-form">
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" />
+
 				<!-- 1. Custom Messages -->
 				<div class="form-section custom-messages-section">
-                    <h3>Personalize Your Cookiegrams</h3>
-                    <p class="warning-message">
-                        ⚠️ <strong>Important:</strong> Custom messages are subject to approval. 
-                        Inappropriate content will result in order cancellation.
-                    </p>
-                    
-                    <div th:each="item, stat : ${cartItems}" class="message-input-group">
-                        <label th:for="'message-' + ${stat.index}" class="message-label">
-                            <strong>Message for:</strong> 
-                            <span th:text="${item.productType.baseName}">Cookie</span>
-                            <span class="quantity-badge" th:text="'(Qty: ' + ${item.itemQty} + ')'"></span>
-                        </label>
-                        <textarea 
-                            th:id="'message-' + ${stat.index}"
-                            th:field="*{customMessages[__${stat.index}__]}"
-                            maxlength="200"
-                            rows="3"
-                            placeholder="Enter your custom message (max 200 characters)"
-                            class="message-textarea"
-                            th:data-index="${stat.index}"
-                            oninput="updateCharCount(this)">
+					<h3>Personalize Your Cookiegrams</h3>
+					<p class="warning-message">
+						⚠️ <strong>Important:</strong> Custom messages are subject to
+						approval. Inappropriate content will result in order cancellation.
+					</p>
+
+					<div th:each="item, stat : ${cartItems}"
+						class="message-input-group">
+						<label th:for="'message-' + ${stat.index}" class="message-label">
+							<strong>Message for:</strong> <span
+							th:text="${item.productType.baseName}">Cookie</span> <span
+							class="quantity-badge" th:text="'(Qty: ' + ${item.itemQty} + ')'"></span>
+						</label>
+						<textarea th:id="'message-' + ${stat.index}"
+							th:field="*{customMessages[__${stat.index}__]}" maxlength="200"
+							rows="3"
+							placeholder="Enter your custom message (max 200 characters)"
+							class="message-textarea" th:data-index="${stat.index}"
+							oninput="updateCharCount(this)">
                         </textarea>
-                        <span th:id="'char-count-' + ${stat.index}" class="char-count">0 / 200 characters</span>
-                    </div>
-                </div>
-	
+						<span th:id="'char-count-' + ${stat.index}" class="char-count">0
+							/ 200 characters</span>
+					</div>
+				</div>
+
 				<!-- 2. Recipient Information -->
-				 <div class="form-section recipient-section">
-                    <h3>Recipient Information</h3>
-                    
-                    <div class="form-group">
-                        <label for="recipientName">Recipient Name <span class="required">*</span></label>
-                        <input type="text" 
-                               th:field="*{recipientName}" 
-                               id="recipientName"
-                               class="form-control"
-                               required
-                               placeholder="Enter recipient's full name"/>
-                        <span th:if="${#fields.hasErrors('recipientName')}" 
-                              th:errors="*{recipientName}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="recipientStreet">Street Address <span class="required">*</span></label>
-                        <input type="text" 
-                               th:field="*{recipientStreet}" 
-                               id="recipientStreet"
-                               class="form-control"
-                               required
-                               placeholder="123 Main Street, Apt 4B"/>
-                        <span th:if="${#fields.hasErrors('recipientStreet')}" 
-                              th:errors="*{recipientStreet}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="recipientCity">City <span class="required">*</span></label>
-                            <input type="text" 
-                                   th:field="*{recipientCity}" 
-                                   id="recipientCity"
-                                   class="form-control"
-                                   required
-                                   placeholder="Toronto"/>
-                            <span th:if="${#fields.hasErrors('recipientCity')}" 
-                                  th:errors="*{recipientCity}" 
-                                  class="error-message"></span>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="recipientPostalCode">Postal Code <span class="required">*</span></label>
-                            <input type="text" 
-                                   th:field="*{recipientPostalCode}" 
-                                   id="recipientPostalCode"
-                                   class="form-control"
-                                   required
-                                   placeholder="M5V 3A8"/>
-                            <span th:if="${#fields.hasErrors('recipientPostalCode')}" 
-                                  th:errors="*{recipientPostalCode}" 
-                                  class="error-message"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="recipientCountry">Country <span class="required">*</span></label>
-                        <input type="text" 
-                               th:field="*{recipientCountry}" 
-                               id="recipientCountry"
-                               class="form-control"
-                               required
-                               value="Canada"/>
-                        <span th:if="${#fields.hasErrors('recipientCountry')}" 
-                              th:errors="*{recipientCountry}" 
-                              class="error-message"></span>
-                    </div>
-                </div>
-	
+				<div class="form-section recipient-section">
+					<h3>Recipient Information</h3>
+
+					<div class="form-group">
+						<label for="recipientName">Recipient Name <span
+							class="required">*</span></label> <input type="text"
+							th:field="*{recipientName}" id="recipientName"
+							class="form-control" required
+							placeholder="Enter recipient's full name" /> <span
+							th:if="${#fields.hasErrors('recipientName')}"
+							th:errors="*{recipientName}" class="error-message"></span>
+					</div>
+
+					<div class="form-group">
+						<label for="recipientStreet">Street Address <span
+							class="required">*</span></label> <input type="text"
+							th:field="*{recipientStreet}" id="recipientStreet"
+							class="form-control" required
+							placeholder="123 Main Street, Apt 4B" /> <span
+							th:if="${#fields.hasErrors('recipientStreet')}"
+							th:errors="*{recipientStreet}" class="error-message"></span>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group">
+							<label for="recipientCity">City <span class="required">*</span></label>
+							<input type="text" th:field="*{recipientCity}" id="recipientCity"
+								class="form-control" required placeholder="Toronto" /> <span
+								th:if="${#fields.hasErrors('recipientCity')}"
+								th:errors="*{recipientCity}" class="error-message"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="recipientPostalCode">Postal Code <span
+								class="required">*</span></label> <input type="text"
+								th:field="*{recipientPostalCode}" id="recipientPostalCode"
+								class="form-control" required placeholder="M5V 3A8" /> <span
+								th:if="${#fields.hasErrors('recipientPostalCode')}"
+								th:errors="*{recipientPostalCode}" class="error-message"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="recipientCountry">Country <span
+							class="required">*</span></label> <input type="text"
+							th:field="*{recipientCountry}" id="recipientCountry"
+							class="form-control" required value="Canada" /> <span
+							th:if="${#fields.hasErrors('recipientCountry')}"
+							th:errors="*{recipientCountry}" class="error-message"></span>
+					</div>
+				</div>
+
 				<!-- 3. Delivery Details  -->
 				<div class="form-section delivery-section">
-                    <h3>Delivery Details</h3>
-                    
-                    <div class="form-group">
-                        <label for="deliveryDate">Delivery Date <span class="required">*</span></label>
-                        <input type="date" 
-                               th:field="*{deliveryDate}" 
-                               id="deliveryDate"
-                               class="form-control"
-                               required
-                               th:min="${#temporals.format(#temporals.createToday().plusDays(1), 'yyyy-MM-dd')}"/>
-                        <span th:if="${#fields.hasErrors('deliveryDate')}" 
-                              th:errors="*{deliveryDate}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Delivery Time Preference <span class="required">*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" 
-                                       th:field="*{deliveryTimePreference}" 
-                                       value="Morning (8AM-12PM)"
-                                       required/>
-                                <span>Morning (8AM-12PM)</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" 
-                                       th:field="*{deliveryTimePreference}" 
-                                       value="Afternoon (12PM-5PM)"/>
-                                <span>Afternoon (12PM-5PM)</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" 
-                                       th:field="*{deliveryTimePreference}" 
-                                       value="Evening (5PM-8PM)"/>
-                                <span>Evening (5PM-8PM)</span>
-                            </label>
-                        </div>
-                        <span th:if="${#fields.hasErrors('deliveryTimePreference')}" 
-                              th:errors="*{deliveryTimePreference}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="deliveryInstructions">Special Delivery Instructions (Optional)</label>
-                        <textarea 
-                            th:field="*{deliveryInstructions}" 
-                            id="deliveryInstructions"
-                            class="form-control"
-                            rows="3"
-                            placeholder="e.g., Ring doorbell, leave at back door, gate code 1234"></textarea>
-                    </div>
-                </div>
-	
+					<h3>Delivery Details</h3>
+
+					<div class="form-group">
+						<label for="deliveryDate">Delivery Date <span
+							class="required">*</span></label> <input type="date"
+							th:field="*{deliveryDate}" id="deliveryDate" class="form-control"
+							required
+							th:min="${#temporals.format(#temporals.createToday().plusDays(1), 'yyyy-MM-dd')}" />
+						<span th:if="${#fields.hasErrors('deliveryDate')}"
+							th:errors="*{deliveryDate}" class="error-message"></span>
+					</div>
+
+					<div class="form-group">
+						<label>Delivery Time Preference <span class="required">*</span></label>
+						<div class="radio-group">
+							<label class="radio-option"> <input type="radio"
+								th:field="*{deliveryTimePreference}" value="Morning (8AM-12PM)"
+								required /> <span>Morning (8AM-12PM)</span>
+							</label> <label class="radio-option"> <input type="radio"
+								th:field="*{deliveryTimePreference}"
+								value="Afternoon (12PM-5PM)" /> <span>Afternoon
+									(12PM-5PM)</span>
+							</label> <label class="radio-option"> <input type="radio"
+								th:field="*{deliveryTimePreference}" value="Evening (5PM-8PM)" />
+								<span>Evening (5PM-8PM)</span>
+							</label>
+						</div>
+						<span th:if="${#fields.hasErrors('deliveryTimePreference')}"
+							th:errors="*{deliveryTimePreference}" class="error-message"></span>
+					</div>
+
+					<div class="form-group">
+						<label for="deliveryInstructions">Special Delivery
+							Instructions (Optional)</label>
+						<textarea th:field="*{deliveryInstructions}"
+							id="deliveryInstructions" class="form-control" rows="3"
+							placeholder="e.g., Ring doorbell, leave at back door, gate code 1234"></textarea>
+					</div>
+				</div>
+
 				<!-- 4. Sender Information -->
 				<div class="form-section sender-section">
-                    <h3>Your Information</h3>
-                    
-                    <div class="form-group">
-                        <label for="senderName">Your Name <span class="required">*</span></label>
-                        <input type="text" 
-                               th:field="*{senderName}" 
-                               id="senderName"
-                               class="form-control"
-                               required
-                               placeholder="Enter your full name"/>
-                        <span th:if="${#fields.hasErrors('senderName')}" 
-                              th:errors="*{senderName}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="senderEmail">Email Address <span class="required">*</span></label>
-                        <input type="email" 
-                               th:field="*{senderEmail}" 
-                               id="senderEmail"
-                               class="form-control"
-                               required
-                               placeholder="you@example.com"/>
-                        <span th:if="${#fields.hasErrors('senderEmail')}" 
-                              th:errors="*{senderEmail}" 
-                              class="error-message"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="senderPhone">Phone Number (Optional)</label>
-                        <input type="tel" 
-                               th:field="*{senderPhone}" 
-                               id="senderPhone"
-                               class="form-control"
-                               placeholder="(555) 123-4567"/>
-                    </div>
-                </div>
+					<h3>Your Information</h3>
+
+					<div class="form-group">
+						<label for="senderName">Your Name <span class="required">*</span></label>
+						<input type="text" th:field="*{senderName}" id="senderName"
+							class="form-control" required placeholder="Enter your full name" />
+						<span th:if="${#fields.hasErrors('senderName')}"
+							th:errors="*{senderName}" class="error-message"></span>
+					</div>
+
+					<div class="form-group">
+						<label for="senderEmail">Email Address <span
+							class="required">*</span></label> <input type="email"
+							th:field="*{senderEmail}" id="senderEmail" class="form-control"
+							required placeholder="you@example.com" /> <span
+							th:if="${#fields.hasErrors('senderEmail')}"
+							th:errors="*{senderEmail}" class="error-message"></span>
+					</div>
+
+					<div class="form-group">
+						<label for="senderPhone">Phone Number (Optional)</label> <input
+							type="tel" th:field="*{senderPhone}" id="senderPhone"
+							class="form-control" placeholder="(555) 123-4567" />
+					</div>
+				</div>
 
 				<!-- Action Buttons - back to cart, proceed to payment -->
- 				<div class="form-actions">
-                    <a th:href="@{/order/cart}" class="btn btn-secondary">← Back to Cart</a>
-                    <button type="submit" class="btn btn-primary">Proceed to Payment →</button>
-                </div>
- 			</form>
+				<div class="form-actions">
+					<a th:href="@{/order/cart}" class="btn btn-secondary">← Back to
+						Cart</a>
+					<button type="submit" class="btn btn-primary">Proceed to
+						Payment →</button>
+				</div>
+			</form>
 		</div>
 	</section>
 
 	<script>
+    // Initialize character counters on page load
+    
+            // Update character count for a specific textarea
+
+
 	
 	</script>
 </body>
