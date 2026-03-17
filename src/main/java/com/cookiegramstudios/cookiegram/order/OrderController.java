@@ -76,6 +76,11 @@ public class OrderController {
 	@GetMapping("/order/cart")
 	public String cart(HttpSession session, Model model) {
 		Cart cart = (Cart) session.getAttribute("cart");
+		
+		if(cart == null) {
+			cart = new Cart();
+		}
+		
 		List<CartItem> cartItems = cart.getCartItems();
 		model.addAttribute("cartItems", cartItems);
 		return "cart";
@@ -84,7 +89,7 @@ public class OrderController {
 	@PostMapping("/order/cart/clear")
 	public String clearCart(HttpSession session) {
 		session.removeAttribute("cart");
-		return "cart";
+		return "redirect:/order/cart";
 	}
 	
 	@GetMapping("/order/checkout")
