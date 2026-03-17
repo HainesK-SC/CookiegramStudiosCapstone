@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +18,7 @@ import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 /**
  * Controller for order-related web endpoints.
@@ -124,6 +127,32 @@ public class OrderController {
 		
 		// 6. return checkout template
 		return "checkout";
+	}
+	
+	@PostMapping("/order/checkout")
+	public String submitCheckout(
+	        @Valid @ModelAttribute("checkoutForm") CheckoutFormDTO checkoutForm,
+	        BindingResult result,
+	        HttpSession session,
+	        Model model,
+	        RedirectAttributes redirectAttributes) {
+		
+		
+		// 1. if validation errors, return to checkout page with errors
+		
+			// re-fetch cart and recalculate totals for display -- don't want to lose that info when returning to the form
+		
+		
+		// 2. retrieve cart from session
+		
+		
+		// 3. final cart validation (check if cart is empty or null)
+		
+		// 4. store checkout data in session for payment page
+		
+		// 5. redirect to payment page
+		return "redirect:/order/payment";
+		
 	}
 	
 }
