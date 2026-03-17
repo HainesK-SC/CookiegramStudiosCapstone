@@ -7,9 +7,9 @@ import java.time.LocalDate;
 /**
  * Promotion entity that represents a promotional offer.
  * <p>
- * Running promotions will be displayed on the main landing page that
- * customers are brought to upon successful login; the promotions on that page
- * will be made up of Promotion entities from this class.
+ * Running promotions will be displayed on the main landing page that customers
+ * are brought to upon successful login; the promotions on that page will be
+ * made up of Promotion entities from this class.
  * </p>
  * <p>
  * The entity includes the following key attributes:
@@ -18,11 +18,14 @@ import java.time.LocalDate;
  * <li><b>id: int</b> - Unique identifier for the promotion</li>
  * <li><b>promoCode: String</b> - A unique promotional code</li>
  * <li><b>description: String</b> - Short description about the promotion</li>
- * <li><b>promoType: String</b> - Type of promotion (fixed dollar amount or set percentage)</li>
- * <li><b>promoValue: String</b> - The actual figure (dollar amount or percentage)</li>
+ * <li><b>promoType: String</b> - Type of promotion (fixed dollar amount or set
+ * percentage)</li>
+ * <li><b>promoValue: String</b> - The actual figure (dollar amount or
+ * percentage)</li>
  * <li><b>starDate: LocalDateTime</b> - Date and time the promotion started</li>
  * <li><b>endDate: LocalDateTime</b> - Date and time the promotion ended</li>
- * <li><b>isActive: boolean</b> - Whether the promotion is currently running or not</li>
+ * <li><b>isActive: boolean</b> - Whether the promotion is currently running or
+ * not</li>
  * </ul>
  *
  * @author Kyle Haines
@@ -32,72 +35,101 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "promotions")
 public class Promotion {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    @Column(nullable = false, unique = true)
-    String promoCode;
-    @Column(nullable = false)
-    String description; // short description
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    PromotionTypes promoType; // FIXED or PERCENTAGE
-    @Column(nullable = false)
-    double promoValue; // fixed $ or %
-    @Column(nullable = false)
-    LocalDate startDate; // YYYY-MM-DD
-    @Column(nullable = false)
-    LocalDate endDate; // YYYY-MM-DD
-    @Column(nullable = false)
-    boolean isActive; // whether promotion is currently active or not
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	long id;
+	@Column(nullable = false, unique = true)
+	String promoCode;
+	@Column(nullable = false)
+	String description; // short description
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	PromotionTypes promoType; // FIXED or PERCENTAGE
+	@Column(nullable = false)
+	double promoValue; // fixed $ or %
+	@Column(nullable = false)
+	LocalDate startDate; // YYYY-MM-DD
+	@Column(nullable = false)
+	LocalDate endDate; // YYYY-MM-DD
+	@Column(nullable = false)
+	boolean isActive; // whether promotion is currently active or not
+	
+	public Promotion() {
+	}
+	
+	public Promotion(String promoCode, String description, PromotionTypes promoType, double promoValue,
+			LocalDate startDate, LocalDate endDate, boolean isActive) {
+		this.promoCode = promoCode;
+		this.description = description;
+		this.promoType = promoType;
+		this.promoValue = promoValue;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.isActive = isActive;
+	}
+
 	public String getPromoCode() {
 		return promoCode;
 	}
+
 	public void setPromoCode(String promoCode) {
 		this.promoCode = promoCode;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public PromotionTypes getPromoType() {
 		return promoType;
 	}
+
 	public void setPromoType(PromotionTypes promoType) {
 		this.promoType = promoType;
 	}
+
 	public double getPromoValue() {
 		return promoValue;
 	}
+
 	public void setPromoValue(double promoValue) {
 		this.promoValue = promoValue;
 	}
+
 	public LocalDate getStartDate() {
 		return startDate;
 	}
+
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+
 	public LocalDate getEndDate() {
 		return endDate;
 	}
+
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+
 	public boolean getIsActive() {
 		return isActive;
 	}
+
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-    
-    
+
 }

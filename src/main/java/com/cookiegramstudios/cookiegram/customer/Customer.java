@@ -37,8 +37,6 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "customer_profiles")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +68,15 @@ public class Customer {
     public void updateLastOrderDate(){
         lastOrderDate = LocalDateTime.now();
     }
+    
+    public Customer() {
+	}
+    
+    public Customer(String email, LocalDateTime createdAt, LocalDateTime lastOrderDate) {
+		this.email = email;
+		this.createdAt = createdAt;
+		this.lastOrderDate = lastOrderDate;
+	}
 
     public Long getId() {
         return id;

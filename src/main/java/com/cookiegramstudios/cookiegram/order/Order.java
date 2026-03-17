@@ -24,32 +24,32 @@ import lombok.NoArgsConstructor;
 /**
  * Represents a production order within the CookieGram system.
  * <p>
- * Orders are internal entities that track customer purchases,
- * recipient details, and order workflow statuses. This entity
- * is used for managing order processing, delivery scheduling,
- * and administrative notes.
+ * Orders are internal entities that track customer purchases, recipient
+ * details, and order workflow statuses. This entity is used for managing order
+ * processing, delivery scheduling, and administrative notes.
  * </p>
  * <p>
  * <b>Fields include:</b>
  * <ul>
- *     <li><b>id</b> - Unique identifier for the order</li>
- *     <li><b>orderNumber</b> - System-generated unique number for tracking</li>
- *     <li><b>customerProfile</b> - The customer who placed the order</li>
- *     <li><b>recipientUser</b> - Recipient of the order</li>
- *     <li><b>status</b> - Current workflow status (PLACED, IN_PROGRESS, BAKED, SHIPPED, DELIVERED)</li>
- *     <li><b>deliveryDate</b> - Scheduled delivery date</li>
- *     <li><b>totalPrice</b> - Total amount of the order</li>
- *     <li><b>notes</b> - Optional administrative or special instructions</li>
- *     <li><b>createdAt</b> - Timestamp when the order was created</li>
- *     <li><b>updatedAt</b> - Timestamp when the order was last updated</li>
+ * <li><b>id</b> - Unique identifier for the order</li>
+ * <li><b>orderNumber</b> - System-generated unique number for tracking</li>
+ * <li><b>customerProfile</b> - The customer who placed the order</li>
+ * <li><b>recipientUser</b> - Recipient of the order</li>
+ * <li><b>status</b> - Current workflow status (PLACED, IN_PROGRESS, BAKED,
+ * SHIPPED, DELIVERED)</li>
+ * <li><b>deliveryDate</b> - Scheduled delivery date</li>
+ * <li><b>totalPrice</b> - Total amount of the order</li>
+ * <li><b>notes</b> - Optional administrative or special instructions</li>
+ * <li><b>createdAt</b> - Timestamp when the order was created</li>
+ * <li><b>updatedAt</b> - Timestamp when the order was last updated</li>
  * </ul>
  * </p>
  * <p>
  * <b>Future Considerations:</b>
  * <ul>
- *     <li>Integrate with receipts and payment records</li>
- *     <li>Support automated status updates for delivery tracking</li>
- *     <li>Enhance auditing and reporting features</li>
+ * <li>Integrate with receipts and payment records</li>
+ * <li>Support automated status updates for delivery tracking</li>
+ * <li>Enhance auditing and reporting features</li>
  * </ul>
  * </p>
  * 
@@ -59,8 +59,6 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "orders")
-@AllArgsConstructor
-@NoArgsConstructor
 public class Order {
 
 	@Id
@@ -104,7 +102,22 @@ public class Order {
 	protected void onUpdate() {
 		updatedat = LocalDateTime.now();
 	}
-	
+
+	public Order() {
+	}
+
+	public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
+			LocalDate deliveryDate, double totalPrice, String notes, LocalDateTime createdAt, LocalDateTime updatedat) {
+		this.orderNumber = orderNumber;
+		this.customerProfile = customerProfile;
+		this.recipientUser = recipientUser;
+		this.status = status;
+		this.deliveryDate = deliveryDate;
+		this.totalPrice = totalPrice;
+		this.notes = notes;
+		this.createdAt = createdAt;
+		this.updatedat = updatedat;
+	}
 
 	public Long getId() {
 		return id;

@@ -1,4 +1,5 @@
 package com.cookiegramstudios.cookiegram.receipt;
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -11,43 +12,57 @@ import com.cookiegramstudios.cookiegram.order.Order;
  *
  * @name Nguyen Anh Khoa Tran
  * @date 2026-02-28
- * @version 1.0	
+ * @version 1.0
  */
 @Entity
 @Table(name = "order_receipts")
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderReceipt {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(unique = true, nullable = false)
-    private int orderNumber;
+	@Column(unique = true, nullable = false)
+	private int orderNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order; // Edit: Matthew - Assuming an Order entity exists :: must implement
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_id", nullable = false)
+	private Order order; // Edit: Matthew - Assuming an Order entity exists :: must implement
 
-    @Column(columnDefinition = "TEXT")
-    private String summaryText;
+	@Column(columnDefinition = "TEXT")
+	private String summaryText;
 
-    private double totalPrice;
+	private double totalPrice;
 
-    private LocalDate deliveryDate;
+	private LocalDate deliveryDate;
 
-    private LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 
-    private boolean emailSent;
+	private boolean emailSent;
 
-    private LocalDateTime emailSentAt;
+	private LocalDateTime emailSentAt;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-    
-    // Edit: Matthew - Additional methods :: @Getters and @Setters causes issuess and compilation errors, so we will add them manually
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = LocalDateTime.now();
+	}
+
+	// Edit: Matthew - Additional methods :: @Getters and @Setters causes issuess
+	// and compilation errors, so we will add them manually
+
+	public OrderReceipt() {
+
+	}
+
+	public OrderReceipt(int orderNumber, Order order, String summaryText, double totalPrice, LocalDate deliveryDate,
+			boolean emailSent, LocalDateTime emailSentAt) {
+		this.orderNumber = orderNumber;
+		this.order = order;
+		this.summaryText = summaryText;
+		this.totalPrice = totalPrice;
+		this.deliveryDate = deliveryDate;
+		this.emailSent = emailSent;
+		this.emailSentAt = emailSentAt;
+	}
 
 	public Long getId() {
 		return id;
@@ -127,5 +142,5 @@ public class OrderReceipt {
 				+ ", totalPrice=" + totalPrice + ", deliveryDate=" + deliveryDate + ", createdAt=" + createdAt
 				+ ", emailSent=" + emailSent + ", emailSentAt=" + emailSentAt + "]";
 	}
- 
+
 }
