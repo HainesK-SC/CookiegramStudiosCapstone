@@ -1,8 +1,7 @@
 package com.cookiegramstudios.cookiegram.customer;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 

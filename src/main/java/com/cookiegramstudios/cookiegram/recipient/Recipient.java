@@ -2,8 +2,7 @@ package com.cookiegramstudios.cookiegram.recipient;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 
 /**
  * Represents a recipient of an order in the CookieGram system.
