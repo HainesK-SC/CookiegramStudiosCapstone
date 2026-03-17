@@ -157,6 +157,60 @@
                 </div>
 	
 				<!-- 3. Delivery Details  -->
+				<div class="form-section delivery-section">
+                    <h3>Delivery Details</h3>
+                    
+                    <div class="form-group">
+                        <label for="deliveryDate">Delivery Date <span class="required">*</span></label>
+                        <input type="date" 
+                               th:field="*{deliveryDate}" 
+                               id="deliveryDate"
+                               class="form-control"
+                               required
+                               th:min="${#temporals.format(#temporals.createToday().plusDays(1), 'yyyy-MM-dd')}"/>
+                        <span th:if="${#fields.hasErrors('deliveryDate')}" 
+                              th:errors="*{deliveryDate}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Delivery Time Preference <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" 
+                                       th:field="*{deliveryTimePreference}" 
+                                       value="Morning (8AM-12PM)"
+                                       required/>
+                                <span>Morning (8AM-12PM)</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" 
+                                       th:field="*{deliveryTimePreference}" 
+                                       value="Afternoon (12PM-5PM)"/>
+                                <span>Afternoon (12PM-5PM)</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" 
+                                       th:field="*{deliveryTimePreference}" 
+                                       value="Evening (5PM-8PM)"/>
+                                <span>Evening (5PM-8PM)</span>
+                            </label>
+                        </div>
+                        <span th:if="${#fields.hasErrors('deliveryTimePreference')}" 
+                              th:errors="*{deliveryTimePreference}" 
+                              class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deliveryInstructions">Special Delivery Instructions (Optional)</label>
+                        <textarea 
+                            th:field="*{deliveryInstructions}" 
+                            id="deliveryInstructions"
+                            class="form-control"
+                            rows="3"
+                            placeholder="e.g., Ring doorbell, leave at back door, gate code 1234"></textarea>
+                    </div>
+                </div>
 	
 				<!-- 4. Sender Information -->
 
