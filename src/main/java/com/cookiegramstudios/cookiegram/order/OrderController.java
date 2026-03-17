@@ -202,6 +202,10 @@ public class OrderController {
 			model.addAttribute("customerName", confirmedOrder.getCustomerName());
 			model.addAttribute("customerEmail", confirmedOrder.getCustomerEmail());
 
+			// 4. Clean up session — order is confirmed, no longer needed
+			session.removeAttribute("confirmedOrder");
+			session.removeAttribute("checkoutData");
+			session.removeAttribute("cart");
 
 		}
 	
