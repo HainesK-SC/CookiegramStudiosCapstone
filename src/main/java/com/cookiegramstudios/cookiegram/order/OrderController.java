@@ -166,11 +166,16 @@ public class OrderController {
 		}
 		
 		// 2. retrieve cart from session
-		
+		Cart cart = (Cart) session.getAttribute("cart");
 		
 		// 3. final cart validation (check if cart is empty or null)
+		if (cart == null || cart.getCartItems().isEmpty()) {
+			redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
+			return "redirect:/order/"; // Redirect to order page or cart page as appropriate
+		}
 		
 		// 4. store checkout data in session for payment page
+		session.setAttribute("checkoutData", checkoutForm);
 		
 		// 5. redirect to payment page
 		return "redirect:/order/payment";
