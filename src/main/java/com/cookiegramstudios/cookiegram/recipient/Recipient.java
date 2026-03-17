@@ -3,7 +3,6 @@ package com.cookiegramstudios.cookiegram.recipient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-
 /**
  * Represents a recipient of an order in the CookieGram system.
  * <p>
@@ -82,20 +81,21 @@ public class Recipient {
 	 * @return formatted address string
 	 */
 	public String getFullAddress() {
-		return String.format("%s, %s, %s, %s", street, city, postalCode, country);
+	    return String.format("%s, %s, %s, %s", street, city, postalCode, country);
 	}
 
 	public Recipient() {
 	}
 
-	public Recipient(String name, String street, String city, String postalCode, String country,
-			String specialInstructions) {
-		this.name = name;
-		this.street = street;
-		this.city = city;
-		this.postalCode = postalCode;
-		this.country = country;
-		this.specialInstructions = specialInstructions;
+	public Recipient(String firstName, String lastName, String street, String city,
+	        String postalCode, String country, String specialInstructions) {
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.street = street;
+	    this.city = city;
+	    this.postalCode = postalCode;
+	    this.country = country;
+	    this.specialInstructions = specialInstructions;
 	}
 
 	public Long getId() {
@@ -106,12 +106,20 @@ public class Recipient {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getStreet() {
@@ -154,10 +162,4 @@ public class Recipient {
 		this.specialInstructions = specialInstructions;
 	}
 
-	@Override
-	public String toString() {
-		return "Recipient{" + "id=" + id + ", name='" + name + '\'' + ", street='" + street + '\'' + ", city='" + city
-				+ '\'' + ", postalCode='" + postalCode + '\'' + ", country='" + country + '\''
-				+ ", specialInstructions='" + specialInstructions + '\'' + '}';
-	}
 }
