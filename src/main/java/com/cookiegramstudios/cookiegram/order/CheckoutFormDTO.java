@@ -74,4 +74,100 @@ public class CheckoutFormDTO {
 		this.customMessages = customMessages != null ? customMessages : new ArrayList<>();
 	}
 
+	public String getRecipientName() {
+		return recipientName;
+	}
+
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+
+	public String getRecipientStreet() {
+		return recipientStreet;
+	}
+
+	public void setRecipientStreet(String recipientStreet) {
+		this.recipientStreet = recipientStreet;
+	}
+
+	public String getRecipientCity() {
+		return recipientCity;
+	}
+
+	public void setRecipientCity(String recipientCity) {
+		this.recipientCity = recipientCity;
+	}
+
+	public String getRecipientPostalCode() {
+		return recipientPostalCode;
+	}
+
+	public void setRecipientPostalCode(String recipientPostalCode) {
+		this.recipientPostalCode = recipientPostalCode;
+	}
+
+	public String getRecipientCountry() {
+		return recipientCountry;
+	}
+
+	public void setRecipientCountry(String recipientCountry) {
+		this.recipientCountry = recipientCountry;
+	}
+
+	public LocalDate getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDate deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getDeliveryTimePreference() {
+		return deliveryTimePreference;
+	}
+
+	public void setDeliveryTimePreference(String deliveryTimePreference) {
+		this.deliveryTimePreference = deliveryTimePreference;
+	}
+
+	public String getDeliveryInstructions() {
+		return deliveryInstructions;
+	}
+
+	public void setDeliveryInstructions(String deliveryInstructions) {
+		this.deliveryInstructions = deliveryInstructions;
+	}
+
+	public String getSenderName() {
+		return senderName;
+	}
+
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+
+	public String getSenderEmail() {
+		return senderEmail;
+	}
+
+	public void setSenderEmail(String senderEmail) {
+		this.senderEmail = senderEmail;
+	}
+
+	public String getSenderPhone() {
+		return senderPhone;
+	}
+
+	public void setSenderPhone(String senderPhone) {
+		this.senderPhone = senderPhone;
+	}
+
+	public List<String> getCustomMessages() {
+		return customMessages;
+	}
+
+	public void setCustomMessages(List<String> customMessages) {
+		this.customMessages = customMessages;
+	}
+	
 }

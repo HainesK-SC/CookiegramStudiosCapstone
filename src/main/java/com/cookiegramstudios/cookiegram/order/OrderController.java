@@ -87,8 +87,13 @@ public class OrderController {
 	@GetMapping("/order/checkout")
 	public String getCheckout(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 		// 1. retrieve cart from session
+		Cart cart = (Cart) session.getAttribute("cart");
 		
 		// 2. validate cart exsists 
+		if (cart == null || cart.getCartItems().isEmpty()) {
+			redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
+			return "redirect:/order/"; // Redirect to order page or cart page as appropriate
+		}
 		
 		// 3. calculate total price of cart items
 		
