@@ -15,8 +15,8 @@
 					<img th:src="@{/images/order/order-placeholder.png}" alt="Picture of a large cookie used for a cookiegram" class="order-card-image">
 					<hr>
 					<p th:text="${item.getProductType.baseName}"></p>
-					<p th:text="'$'+ ${item.getProductType.basePrice}"></p>
 					<p th:text="'Qty: ' + ${item.itemQty}"></p>
+					<p th:text="'Subtotal: $'+ ${item.getProductType.basePrice * item.itemQty}"></p>
 				</div>	
 			</div>
 				<div class="cart-actions">
