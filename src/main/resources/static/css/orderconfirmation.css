@@ -14,3 +14,13 @@ body {
     height: 100vh;
     margin: 0;
 }
+
+.confirmation-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
