@@ -1,6 +1,4 @@
 
 Personal Todos
-- Test file for Checkout/Order Checkout Logic
-- Fix styling for checkout page
 
 - Test files for Pulling Orders in Bakckend for Employee Dasboard
