@@ -8,28 +8,35 @@
 <body>
 	<section th:fragment="content" class="checkout-section">
 		<h1>Checkout - Order Information</h1>
-		
+
 		<!-- Error messages -->
-		
-		
-		<!-- Order Summary (read-only) -->
-		
-		
-		<!-- Checkout Form -->
-		
-		
-		<!-- 1. Custom Messages -->
-		
-		<!-- 2. Recipient Information -->
-		
-		<!-- 3. Delivery Details  -->
-		
-		<!-- 4. Sender Information -->
-		
-		<!-- Action Buttons - back to cart, proceed to payment -->
-		
+		<div th:if="${error}" class="alert alert-error">
+			<p th:text="${error}"></p>
+		</div>
+
+		<div class=checkout-container">
+			<!-- Order Summary (read-only) -->
+
+			<!-- Checkout Form -->
+
+
+			<!-- 1. Custom Messages -->
+
+			<!-- 2. Recipient Information -->
+
+			<!-- 3. Delivery Details  -->
+
+			<!-- 4. Sender Information -->
+
+			<!-- Action Buttons - back to cart, proceed to payment -->
+
+		</div>
+
+
+
+
 	</section>
-	
+
 	<script>
 	
 	</script>
