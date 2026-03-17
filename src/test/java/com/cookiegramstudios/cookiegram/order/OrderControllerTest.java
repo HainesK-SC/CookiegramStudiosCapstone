@@ -7,6 +7,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.cookiegramstudios.cookiegram.cart.CartService;
+import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
 
 /**
@@ -32,6 +33,20 @@ public class OrderControllerTest {
 
 	@MockitoBean
 	private CartService cartService;
+	
+	/**
+	 * Utility method to build Product with given id and base price
+	 */
+	private Product buildProduct(Long id, double price) {
+        Product p = new Product();
+        p.setId(id);
+        p.setBaseName("Chocolate Chip Cookie");
+        p.setProductType("cookie");
+        p.setBaseDescription("Classic cookie");
+        p.setBasePrice(price);
+        return p;
+    }
+	
 
 	/**
 	 * GET /order/checkout -- null cart
