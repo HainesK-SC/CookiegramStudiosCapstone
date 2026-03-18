@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Unit tests for {@link UserRole}.
  *
  * <p>
- * Ensures that all expected user roles are present and accessible.
- * This acts as a safety test to detect accidental enum modification.
+ * Ensures that all expected user roles are present and accessible. This acts as
+ * a safety test to detect accidental enum modification.
  * </p>
  *
  * @author Matthew Samaha
@@ -19,18 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class UserRoleTest {
 
-    /**
-     * Verifies that all expected roles exist in the system.
-     * Current Sprint 1 supported roles:
-     * <ul>
-     *     <li>ADMIN</li>
-     *     <li>EMPLOYEE</li>
-     * </ul>
-     */
-    @Test
-    void testAllRolesExists(){
-        assertEquals(2, UserRole.values().length); // current roles are 2
-        assertNotNull(UserRole.ADMIN);
-        assertNotNull(UserRole.EMPLOYEE);
-    }
+	/**
+	 * Verifies that all expected roles exist in the system. Current Sprint 1
+	 * supported roles:
+	 * <ul>
+	 * <li>ADMIN</li>
+	 * <li>EMPLOYEE</li>
+	 * </ul>
+	 */
+	@Test
+	void testAllRolesExists() {
+		assertEquals(2, UserRole.values().length); // current roles are 2
+		assertNotNull(UserRole.ADMIN);
+		assertNotNull(UserRole.EMPLOYEE);
+	}
 }
