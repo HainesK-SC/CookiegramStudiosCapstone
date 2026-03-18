@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="confirmation-container">
-    <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+	<div class="confirmation-container">
+		<div class="success-icon">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+				stroke-width="3">
             <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-    </div>
-    <h1>Thank you for your order!</h1>
-    <p class="subtitle">A confirmation email has been sent to your inbox.</p>
+		</div>
+		<h1>Thank you for your order!</h1>
+		<p class="subtitle">A confirmation email has been sent to your
+			inbox.</p>
 
-    <hr>
+		<hr>
 
-    <div class="order-card">
-        <div class="detail-row">
-            <span class="label">Order Number:</span>
-            <span class="value" th:text="'#ORD-2026-' + ${orderNumber}">#ORD-2026-9941</span>
-        </div>
-        <div class="detail-row">
-            <span class="label">Recipient:</span>
-            <span class="value" th:text="${recipient.recipientName}">Alex Johnson</span>
-        </div>
-        <div class="detail-row">
-            <span class="label">Estimated Delivery:</span>
-            <span class="value" th:text="${#temporals.format(deliveryDate, 'EEEE, MMMM d, yyyy')}">Thursday, March 19, 2026</span>
-        </div>
-    </div>
+		<div class="order-card">
+			<div class="detail-row">
+				<span class="label">Order Number:</span> <span class="value"
+					th:text="'#ORD-2026-' + ${orderNumber}">#ORD-2026-9941</span>
+			</div>
+			<div class="detail-row">
+				<span class="label">Recipient:</span> <span class="value"
+					th:text="${recipient.firstName + ' ' + recipient.lastName}">Alex
+					Johnson</span>
+			</div>
+			<div class="detail-row">
+				<span class="label">Estimated Delivery:</span> <span class="value"
+					th:text="${#temporals.format(deliveryDate, 'EEEE, MMMM d, yyyy')}">Thursday,
+					March 19, 2026</span>
+			</div>
+		</div>
 
-    <div class="actions">
-        <button class="btn-primary">View Full Order History</button>
-        <a href="#" class="secondary-link">Return to Shop</a>
-    </div>
-</div>
+		<div class="actions">
+			<button class="btn-primary">View Full Order History</button>
+			<a href="#" class="secondary-link">Return to Shop</a>
+		</div>
+	</div>
 
 
 </body>
