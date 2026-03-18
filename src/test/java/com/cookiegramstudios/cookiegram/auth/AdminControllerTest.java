@@ -32,6 +32,9 @@ public class AdminControllerTest {
     @MockitoBean
     private UserService userService;
     
+    @MockitoBean
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
     @Test
     @WithMockUser(username = "admin@test.com", roles = "ADMIN")
     void adminCanAccessDashboard() throws Exception {
