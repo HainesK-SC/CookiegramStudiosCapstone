@@ -7,10 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.cart.CartService;
+import com.cookiegramstudios.cookiegram.cart.CartValidator;
 import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
 import com.cookiegramstudios.cookiegram.utils.SessionHelper;
@@ -80,6 +82,32 @@ public class OrderController {
 	    public String clearCart(HttpSession session) {
 	        SessionHelper.clearCart(session);
 	        return "redirect:/order/cart";
+	    }
+	    
+	    @GetMapping("/order/checkout")
+	    public String getCheckout(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+	    	
+	        Cart cart = SessionHelper.getCart(session);
+	        
+	        if (CartValidator.isCartEmpty(cart)) {
+	            redirectAttributes.addFlashAttribute("errorMessage", CartValidator.getEmptyCartMessage());
+	            return "redirect:/order/";
+	        }
+	 
+	        OrderPricingDTO pricing = pricingService.getOrderPricing(cart);
+	 
+	        CheckoutFormDTO checkoutForm = new CheckoutFormDTO();
+	        for (int i = 0; i < cart.getCartItems().size(); i++) {
+	            checkoutForm.getCustomMessages().add("");
+	        }
+	 
+	        model.addAttribute("cartItems", cart.getCartItems());
+	        model.addAttribute("subtotal", pricing.getFormattedSubtotal());
+	        model.addAttribute("tax", pricing.getFormattedTax());
+	        model.addAttribute("total", pricing.getFormattedTotal());
+	        model.addAttribute("checkoutForm", checkoutForm);
+	 
+	        return "checkout";
 	    }
 	    
 	    
