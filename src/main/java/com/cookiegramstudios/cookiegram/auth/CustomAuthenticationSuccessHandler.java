@@ -52,15 +52,7 @@ import java.io.IOException;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    /**
-     * Handles successful authentication by redirecting to role-appropriate dashboard.
-     *
-     * @param request the request which caused the successful authentication
-     * @param response the response
-     * @param authentication the Authentication object containing user details and authorities
-     * @throws IOException if an input or output error occurs during the redirect
-     * @throws ServletException if a servlet error occurs
-     */
+  
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request,
@@ -72,12 +64,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
 
-    /**
-     * Determines redirect URL based on granted authorities.
-     *
-     * @param authorities collection of granted authorities for the authenticated user
-     * @return redirect URL
-     */
     private String determineRedirectUrl(Iterable<? extends GrantedAuthority> authorities) {
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
@@ -90,7 +76,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             }
         }
 
-        // Safe fallback for unexpected role/authority state
         return "/";
     }
 }
