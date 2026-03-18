@@ -202,6 +202,14 @@ public class OrderController {
 		model.addAttribute("orderNumber", confirmedOrder.getOrderNumber());
 		model.addAttribute("recipient", confirmedOrder.getRecipientUser());
 		model.addAttribute("deliveryDate", confirmedOrder.getDeliveryDate());
+
+		// 4. Clean up session — order is confirmed, no longer needed
+		session.removeAttribute("confirmedOrder");
+		session.removeAttribute("checkoutData");
+		session.removeAttribute("cart");
+
+		// 5. Return confirmation template
+		return "confirmation";
 		}
 	}
 
