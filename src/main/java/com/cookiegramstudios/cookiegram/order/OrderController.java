@@ -197,4 +197,8 @@ public class OrderController {
 				redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
 				return "redirect:/order/";
 			}
+			// 3. Add order details to model
+			model.addAttribute("orderNumber", confirmedOrder.getOrderNumber());
+			model.addAttribute("recipient", confirmedOrder.getRecipientUser());
+			model.addAttribute("deliveryDate", confirmedOrder.getDeliveryDate());
 }
