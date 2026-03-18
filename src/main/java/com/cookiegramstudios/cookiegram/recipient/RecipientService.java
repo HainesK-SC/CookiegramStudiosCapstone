@@ -50,9 +50,7 @@ public class RecipientService {
         recipientRepository.deleteById(id);
     }
 
-    /**
-     * General Methods
-     */
+ 
     public Optional<Recipient> findById(Long id) {
         return recipientRepository.findById(id);
     }
@@ -98,9 +96,6 @@ public class RecipientService {
     }
 
 
-    /**
-     * Helper method
-     */
     public String getFormattedAddress(Long id) {
         Recipient recipient = recipientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Recipient not found with ID: " + id));
@@ -108,7 +103,6 @@ public class RecipientService {
     }
 
 
-    // Very important -- ensures recipient inputs all required fields properly
     private void validateRecipient(Recipient recipient) {
         if (recipient.getFirstName() == null || recipient.getFirstName().trim().isEmpty()) {
             throw new IllegalArgumentException("Recipient first name is required");
