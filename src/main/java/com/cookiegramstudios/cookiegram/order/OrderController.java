@@ -23,16 +23,59 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 /**
- * Controller for order-related web endpoints.
+ * Controller for handling the complete order workflow.
  * <p>
- * Serves as the entry point for order workflow pages and interactions,
- * including order creation, review, and confirmation flows.
+ * Acts as the main entry point for all order-related web interactions,
+ * including product selection, cart management, checkout processing,
+ * and order confirmation. This controller follows a thin-controller
+ * design, delegating business logic to dedicated service classes
+ * such as {@code CartService}, {@code OrderService}, and {@code PricingService}
  * </p>
+ *
+ * <p><b>Responsibilities:</b></p>
+ * <ul>
+ *   <li>Coordinate product retrieval via {@code ProductRepository}</li>
+ *   <li>Manage cart state using {@code SessionHelper} and {@code CartService}</li>
+ *   <li>Validate cart state using {@code CartValidator}</li>
+ *   <li>Handle checkout form preparation and validation</li>
+ *   <li>Calculate pricing through {@code PricingService}</li>
+ *   <li>Create and persist orders via {@code OrderService}</li>
+ *   <li>Manage session lifecycle for cart and order data</li>
+ * </ul>
+ *
+ * <p><b>Endpoints:</b></p>
+ * <ul>
+ *   <li><b>GET /order</b> – Displays the product selection page with available products</li>
+ *   <li><b>GET /order/cart</b> – Displays the current shopping cart contents</li>
+ *   <li><b>POST /order/cart/add</b> – Adds a product and quantity to the cart</li>
+ *   <li><b>POST /order/cart/clear</b> – Clears all items from the cart</li>
+ *   <li><b>GET /order/checkout</b> – Displays the checkout form after validating cart state</li>
+ *   <li><b>POST /order/checkout</b> – Processes checkout submission, validates input, and creates an order</li>
+ *   <li><b>GET /order/confirmation</b> – Displays order confirmation and clears session data</li>
+ * </ul>
+ *
+ * <p><b>Workflow Overview:</b></p>
+ * <ol>
+ *   <li>User browses products and adds items to cart</li>
+ *   <li>Cart is stored and managed in HTTP session</li>
+ *   <li>Checkout validates cart and prepares pricing + form data</li>
+ *   <li>Form submission is validated and transformed into an order request</li>
+ *   <li>Order is created and stored in session for confirmation display</li>
+ *   <li>Session is cleared after confirmation to prevent stale data</li>
+ * </ol>
+ *
+ * <p><b>Error Handling:</b></p>
+ * <ul>
+ *   <li>Empty or invalid cart redirects user back to product page with message</li>
+ *   <li>Validation errors during checkout return user to checkout view with recalculated pricing</li>
+ *   <li>Missing confirmed order redirects user to restart the order process</li>
+ * </ul>
+ *
  *
  * @author Matthew Samaha
  * @author Kyle Haines
  * @date 2026-03-18
- * @version 2.0
+ * @version 3.0
  */
 @Controller
 public class OrderController {

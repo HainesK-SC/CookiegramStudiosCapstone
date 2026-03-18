@@ -16,22 +16,18 @@ import org.springframework.stereotype.Repository;
  *
  * @author Matthew Samaha
  * @date 2026-03-18
- * @version 1.1
+ * @version 1.2
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>{
 	
-    List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
+List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     
-
     List<Order> findByStatus(OrderStatus status);
     
-
     List<Order> findByDeliveryDateAndStatus(LocalDate deliveryDate, OrderStatus status);
     
-   
     Order findByOrderNumber(int orderNumber);
     
-    Optional<Order> findTopByOrderNumberDesc();
-
+    Optional<Order> findTopByOrderByOrderNumberDesc();
 }

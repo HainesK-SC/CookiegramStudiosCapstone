@@ -1,5 +1,7 @@
 package com.cookiegramstudios.cookiegram.order;
 
+import org.springframework.stereotype.Service;
+
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.common.config.PaymentConfig;
@@ -26,6 +28,7 @@ import com.cookiegramstudios.cookiegram.common.config.PaymentConfig;
  * @date 2026-03-18
  * @version 1.0
  */
+@Service
 public class PricingService {
 
 	private final PaymentConfig paymentConfig;
