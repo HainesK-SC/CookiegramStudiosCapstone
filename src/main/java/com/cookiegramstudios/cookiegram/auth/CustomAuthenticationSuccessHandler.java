@@ -1,14 +1,18 @@
 package com.cookiegramstudios.cookiegram.auth;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import com.cookiegramstudios.cookiegram.user.UserRole;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Custom authentication success handler that redirects users to role-specific dashboards.
@@ -51,7 +55,15 @@ import java.io.IOException;
  */
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+	
+	private static final String REDIRECT_ADMIN_DASHBOARD = "/admin/dashboard";
+    private static final String REDIRECT_EMPLOYEE_DASHBOARD = "/employee/dashboard";
+    private static final String REDIRECT_HOME = "/";
 
+    private static final Map<UserRole, String> ROLE_REDIRECTS = Map.of(
+            UserRole.ADMIN, REDIRECT_ADMIN_DASHBOARD,
+            UserRole.EMPLOYEE, REDIRECT_EMPLOYEE_DASHBOARD
+    );
   
     @Override
     public void onAuthenticationSuccess(

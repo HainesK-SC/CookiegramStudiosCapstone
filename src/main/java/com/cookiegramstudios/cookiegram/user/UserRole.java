@@ -24,5 +24,9 @@ public enum UserRole {
 
 	ADMIN,
 
-	EMPLOYEE,
+	EMPLOYEE;
+	
+	public String toAuthority() {
+        return "ROLE_" + name();
+    }
 }
