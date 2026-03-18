@@ -1,18 +1,22 @@
 package com.cookiegramstudios.cookiegram.customer;
 
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+import com.cookiegramstudios.cookiegram.order.dto.CheckoutFormDTO;
+import com.cookiegramstudios.cookiegram.utils.NameParser;
+
+import jakarta.transaction.Transactional;
+
 /**
  * Service layer for customer profile-related business operations.
  * <p>
- * Provides application-facing methods for managing customer profiles and acts as an
- * abstraction between controllers and {@link CustomerRepository}.
- * Handles customer profile creation, retrieval, updates, and analytics operations.
+ * Provides application-facing methods for managing customer profiles and acts
+ * as an abstraction between controllers and {@link CustomerRepository}. Handles
+ * customer profile creation, retrieval, updates, and analytics operations.
  * </p>
  *
  * @author Matthew Samaha
@@ -21,54 +25,81 @@ import java.util.Optional;
  */
 @Service
 public class CustomerService {
-    private final CustomerRepository customerRepository;
-
+	private final CustomerRepository customerRepository;
+	 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+ 
+ 
+  
+    @Transactional
+    public Customer findOrCreateCustomer(CheckoutFormDTO form) {
+        Optional<Customer> existing = customerRepository.findByEmail(form.getSenderEmail());
+ 
+        if (existing.isPresent()) {
+            // Update last order date for existing customer
+            Customer customer = existing.get();
+            customer.updateLastOrderDate();
+            return customerRepository.save(customer);
+        } else {
+            // Create new customer from checkout form
+            return createCustomerFromCheckoutForm(form);
+        }
+    }
+ 
 
-    /**
-     * General methods
-     */
+    @Transactional
+    private Customer createCustomerFromCheckoutForm(CheckoutFormDTO form) {
+        Customer newCustomer = new Customer();
+        newCustomer.setEmail(form.getSenderEmail());
+ 
+        // Parse name using utility class
+        String[] nameParts = NameParser.parseFullName(form.getSenderName());
+        newCustomer.setFirstName(nameParts[0]);
+        newCustomer.setLastName(nameParts[1]);
+ 
+        return customerRepository.save(newCustomer);
+    }
+ 
+ 
     public Optional<Customer> findById(Long id) {
         return customerRepository.findById(id);
     }
-
+ 
     public Optional<Customer> findByEmail(String email) {
         return customerRepository.findByEmail(email);
     }
-
+ 
     public boolean existsByEmail(String email) {
         return customerRepository.existsByEmail(email);
     }
-
+ 
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
-
+ 
     public List<Customer> findCustomersCreatedAfter(LocalDateTime date) {
         return customerRepository.findByCreatedAtAfter(date);
     }
-
+ 
     public List<Customer> findActiveCustomers() {
         return customerRepository.findByLastOrderDateIsNotNull();
     }
-
+ 
     public List<Customer> findCustomersByRecentActivity() {
         return customerRepository.findAllByOrderByLastOrderDateDesc();
     }
-
-    /**
-     * CRUD Methods
-     */
+ 
     @Transactional
     public Customer createCustomerProfile(Customer customerProfile) {
         if (existsByEmail(customerProfile.getEmail())) {
-            throw new IllegalArgumentException("Customer profile already exists with email: " + customerProfile.getEmail());
+            throw new IllegalArgumentException(
+                    "Customer profile already exists with email: " + customerProfile.getEmail());
         }
         return customerRepository.save(customerProfile);
     }
-
+ 
     @Transactional
     public Customer updateCustomerProfile(Customer customerProfile) {
         if (customerProfile.getId() == null || !customerRepository.existsById(customerProfile.getId())) {
@@ -76,7 +107,7 @@ public class CustomerService {
         }
         return customerRepository.save(customerProfile);
     }
-
+ 
     @Transactional
     public void updateLastOrderDate(Long customerId) {
         Customer profile = customerRepository.findById(customerId)
@@ -84,7 +115,7 @@ public class CustomerService {
         profile.updateLastOrderDate();
         customerRepository.save(profile);
     }
-
+ 
     @Transactional
     public void deleteCustomerProfile(Long id) {
         if (!customerRepository.existsById(id)) {
@@ -92,23 +123,18 @@ public class CustomerService {
         }
         customerRepository.deleteById(id);
     }
-
+ 
     @Transactional
     public Customer findOrCreateByEmail(String email) {
-        return customerRepository.findByEmail(email)
-                .orElseGet(() -> {
-                    Customer newProfile = new Customer();
-                    newProfile.setEmail(email);
-                    return customerRepository.save(newProfile);
-                });
+        return customerRepository.findByEmail(email).orElseGet(() -> {
+            Customer newProfile = new Customer();
+            newProfile.setEmail(email);
+            return customerRepository.save(newProfile);
+        });
     }
-
-    /**
-     * Helper methods
-     */
+ 
     public long countAllCustomers() {
         return customerRepository.count();
     }
-
 
 }

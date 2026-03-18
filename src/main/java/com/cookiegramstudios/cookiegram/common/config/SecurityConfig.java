@@ -1,9 +1,14 @@
 package com.cookiegramstudios.cookiegram.common.config;
 
 import com.cookiegramstudios.cookiegram.auth.CustomAuthenticationSuccessHandler;
+import com.cookiegramstudios.cookiegram.user.UserRole;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,117 +46,80 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 public class SecurityConfig {
+	
+	private static final String[] PUBLIC_ENDPOINTS = {
+            "/",
+            "/order/**",
+            "/login",
+            "/about",
+            "/contact",
+            "/faq",
+            "/shipping-policy",
+            "/privacy-policy",
+            "/css/**",
+            "/js/**",
+            "/images/**",
+            "/error"
+    };
 
-    /**
-     * Configures the custom authentication success handler bean.
-     * <p>
-     * This handler redirects users to role-specific dashboards after successful login.
-     * Creating it as a bean allows Spring Security to use it in the filter chain configuration.
-     * </p>
-     *
-     * @return configured CustomAuthenticationSuccessHandler instance
-     */
-    @Bean
-    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
-    }
-
-    /**
-     * Configures the password encoder bean for the entire application
-     * <p>
-     *     Uses BCrypt hashing algorithm for secure password storage.
-     *     BCrypt uses an adaptive hashing function that includes salt generation and is resistant to brute force
-     *     This should be feasible for our implementations' at this point.
-     * </p>
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder(){
+    
+	@Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-    /**
-     * Configures the security filter chain for HTTP requests.
-     * <p>
-     * This method sets up:
-     * <ul>
-     * <li>Public endpoints (home page, login, static resources)</li>
-     * <li>Role-based access control for EMPLOYEE, and ADMIN roles</li>
-     * <li>Form-based login with custom login page and success handler</li>
-     * <li>Logout configuration with session invalidation</li>
-     * <li>H2 console access (development only)</li>
-     * </ul>
-     * </p>
-     * <p>
-     * <b>Role-Based Access:</b>
-     * <ul>
-     * <li>ADMIN: Full access to /admin/** endpoints</li>
-     * <li>EMPLOYEE: Access to /employee/** endpoints</li>
-     * </ul>
-     * </p>
-     *
-     * @param http the HttpSecurity object to configure
-     * @return the configured SecurityFilterChain
-     * @throws Exception if configuration fails
-     */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Order(2)
+    public SecurityFilterChain appSecurityFilterChain(
+            HttpSecurity http,
+            CustomAuthenticationSuccessHandler successHandler
+    ) throws Exception {
+
         http
-                // Configure authorization rules
                 .authorizeHttpRequests(authorize -> authorize
-                        // Public endpoints - accessible to everyone (standard)
-                        .requestMatchers(
-                                "/",
-                                "/order/**",
-                                "/login",
-                                "/about",
-                                "/contact",
-                                "/faq",
-                                "/shipping-policy",
-                                "/privacy-policy",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/error"
-                        ).permitAll()
-
-                        // H2 Console access (for development only)
-                        // Anyone can access
-                        .requestMatchers("/h2-console/**").permitAll()
-
-                        // Role-based protected routes
-                        .requestMatchers("/employee/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-
-                        // All other requests require authentication
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers("/employee/**").hasRole(UserRole.EMPLOYEE.name())
+                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 )
-
-                // Configure form-based login
                 .formLogin(form -> form
-                        .loginPage("/login")                              // Custom login page URL
-                        .loginProcessingUrl("/login")                     // URL to submit username/password
-                        .successHandler(customAuthenticationSuccessHandler())  // Custom success handler for role-based redirects
-                        .failureUrl("/login?error=true")                  // Redirect on login failure
-                        .permitAll()                                      // Allow everyone to access login page
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(successHandler)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
                 )
-
-                // Configure logout
                 .logout(logout -> logout
-                        .logoutUrl("/logout")                   // URL to trigger logout
-                        .logoutSuccessUrl("/")                  // Redirect after successful logout
-                        .invalidateHttpSession(true)            // Invalidate session on logout
-                        .clearAuthentication(true)              // Clear authentication on logout
-                        .deleteCookies("JSESSIONID")            // Delete session cookie
-                        .permitAll()                            // Allow everyone to logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
                 )
+                .sessionManagement(Customizer.withDefaults());
 
-                // H2 Console development settings
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
-
-
+        // CSRF remains enabled by default for app endpoints.
         return http.build();
+    }
+
+    /**
+     * Dev-only filter chain for H2 console access.
+     */
+    @Configuration
+    @Profile("dev")
+    static class DevH2SecurityConfig {
+
+        @Bean
+        @Order(1)
+        public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .securityMatcher("/h2-console/**")
+                    .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                    .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                    .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+
+            return http.build();
+        }
     }
 }

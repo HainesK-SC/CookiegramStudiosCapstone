@@ -19,7 +19,6 @@ public class CookieCustomization {
 	private String messageText;
 	private double additionalCost;
 
-	// Future-proofing for dietary info
 	private String specialDietaryInfo;
 
 	public CookieCustomization() {

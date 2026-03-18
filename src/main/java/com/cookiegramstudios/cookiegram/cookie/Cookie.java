@@ -29,11 +29,9 @@ public class Cookie {
 	@Column(nullable = false)
 	private boolean active;
 
-	// No-args constructor
 	public Cookie() {
 	}
 
-	// All-args constructor
 	public Cookie(Long id, String name, String description, String imageUrl, double basePrice, boolean active) {
 		this.id = id;
 		this.name = name;

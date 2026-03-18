@@ -13,7 +13,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cookiegramstudios.cookiegram.order.CheckoutFormDTO;
+import com.cookiegramstudios.cookiegram.order.dto.CheckoutFormDTO;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

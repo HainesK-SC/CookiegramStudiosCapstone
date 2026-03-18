@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.order;
+package com.cookiegramstudios.cookiegram.order.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ public class CheckoutFormDTO {
 	@NotBlank(message = "Country is required")
 	private String recipientCountry = "Canada";
 
-	// Delivery Details
 	@NotNull(message = "Delivery date is required")
 	@Future(message = "Delivery date must be in the future")
 	private LocalDate deliveryDate;
@@ -35,10 +34,8 @@ public class CheckoutFormDTO {
 	@NotBlank(message = "Delivery time preference is required")
 	private String deliveryTimePreference;
 
-	// Optional delivery instructions for recipient address
 	private String deliveryInstructions;
 
-	// Sender/Customer Information
 	@NotBlank(message = "Your name is required")
 	private String senderName;
 
@@ -46,13 +43,11 @@ public class CheckoutFormDTO {
 	@NotBlank(message = "Email is required")
 	private String senderEmail;
 
-	private String senderPhone; // Optional
+	private String senderPhone;
 
-	// Custom Messages (parallel to cart items)
-	// Index matches cart item index
+
 	private List<String> customMessages = new ArrayList<>();
 
-	// Constructors
 	public CheckoutFormDTO() {
 	}
 

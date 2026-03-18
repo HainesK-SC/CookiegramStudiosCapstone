@@ -35,15 +35,11 @@ import static org.mockito.Mockito.verify;
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-02-26
- * @version 1.0
+ * @date 2026-03-18
+ * @version 2.0
  */
-
 public class CustomAuthenticationSuccessHandlerTest {
 
-    /**
-     * The authentication success handler being tested.
-     */
     private CustomAuthenticationSuccessHandler successHandler;
 
     @BeforeEach
@@ -51,13 +47,6 @@ public class CustomAuthenticationSuccessHandlerTest {
         successHandler = new CustomAuthenticationSuccessHandler();
     }
 
-    /**
-     * Verifies that a user with ROLE_ADMIN is redirected
-     * to the admin dashboard upon successful login.
-     *
-     * @throws IOException if redirect fails
-     * @throws ServletException if servlet processing fails
-     */
     @Test
     void redirectsAdminToAdminDashboard() throws IOException, ServletException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -74,13 +63,7 @@ public class CustomAuthenticationSuccessHandlerTest {
         verify(response).sendRedirect("/admin/dashboard");
     }
 
-    /**
-     * Verifies that a user with ROLE_EMPLOYEE is redirected
-     * to the employee dashboard upon successful login.
-     *
-     * @throws IOException if redirect fails
-     * @throws ServletException if servlet processing fails
-     */
+
     @Test
     void redirectsEmployeeToEmployeeDashboard() throws IOException, ServletException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -97,13 +80,7 @@ public class CustomAuthenticationSuccessHandlerTest {
         verify(response).sendRedirect("/employee/dashboard");
     }
 
-    /**
-     * Verifies that a user with an unrecognized role is redirected
-     * to the default landing page.
-     *
-     * @throws IOException if redirect fails
-     * @throws ServletException if servlet processing fails
-     */
+
     @Test
     void redirectsUnknownRoleToLandingPage() throws IOException, ServletException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);

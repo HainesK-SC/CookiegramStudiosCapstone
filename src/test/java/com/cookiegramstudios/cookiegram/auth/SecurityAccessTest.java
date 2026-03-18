@@ -29,66 +29,44 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-02-26
- * @version 1.0
+ * @date 2026-03-18
+ * @version 2.0
  */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SecurityAccessTest {
 
-    /**
-     * Mock MVC instance used to simulate HTTP requests
-     * against secured endpoints.
-     */
     @Autowired
     private MockMvc mockMvc;
 
-    /**
-     * Verifies that the landing page is publicly accessible
-     * without authentication.
-     *
-     * @throws Exception if request execution fails
-     */
+   
     @Test
     void landingPage_isPublic() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * Test the the about page is accessible to all users.
-     */
+    
     @Test
     public void whenAnonymousUser_shouldSeeAboutPage() throws Exception {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * Test that the FAQ page is accessible to all users.
-     */
+   
     @Test
     void whenAnonymousUser_shouldSeeFAQPage() throws Exception {
         mockMvc.perform(get("/faq"))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * Test the Contact Us page is accessible to all users.
-     */
     @Test
     void whenAnonymousUser_shouldSeeContactPage() throws Exception {
         mockMvc.perform(get("/contact"))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * Verifies that an unauthenticated (anonymous) user
-     * is redirected to the login page when attempting
-     * to access the employee dashboard.
-     *
-     * @throws Exception if request execution fails
-     */
+  
     @Test
     void anonymousUser_cannotAccessEmployeeDashboard() throws Exception {
         mockMvc.perform(get("/employee/dashboard"))
@@ -96,13 +74,7 @@ public class SecurityAccessTest {
                 .andExpect(redirectedUrl("/login"));
     }
 
-    /**
-     * Verifies that an unauthenticated (anonymous) user
-     * is redirected to the login page when attempting
-     * to access the admin dashboard.
-     *
-     * @throws Exception if request execution fails
-     */
+  
     @Test
     void anonymousUser_cannotAccessAdminDashboard() throws Exception {
         mockMvc.perform(get("/admin/dashboard"))
@@ -110,22 +82,14 @@ public class SecurityAccessTest {
                 .andExpect(redirectedUrl("/login"));
     }
 
-    /**
-     * Verifies that an authenticated user with EMPLOYEE role
-     * is forbidden from accessing the admin dashboard.
-     *
-     * @throws Exception if request execution fails
-     */
+ 
     @Test
     @WithMockUser(roles = "EMPLOYEE")
     void employee_cannotAccessAdminDashboard() throws Exception {
         mockMvc.perform(get("/admin/dashboard"))
                 .andExpect(status().isForbidden());
     }
-
-    /**
-     * Test that auth users can access public pages
-     */
+    
     @Test
     @WithMockUser(roles = "EMPLOYEE")
     public void whenAuthenticatedUser_thenPublicPagesAreAccessible() throws Exception {

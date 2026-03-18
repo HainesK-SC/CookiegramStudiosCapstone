@@ -6,70 +6,69 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderReceiptServiceTest {
-    /*
-     * Test setting and retrieving order number
-     */
-    @Test
-    void testSetOrderNumber() {
+	/*
+	 * Test setting and retrieving order number
+	 */
+	@Test
+	void testSetOrderNumber() {
 
-        OrderReceipt receipt = new OrderReceipt();
+		OrderReceipt receipt = new OrderReceipt();
 
-        receipt.setOrderNumber(1001);
+		receipt.setOrderNumber(1001);
 
-        assertEquals(1001, receipt.getOrderNumber());
-    }
+		assertEquals(1001, receipt.getOrderNumber());
+	}
 
-    /**
-     * Test setting and retrieving total price.
-     */
-    @Test
-    void testSetTotalPrice() {
+	/**
+	 * Test setting and retrieving total price.
+	 */
+	@Test
+	void testSetTotalPrice() {
 
-        OrderReceipt receipt = new OrderReceipt();
+		OrderReceipt receipt = new OrderReceipt();
 
-        receipt.setTotalPrice(25.50);
+		receipt.setTotalPrice(25.50);
 
-        assertEquals(25.50, receipt.getTotalPrice());
-    }
+		assertEquals(25.50, receipt.getTotalPrice());
+	}
 
+	/**
+	 * Test setting and retrieving summary text.
+	 */
+	@Test
+	void testSetSummaryText() {
 
-    /**
-     * Test setting and retrieving summary text.
-     */
-    @Test
-    void testSetSummaryText() {
+		OrderReceipt receipt = new OrderReceipt();
 
-        OrderReceipt receipt = new OrderReceipt();
+		receipt.setSummaryText("Order completed successfully");
 
-        receipt.setSummaryText("Order completed successfully");
+		assertEquals("Order completed successfully", receipt.getSummaryText());
+	}
 
-        assertEquals("Order completed successfully", receipt.getSummaryText());
-    }
+	/**
+	 * Test setting and retrieving delivery date.
+	 */
+	@Test
+	void testSetDeliveryDate() {
 
-    /**
-     * Test setting and retrieving delivery date.
-     */
-    @Test
-    void testSetDeliveryDate() {
+		OrderReceipt receipt = new OrderReceipt();
 
-        OrderReceipt receipt = new OrderReceipt();
+		LocalDate date = LocalDate.of(2026, 3, 1);
+		receipt.setDeliveryDate(date);
 
-        LocalDate date = LocalDate.of(2026, 3, 1);
-        receipt.setDeliveryDate(date);
+		assertEquals(date, receipt.getDeliveryDate());
+	}
 
-        assertEquals(date, receipt.getDeliveryDate());
-    }
-    /**
-     * Test email status flag.
-     */
-    @Test
-    void testEmailSentStatus() {
+	/**
+	 * Test email status flag.
+	 */
+	@Test
+	void testEmailSentStatus() {
 
-        OrderReceipt receipt = new OrderReceipt();
+		OrderReceipt receipt = new OrderReceipt();
 
-        receipt.setEmailSent(true);
+		receipt.setEmailSent(true);
 
-        assertTrue(receipt.isEmailSent());
-    }
+		assertTrue(receipt.isEmailSent());
+	}
 }
-

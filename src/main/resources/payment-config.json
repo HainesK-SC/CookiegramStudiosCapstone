@@ -1,0 +1,30 @@
+{
+  "taxRates": {
+    "ON": 0.13,
+    "BC": 0.12,
+    "AB": 0.05,
+    "QC": 0.14975,
+    "NS": 0.15,
+    "NB": 0.15,
+    "MB": 0.12,
+    "SK": 0.11,
+    "PE": 0.15,
+    "NL": 0.15,
+    "NT": 0.05,
+    "YT": 0.05,
+    "NU": 0.05
+  },
+  "defaultTaxRate": 0.13,
+  "defaultProvince": "ON",
+  "currency": "CAD",
+  "orderNumberSettings": {
+    "prefix": "CG",
+    "startRange": 1000,
+    "endRange": 9999,
+    "useSequential": true
+  },
+  "pricing": {
+    "minimumOrderAmount": 0.0,
+    "deliveryFee": 0.0
+  }
+}

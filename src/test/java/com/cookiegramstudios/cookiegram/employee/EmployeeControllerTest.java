@@ -76,28 +76,28 @@ public class EmployeeControllerTest {
 	 * Builds a sample Order in PLACED status for today's delivery.
 	 */
 	private Order buildSampleOrder(int orderNumber) {
-	    Customer customer = new Customer();
-	    customer.setEmail("customer@example.com");
-	    customer.setFirstName("Test");
-	    customer.setLastName("Customer");
+		Customer customer = new Customer();
+		customer.setEmail("customer@example.com");
+		customer.setFirstName("Test");
+		customer.setLastName("Customer");
 
-	    Recipient recipient = new Recipient();
-	    recipient.setFirstName("Jane");
-	    recipient.setLastName("Doe");
-	    recipient.setStreet("123 Maple St");
-	    recipient.setCity("Burlington");
-	    recipient.setPostalCode("L7R 1A1");
-	    recipient.setCountry("Canada");
+		Recipient recipient = new Recipient();
+		recipient.setFirstName("Jane");
+		recipient.setLastName("Doe");
+		recipient.setStreet("123 Maple St");
+		recipient.setCity("Burlington");
+		recipient.setPostalCode("L7R 1A1");
+		recipient.setCountry("Canada");
 
-	    Order order = new Order();
-	    order.setId((long) orderNumber);
-	    order.setOrderNumber(orderNumber);
-	    order.setStatus(OrderStatus.PLACED);
-	    order.setDeliveryDate(LocalDate.now());
-	    order.setCreatedAt(LocalDateTime.now());
-	    order.setCustomerProfile(customer);
-	    order.setRecipientUser(recipient);
-	    return order;
+		Order order = new Order();
+		order.setId((long) orderNumber);
+		order.setOrderNumber(orderNumber);
+		order.setStatus(OrderStatus.PLACED);
+		order.setDeliveryDate(LocalDate.now());
+		order.setCreatedAt(LocalDateTime.now());
+		order.setCustomerProfile(customer);
+		order.setRecipientUser(recipient);
+		return order;
 	}
 
 	/**

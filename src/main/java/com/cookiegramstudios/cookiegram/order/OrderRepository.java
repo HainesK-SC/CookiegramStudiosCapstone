@@ -2,6 +2,7 @@ package com.cookiegramstudios.cookiegram.order;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,21 +15,19 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Matthew Samaha
- * @date 2026-03-14
- * @version 1.0
+ * @date 2026-03-18
+ * @version 1.2
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>{
 	
-    List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
+List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     
-
     List<Order> findByStatus(OrderStatus status);
     
-
     List<Order> findByDeliveryDateAndStatus(LocalDate deliveryDate, OrderStatus status);
     
-   
     Order findByOrderNumber(int orderNumber);
-
+    
+    Optional<Order> findTopByOrderByOrderNumberDesc();
 }

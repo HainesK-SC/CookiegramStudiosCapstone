@@ -74,13 +74,7 @@ public class OrderItem {
 	@Column(columnDefinition = "TEXT")
 	private String specialInstructions;
 
-	/**
-	 * Calculates and updates the price based on quantity and cookie customization
-	 * costs.
-	 * <p>
-	 * Formula: price = quantity × (basePrice + customizationCost)
-	 * </p>
-	 */
+
 	// --- Lifecycle Hooks ---
 	@PrePersist
 	@PreUpdate

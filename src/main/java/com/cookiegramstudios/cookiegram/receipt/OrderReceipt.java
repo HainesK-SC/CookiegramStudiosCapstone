@@ -25,7 +25,7 @@ public class OrderReceipt {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)
-	private Order order; // Edit: Matthew - Assuming an Order entity exists :: must implement
+	private Order order; // 
 
 	@Column(columnDefinition = "TEXT")
 	private String summaryText;
@@ -45,8 +45,7 @@ public class OrderReceipt {
 		this.createdAt = LocalDateTime.now();
 	}
 
-	// Edit: Matthew - Additional methods :: @Getters and @Setters causes issuess
-	// and compilation errors, so we will add them manually
+
 
 	public OrderReceipt() {
 

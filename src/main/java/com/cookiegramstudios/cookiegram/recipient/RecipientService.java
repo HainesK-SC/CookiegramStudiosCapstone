@@ -1,10 +1,14 @@
 package com.cookiegramstudios.cookiegram.recipient;
 
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.cookiegramstudios.cookiegram.order.dto.CheckoutFormDTO;
+import com.cookiegramstudios.cookiegram.utils.NameParser;
+
+import jakarta.transaction.Transactional;
 
 /**
  * Service layer for recipient-related business operations.
@@ -16,20 +20,64 @@ import java.util.Optional;
  *
  * @author Matthew Samaha
  * @date 2026-03-17
- * @version 2.0
+ * @version 2.1
  */
 @Service
 public class RecipientService {
 
-    private final RecipientRepository recipientRepository;
+	private final RecipientRepository recipientRepository;
+    private final RecipientValidationService recipientValidationService;
 
-    public RecipientService(RecipientRepository recipientRepository) {
+    public RecipientService(RecipientRepository recipientRepository,
+                            RecipientValidationService recipientValidationService) {
         this.recipientRepository = recipientRepository;
+        this.recipientValidationService = recipientValidationService;
+    }
+
+    @Transactional
+    public Recipient createRecipientFromCheckoutForm(CheckoutFormDTO form) {
+        Recipient recipient = new Recipient();
+
+        // Set full name
+        recipient.setName(form.getRecipientName());
+
+        // Parse recipient name using utility class
+        String[] nameParts = NameParser.parseFullName(form.getRecipientName());
+        recipient.setFirstName(nameParts[0]);
+        recipient.setLastName(nameParts[1]);
+
+        // Set address fields
+        recipient.setStreet(form.getRecipientStreet());
+        recipient.setCity(form.getRecipientCity());
+        recipient.setPostalCode(normalizePostalCode(form.getRecipientPostalCode()));
+        recipient.setCountry(form.getRecipientCountry());
+
+        // Set special instructions if provided
+        recipient.setSpecialInstructions(form.getDeliveryInstructions());
+
+        return recipientRepository.save(recipient);
+    }
+
+    private String normalizePostalCode(String postalCode) {
+        if (postalCode == null || postalCode.trim().isEmpty()) {
+            return postalCode;
+        }
+
+        // Remove all spaces and convert to uppercase
+        String cleaned = postalCode.replaceAll("\\s+", "").toUpperCase();
+
+        // If it's a valid 6-character Canadian postal code, add space in middle
+        if (cleaned.length() == 6 && cleaned.matches("[A-Z]\\d[A-Z]\\d[A-Z]\\d")) {
+            return cleaned.substring(0, 3) + " " + cleaned.substring(3);
+        }
+
+        // Return as-is if not standard format (for international addresses)
+        return postalCode.toUpperCase().trim();
     }
 
     @Transactional
     public Recipient createRecipient(Recipient recipient) {
-        validateRecipient(recipient);
+        recipientValidationService.validateRecipient(recipient);
         return recipientRepository.save(recipient);
     }
 
@@ -38,7 +86,7 @@ public class RecipientService {
         if (recipient.getId() == null || !recipientRepository.existsById(recipient.getId())) {
             throw new IllegalArgumentException("Recipient does not exist with ID: " + recipient.getId());
         }
-        validateRecipient(recipient);
+        recipientValidationService.validateRecipient(recipient);
         return recipientRepository.save(recipient);
     }
 
@@ -50,9 +98,6 @@ public class RecipientService {
         recipientRepository.deleteById(id);
     }
 
-    /**
-     * General Methods
-     */
     public Optional<Recipient> findById(Long id) {
         return recipientRepository.findById(id);
     }
@@ -97,38 +142,9 @@ public class RecipientService {
         return recipientRepository.existsById(id);
     }
 
-
-    /**
-     * Helper method
-     */
     public String getFormattedAddress(Long id) {
         Recipient recipient = recipientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Recipient not found with ID: " + id));
         return recipient.getFullAddress();
     }
-
-
-    // Very important -- ensures recipient inputs all required fields properly
-    private void validateRecipient(Recipient recipient) {
-        if (recipient.getFirstName() == null || recipient.getFirstName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Recipient first name is required");
-        }
-        if (recipient.getLastName() == null || recipient.getLastName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Recipient last name is required");
-        }
-        if (recipient.getStreet() == null || recipient.getStreet().trim().isEmpty()) {
-            throw new IllegalArgumentException("Street address is required");
-        }
-        if (recipient.getCity() == null || recipient.getCity().trim().isEmpty()) {
-            throw new IllegalArgumentException("City is required");
-        }
-        if (recipient.getPostalCode() == null || recipient.getPostalCode().trim().isEmpty()) {
-            throw new IllegalArgumentException("Postal code is required");
-        }
-        if (recipient.getCountry() == null || recipient.getCountry().trim().isEmpty()) {
-            throw new IllegalArgumentException("Country is required");
-        }
-    }
-
-
 }

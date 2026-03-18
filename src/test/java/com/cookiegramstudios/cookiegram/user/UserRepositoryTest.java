@@ -15,51 +15,51 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class UserRepositoryTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
+	@Autowired
+	private TestEntityManager entityManager;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    private User testUser;
+	private User testUser;
 
-    @BeforeEach
-    void setUp() {
-        testUser = new User();
-        testUser.setEmail("test@example.com");
-        testUser.setPassword("password123");
-        testUser.setRole(UserRole.EMPLOYEE); // changed
-        testUser.setFirstName("Test");
-        testUser.setLastName("User");
-        testUser.setCreatedAt(LocalDateTime.now());
+	@BeforeEach
+	void setUp() {
+		testUser = new User();
+		testUser.setEmail("test@example.com");
+		testUser.setPassword("password123");
+		testUser.setRole(UserRole.EMPLOYEE); // changed
+		testUser.setFirstName("Test");
+		testUser.setLastName("User");
+		testUser.setCreatedAt(LocalDateTime.now());
 
-        entityManager.persist(testUser);
-        entityManager.flush();
-    }
+		entityManager.persist(testUser);
+		entityManager.flush();
+	}
 
-    @Test
-    void testFindByEmail() {
-        User found = userRepository.findByEmail("test@example.com");
-        assertNotNull(found);
-        assertEquals("test@example.com", found.getEmail());
-    }
+	@Test
+	void testFindByEmail() {
+		User found = userRepository.findByEmail("test@example.com");
+		assertNotNull(found);
+		assertEquals("test@example.com", found.getEmail());
+	}
 
-    @Test
-    void testFindByRole() {
-        User found = userRepository.findByRole(UserRole.EMPLOYEE); // changed
-        assertNotNull(found);
-        assertEquals(UserRole.EMPLOYEE, found.getRole()); // changed
-    }
+	@Test
+	void testFindByRole() {
+		User found = userRepository.findByRole(UserRole.EMPLOYEE); // changed
+		assertNotNull(found);
+		assertEquals(UserRole.EMPLOYEE, found.getRole()); // changed
+	}
 
-    @Test
-    void testFindAllByRole() {
-        List<User> users = userRepository.findAllByRole(UserRole.EMPLOYEE); // changed
-        assertEquals(1, users.size());
-    }
+	@Test
+	void testFindAllByRole() {
+		List<User> users = userRepository.findAllByRole(UserRole.EMPLOYEE); // changed
+		assertEquals(1, users.size());
+	}
 
-    @Test
-    void testExistsByEmail() {
-        assertTrue(userRepository.existsByEmail("test@example.com"));
-        assertFalse(userRepository.existsByEmail("nonexistent@example.com"));
-    }
+	@Test
+	void testExistsByEmail() {
+		assertTrue(userRepository.existsByEmail("test@example.com"));
+		assertFalse(userRepository.existsByEmail("nonexistent@example.com"));
+	}
 }

@@ -1,14 +1,19 @@
 package com.cookiegramstudios.cookiegram.auth;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import com.cookiegramstudios.cookiegram.user.UserRole;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Custom authentication success handler that redirects users to role-specific dashboards.
@@ -26,41 +31,23 @@ import java.io.IOException;
  * is redirected to the home page.
  * </p>
  *
- * <p><b>References:</b></p>
- * <ul>
- *     <li>
- *         <a href="https://www.codejava.net/frameworks/spring-boot/spring-security-authentication-success-handler-examples">
- *             CodeJava – Spring Security Authentication Success Handler Examples
- *         </a>
- *     </li>
- *     <li>
- *         <a href="https://mainul35.medium.com/spring-security-demonstrating-custom-authentication-success-handler-3b6fcb572a53">
- *             Medium – Custom Authentication Success Handler
- *         </a>
- *     </li>
- *     <li>
- *         <a href="https://www.baeldung.com/spring-redirect-after-login">
- *             Baeldung – Redirect After Login
- *         </a>
- *     </li>
- * </ul>
  *
  * @author Matthew Samaha
- * @date 2026-02-23
- * @version 2.0
+ * @date 2026-03-18
+ * @version 3.0
  */
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+	
+	private static final String REDIRECT_ADMIN_DASHBOARD = "/admin/dashboard";
+    private static final String REDIRECT_EMPLOYEE_DASHBOARD = "/employee/dashboard";
+    private static final String REDIRECT_HOME = "/";
 
-    /**
-     * Handles successful authentication by redirecting to role-appropriate dashboard.
-     *
-     * @param request the request which caused the successful authentication
-     * @param response the response
-     * @param authentication the Authentication object containing user details and authorities
-     * @throws IOException if an input or output error occurs during the redirect
-     * @throws ServletException if a servlet error occurs
-     */
+    private static final Map<UserRole, String> ROLE_REDIRECTS = Map.of(
+            UserRole.ADMIN, REDIRECT_ADMIN_DASHBOARD,
+            UserRole.EMPLOYEE, REDIRECT_EMPLOYEE_DASHBOARD
+    );
+  
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request,
@@ -71,26 +58,25 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.sendRedirect(redirectUrl);
     }
 
-
-    /**
-     * Determines redirect URL based on granted authorities.
-     *
-     * @param authorities collection of granted authorities for the authenticated user
-     * @return redirect URL
-     */
     private String determineRedirectUrl(Iterable<? extends GrantedAuthority> authorities) {
         for (GrantedAuthority authority : authorities) {
-            String role = authority.getAuthority();
-
-            if ("ROLE_ADMIN".equals(role)) {
-                return "/admin/dashboard";
-            }
-            if ("ROLE_EMPLOYEE".equals(role)) {
-                return "/employee/dashboard";
+            Optional<UserRole> role = toUserRole(authority.getAuthority());
+            if (role.isPresent()) {
+                String redirect = ROLE_REDIRECTS.get(role.get());
+                if (redirect != null) {
+                    return redirect; // first recognized role wins
+                }
             }
         }
+        return REDIRECT_HOME;
+    }
 
-        // Safe fallback for unexpected role/authority state
-        return "/";
+    private Optional<UserRole> toUserRole(String authority) {
+        for (UserRole role : UserRole.values()) {
+            if (role.toAuthority().equals(authority)) {
+                return Optional.of(role);
+            }
+        }
+        return Optional.empty();
     }
 }

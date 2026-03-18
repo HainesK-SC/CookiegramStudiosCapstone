@@ -12,12 +12,9 @@ import java.util.List;
  */
 @Repository
 public interface CookieRepository extends JpaRepository<Cookie, Long>{
-    // Finds all cookies by their active status
     List<Cookie> findByActive(boolean active);
 
-    // Finds cookies containing a specific name (case-insensitive)
     List<Cookie> findByNameContainingIgnoreCase(String name);
 
-    // Finds cookies within a specific price range
     List<Cookie> findByBasePriceBetween(double minPrice, double maxPrice);
 }
