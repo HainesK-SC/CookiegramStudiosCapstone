@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.order;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -257,6 +258,103 @@ public class OrderController {
 		// 5. Return confirmation template
 		return "confirmation";
 	}
+	
+	
+	/**
+	 * Helper Methods 
+	 */
+	
+	// Create a new customer or find existing one based on email
+	private Customer createOrFindCustomer(CheckoutFormDTO form) {
+		// Check if customer exists by email
+		Optional<Customer> existing = customerRepository.findByEmail(form.getSenderEmail());
+
+		if (existing.isPresent()) {
+			// Update last order date for existing customer
+			Customer customer = existing.get();
+			customer.updateLastOrderDate();
+			return customerRepository.save(customer);
+		} else {
+			// Create new customer
+			Customer newCustomer = new Customer();
+			newCustomer.setEmail(form.getSenderEmail());
+
+			// Parse name (assuming "First Last" format)
+			String[] nameParts = form.getSenderName().split(" ", 2);
+			newCustomer.setFirstName(nameParts[0]);
+			newCustomer.setLastName(nameParts.length > 1 ? nameParts[1] : "");
+
+			return customerRepository.save(newCustomer);
+		}
+	}
+	
+	// Creates a new recipient entity from checkout form data
+	private Recipient createRecipient(CheckoutFormDTO form) {
+		Recipient recipient = new Recipient();
+
+		// Parse recipient name (assuming "First Last" format)
+		String[] nameParts = form.getRecipientName().split(" ", 2);
+		recipient.setFirstName(nameParts[0]);
+		recipient.setLastName(nameParts.length > 1 ? nameParts[1] : "");
+
+		recipient.setStreet(form.getRecipientStreet());
+		recipient.setCity(form.getRecipientCity());
+		recipient.setPostalCode(form.getRecipientPostalCode());
+		recipient.setCountry(form.getRecipientCountry());
+		recipient.setSpecialInstructions(form.getDeliveryInstructions());
+
+		return recipientRepository.save(recipient);
+	}
+	
+	// Calculate total price of cart items including tax
+	private double calculateTotalPrice(Cart cart) {
+		double subtotal = 0.0;
+		for (CartItem item : cart.getCartItems()) {
+			subtotal += item.getProductType().getBasePrice() * item.getItemQty();
+		}
+		double tax = subtotal * 0.13;
+		return subtotal + tax;
+	}
+	
+	// Generates a unique order number (for simplicity 4-digit random number, in real app would need to ensure uniqueness)
+	private int generateOrderNumber() {
+		// Simple approach: random 4-digit number
+		return (int) (Math.random() * 9000) + 1000;
+
+		// TODO: Consider implementing sequential order numbers based on existing orders
+	}
+	
+	// Builds comprehensive order notes from checkout form data
+	private String buildNotesFromCheckoutForm(CheckoutFormDTO form) {
+		StringBuilder notes = new StringBuilder();
+
+		notes.append("Delivery Time Preference: ").append(form.getDeliveryTimePreference()).append("\n");
+
+		if (form.getDeliveryInstructions() != null && !form.getDeliveryInstructions().isEmpty()) {
+			notes.append("Delivery Instructions: ").append(form.getDeliveryInstructions()).append("\n");
+		}
+
+		if (form.getSenderPhone() != null && !form.getSenderPhone().isEmpty()) {
+			notes.append("Sender Phone: ").append(form.getSenderPhone()).append("\n");
+		}
+
+		// Add custom messages
+		if (!form.getCustomMessages().isEmpty()) {
+			notes.append("\nCustom Messages:\n");
+			for (int i = 0; i < form.getCustomMessages().size(); i++) {
+				String message = form.getCustomMessages().get(i);
+				if (message != null && !message.trim().isEmpty()) {
+					notes.append("  Item ").append(i + 1).append(": ")
+							.append(message).append("\n");
+				}
+			}
+		}
+
+		return notes.toString();
+	}
+	
+	
+
 	
 	
 }
