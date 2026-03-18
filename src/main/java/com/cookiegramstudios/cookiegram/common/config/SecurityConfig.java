@@ -98,9 +98,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Configure authorization rules
                 .authorizeHttpRequests(authorize -> authorize
-                        // Public endpoints - accessible to everyone (standard)
                         .requestMatchers(
                                 "/",
                                 "/order/**",
@@ -116,38 +114,31 @@ public class SecurityConfig {
                                 "/error"
                         ).permitAll()
 
-                        // H2 Console access (for development only)
-                        // Anyone can access
                         .requestMatchers("/h2-console/**").permitAll()
 
-                        // Role-based protected routes
                         .requestMatchers("/employee/**").hasRole("EMPLOYEE")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                        // All other requests require authentication
                         .anyRequest().authenticated()
                 )
 
-                // Configure form-based login
                 .formLogin(form -> form
-                        .loginPage("/login")                              // Custom login page URL
-                        .loginProcessingUrl("/login")                     // URL to submit username/password
-                        .successHandler(customAuthenticationSuccessHandler())  // Custom success handler for role-based redirects
-                        .failureUrl("/login?error=true")                  // Redirect on login failure
-                        .permitAll()                                      // Allow everyone to access login page
+                        .loginPage("/login")                              
+                        .loginProcessingUrl("/login")                     
+                        .successHandler(customAuthenticationSuccessHandler())  
+                        .failureUrl("/login?error=true")                  
+                        .permitAll()                                      
                 )
 
-                // Configure logout
                 .logout(logout -> logout
-                        .logoutUrl("/logout")                   // URL to trigger logout
-                        .logoutSuccessUrl("/")                  // Redirect after successful logout
-                        .invalidateHttpSession(true)            // Invalidate session on logout
-                        .clearAuthentication(true)              // Clear authentication on logout
-                        .deleteCookies("JSESSIONID")            // Delete session cookie
-                        .permitAll()                            // Allow everyone to logout
+                        .logoutUrl("/logout")                   
+                        .logoutSuccessUrl("/")                  
+                        .invalidateHttpSession(true)            
+                        .clearAuthentication(true)              
+                        .deleteCookies("JSESSIONID")            
+                        .permitAll()                            
                 )
 
-                // H2 Console development settings
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 
