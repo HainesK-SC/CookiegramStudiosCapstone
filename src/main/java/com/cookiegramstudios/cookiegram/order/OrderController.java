@@ -185,9 +185,16 @@ public class OrderController {
 		// 5. redirect to payment page
 		//return "redirect:/order/payment";
 
+
 		@GetMapping("/order/confirmation")
 		public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
 			// 1. Retrieve completed order from session
 			Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
+
+			// 2. Validate order exists
+			if (confirmedOrder == null) {
+				redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
+				return "redirect:/order/";
+			}
 }
