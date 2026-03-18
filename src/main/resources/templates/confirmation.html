@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation</title>
+<!--  Why is this style.css - should be: orderconfirmation.css? -->
+<link rel="stylesheet" th:href="@{/css/public.css}">
+<link rel="stylesheet" th:href="@{/css/orderconfirmation.css}">
+
 </head>
 <body>
-<div class="confirmation-container">
-    <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-    </div>
-    <h1>Thank you for your order!</h1>
-    <p class="subtitle">A confirmation email has been sent to your inbox.</p>
+    <section class="confirmation-section">
+        <div class="confirmation-container">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
 
-    <hr>
+            <h1>Thank you for your order!</h1>
+            <p class="subtitle">A confirmation email has been sent to your inbox.<br>
+            We'll notify you when your CookieGram is ready for delivery.</p>
 
-    <div class="order-card">
-        <div class="detail-row">
-            <span class="label">Order Number:</span>
-            <span class="value" th:text="'#ORD-2026-' + ${orderNumber}">#ORD-2026-9941</span>
+            <hr>
+
+            <div class="order-details">
+                <div class="detail-row">
+                    <span class="label">Order Number:</span>
+                    <span class="value" th:text="'#ORD-2026-' + ${orderNumber}">#ORD-2026-9941</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Recipient:</span>
+                    <span class="value" th:text="${recipient.firstName + ' ' + recipient.lastName}">John Doe</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Estimated Delivery:</span>
+                    <span class="value" th:text="${#temporals.format(deliveryDate, 'EEEE, MMMM d, yyyy')}">Thursday, March 19, 2026</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a th:href="@{/order}" class="secondary-link">
+                    <span>← Return to Shop</span>
+                </a>
+            </div>
         </div>
-        <div class="detail-row">
-            <span class="label">Recipient:</span>
-            <span class="value" th:text="${recipient.recipientName}">Alex Johnson</span>
-        </div>
-        <div class="detail-row">
-            <span class="label">Estimated Delivery:</span>
-            <span class="value" th:text="${#temporals.format(deliveryDate, 'EEEE, MMMM d, yyyy')}">Thursday, March 19, 2026</span>
-        </div>
-    </div>
-
-    <div class="actions">
-        <button class="btn-primary">View Full Order History</button>
-        <a href="#" class="secondary-link">Return to Shop</a>
-    </div>
-</div>
-
-
+    </section>
 </body>
 </html>
