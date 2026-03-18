@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.order;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
+import com.cookiegramstudios.cookiegram.order.dto.CheckoutFormDTO;
 
 /**
  * Data Transfer Object for order creation requests.

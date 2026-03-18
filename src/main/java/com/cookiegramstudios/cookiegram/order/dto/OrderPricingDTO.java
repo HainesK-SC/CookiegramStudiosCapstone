@@ -1,4 +1,6 @@
-package com.cookiegramstudios.cookiegram.order;
+package com.cookiegramstudios.cookiegram.order.dto;
+
+import com.cookiegramstudios.cookiegram.order.PricingService;
 
 /**
  * Data Transfer Object for order pricing calculations.

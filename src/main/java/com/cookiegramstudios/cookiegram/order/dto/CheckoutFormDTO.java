@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.order;
+package com.cookiegramstudios.cookiegram.order.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
