@@ -10,96 +10,83 @@ import com.cookiegramstudios.cookiegram.order.dto.OrderPricingDTO;
 /**
  * Service for pricing and tax calculations.
  * <p>
- * Centralizes all pricing logic for orders, including subtotal calculation,
- * tax computation, and total amount determination. Uses {@link PaymentConfig}
- * for tax rates and pricing rules, ensuring all calculations are consistent
- * and easily configurable.
- * </p>
- * <p>
- * <b>Key Responsibilities:</b>
- * <ul>
- * <li>Calculate cart subtotals</li>
- * <li>Apply province-specific tax rates</li>
- * <li>Format currency amounts for display</li>
- * <li>Create comprehensive pricing DTOs</li>
- * </ul>
+ * Orchestrates pricing flow by delegating tax resolution, cart math,
+ * and money formatting to focused components.
  * </p>
  *
  * @author Matthew Samaha
  * @date 2026-03-18
- * @version 1.0
+ * @version 2.0
  */
 @Service
 public class PricingService {
 
 	private final PaymentConfig paymentConfig;
+    private final TaxRateResolver taxRateResolver;
+    private final CartPricingCalculator cartPricingCalculator;
+    private final MoneyFormatter moneyFormatter;
 
-	public PricingService(PaymentConfig paymentConfig) {
-		this.paymentConfig = paymentConfig;
-	}
+    public PricingService(PaymentConfig paymentConfig,
+                          TaxRateResolver taxRateResolver,
+                          CartPricingCalculator cartPricingCalculator,
+                          MoneyFormatter moneyFormatter) {
+        this.paymentConfig = paymentConfig;
+        this.taxRateResolver = taxRateResolver;
+        this.cartPricingCalculator = cartPricingCalculator;
+        this.moneyFormatter = moneyFormatter;
+    }
 
-	public double calculateSubtotal(Cart cart) {
-		if (cart == null || cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
-			return 0.0;
-		}
+    public double calculateSubtotal(Cart cart) {
+        return cartPricingCalculator.calculateSubtotal(cart);
+    }
 
-		double subtotal = 0.0;
-		for (CartItem item : cart.getCartItems()) {
-			double lineTotal = item.getProductType().getBasePrice() * item.getItemQty();
-			subtotal += lineTotal;
-		}
+    public double calculateTax(double subtotal, String province) {
+        double taxRate = taxRateResolver.resolveTaxRate(province);
+        return cartPricingCalculator.calculateTax(subtotal, taxRate);
+    }
 
-		return subtotal;
-	}
+    public double calculateTotal(double subtotal, double tax) {
+        return cartPricingCalculator.calculateTotal(subtotal, tax);
+    }
 
-	public double calculateTax(double subtotal, String province) {
-		double taxRate = getTaxRate(province);
-		return subtotal * taxRate;
-	}
+    public double getTaxRate(String province) {
+        return taxRateResolver.resolveTaxRate(province);
+    }
 
-	public double calculateTotal(double subtotal, double tax) {
-		return subtotal + tax;
-	}
+    public String formatCurrency(double amount) {
+        return moneyFormatter.formatCurrency(amount);
+    }
 
-	public double getTaxRate(String province) {
-		if (province == null || province.trim().isEmpty()) {
-			return paymentConfig.getDefaultTaxRate();
-		}
-		return paymentConfig.getTaxRateForProvince(province.toUpperCase());
-	}
+    public OrderPricingDTO getOrderPricing(Cart cart, String province) {
+        String effectiveProvince = taxRateResolver.resolveProvince(province);
 
-	public String formatCurrency(double amount) {
-		return String.format("%.2f", amount);
-	}
+        double subtotal = calculateSubtotal(cart);
+        double taxRate = getTaxRate(effectiveProvince);
+        double tax = cartPricingCalculator.calculateTax(subtotal, taxRate);
+        double total = calculateTotal(subtotal, tax);
 
-	public OrderPricingDTO getOrderPricing(Cart cart, String province) {
-		// Use default province if none provided
-		String effectiveProvince = (province == null || province.trim().isEmpty()) ? paymentConfig.getDefaultProvince()
-				: province.toUpperCase();
+        return buildPricingDto(subtotal, tax, taxRate, total, effectiveProvince);
+    }
 
-		// Calculate amounts
-		double subtotal = calculateSubtotal(cart);
-		double taxRate = getTaxRate(effectiveProvince);
-		double tax = calculateTax(subtotal, effectiveProvince);
-		double total = calculateTotal(subtotal, tax);
+    public OrderPricingDTO getOrderPricing(Cart cart) {
+        return getOrderPricing(cart, null);
+    }
 
-		// Create and populate DTO
-		OrderPricingDTO pricing = new OrderPricingDTO();
-		pricing.setSubtotal(subtotal);
-		pricing.setTax(tax);
-		pricing.setTaxRate(taxRate);
-		pricing.setTotal(total);
-		pricing.setFormattedSubtotal(formatCurrency(subtotal));
-		pricing.setFormattedTax(formatCurrency(tax));
-		pricing.setFormattedTotal(formatCurrency(total));
-		pricing.setProvince(effectiveProvince);
-		pricing.setCurrency(paymentConfig.getCurrency());
-
-		return pricing;
-	}
-
-	public OrderPricingDTO getOrderPricing(Cart cart) {
-		return getOrderPricing(cart, null);
-	}
-
+    private OrderPricingDTO buildPricingDto(double subtotal,
+                                            double tax,
+                                            double taxRate,
+                                            double total,
+                                            String province) {
+        OrderPricingDTO pricing = new OrderPricingDTO();
+        pricing.setSubtotal(subtotal);
+        pricing.setTax(tax);
+        pricing.setTaxRate(taxRate);
+        pricing.setTotal(total);
+        pricing.setFormattedSubtotal(formatCurrency(subtotal));
+        pricing.setFormattedTax(formatCurrency(tax));
+        pricing.setFormattedTotal(formatCurrency(total));
+        pricing.setProvince(province);
+        pricing.setCurrency(paymentConfig.getCurrency());
+        return pricing;
+    }
 }
