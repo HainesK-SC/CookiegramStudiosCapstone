@@ -20,9 +20,18 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 	
 	private final OrderRepository orderRepository;
-
-    public OrderService(OrderRepository orderRepository) {
+    private final CustomerService customerService;
+    private final RecipientService recipientService;
+    private final PaymentConfig paymentConfig;
+ 
+    public OrderService(OrderRepository orderRepository,
+                       CustomerService customerService,
+                       RecipientService recipientService,
+                       PaymentConfig paymentConfig) {
         this.orderRepository = orderRepository;
+        this.customerService = customerService;
+        this.recipientService = recipientService;
+        this.paymentConfig = paymentConfig;
     }
 
 
