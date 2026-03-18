@@ -190,26 +190,4 @@ public class OrderController {
 
 			// 1. Retrieve completed order from session
 			Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
-
-			// 2. Validate order exists
-			if (confirmedOrder == null) {
-				redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
-				return "redirect:/order/";
-			}
-
-			// 3. Add order details to model
-			model.addAttribute("orderId", confirmedOrder.getId());
-			model.addAttribute("customerName", confirmedOrder.getCustomerName());
-			model.addAttribute("customerEmail", confirmedOrder.getCustomerEmail());
-
-			// 4. Clean up session — order is confirmed, no longer needed
-			session.removeAttribute("confirmedOrder");
-			session.removeAttribute("checkoutData");
-			session.removeAttribute("cart");
-
-			// 5. Return confirmation template
-			return "confirmation";
-
-		}
-	
 }
