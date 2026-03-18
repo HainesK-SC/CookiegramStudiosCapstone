@@ -24,12 +24,14 @@ import com.cookiegramstudios.cookiegram.common.exceptions.InvalidPromotionDataEx
 class PromotionServiceTest {
 
 	private PromotionRepository promotionRepository;
+	private PromotionValidationService promotionValidationService;
 	private PromotionService promotionService;
 
 	@BeforeEach
 	void setUp() {
 		promotionRepository = mock(PromotionRepository.class);
-		promotionService = new PromotionService(promotionRepository);
+		promotionValidationService = mock(PromotionValidationService.class);
+		promotionService = new PromotionService(promotionRepository, promotionValidationService);
 	}
 
 	@Test

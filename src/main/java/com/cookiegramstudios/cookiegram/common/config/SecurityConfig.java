@@ -1,9 +1,14 @@
 package com.cookiegramstudios.cookiegram.common.config;
 
 import com.cookiegramstudios.cookiegram.auth.CustomAuthenticationSuccessHandler;
+import com.cookiegramstudios.cookiegram.user.UserRole;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -58,67 +63,63 @@ public class SecurityConfig {
     };
 
     
-    @Bean
-    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
-    }
-
-    
-    @Bean
-    public PasswordEncoder passwordEncoder(){
+	@Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-    
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Order(2)
+    public SecurityFilterChain appSecurityFilterChain(
+            HttpSecurity http,
+            CustomAuthenticationSuccessHandler successHandler
+    ) throws Exception {
+
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                "/",
-                                "/order/**",
-                                "/login",
-                                "/about",
-                                "/contact",
-                                "/faq",
-                                "/shipping-policy",
-                                "/privacy-policy",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/error"
-                        ).permitAll()
-
-                        .requestMatchers("/h2-console/**").permitAll()
-
-                        .requestMatchers("/employee/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers("/employee/**").hasRole(UserRole.EMPLOYEE.name())
+                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 )
-
                 .formLogin(form -> form
-                        .loginPage("/login")                              
-                        .loginProcessingUrl("/login")                     
-                        .successHandler(customAuthenticationSuccessHandler())  
-                        .failureUrl("/login?error=true")                  
-                        .permitAll()                                      
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(successHandler)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
                 )
-
                 .logout(logout -> logout
-                        .logoutUrl("/logout")                   
-                        .logoutSuccessUrl("/")                  
-                        .invalidateHttpSession(true)            
-                        .clearAuthentication(true)              
-                        .deleteCookies("JSESSIONID")            
-                        .permitAll()                            
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
                 )
+                .sessionManagement(Customizer.withDefaults());
 
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
-
-
+        // CSRF remains enabled by default for app endpoints.
         return http.build();
+    }
+
+    /**
+     * Dev-only filter chain for H2 console access.
+     */
+    @Configuration
+    @Profile("dev")
+    static class DevH2SecurityConfig {
+
+        @Bean
+        @Order(1)
+        public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .securityMatcher("/h2-console/**")
+                    .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                    .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                    .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+
+            return http.build();
+        }
     }
 }
