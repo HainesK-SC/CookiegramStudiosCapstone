@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.order;
+package com.cookiegramstudios.cookiegram.order.pricing;
 
 import org.springframework.stereotype.Component;
 
