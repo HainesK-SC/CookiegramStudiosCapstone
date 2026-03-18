@@ -24,9 +24,6 @@ public class OrderReceiptService {
         this.receiptRepository = receiptRepo;
     }
 
-    /**
-     * Generates a new receipt for a completed order.
-     */
     @Transactional
     public OrderReceipt generateReceipt(Order order) {
         logger.info("Generating receipt for Order ID: {}", order.getId());
