@@ -1,14 +1,9 @@
 package com.cookiegramstudios.cookiegram.common;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.cookiegramstudios.cookiegram.promotion.Promotion;
-import com.cookiegramstudios.cookiegram.promotion.PromotionService;
 
 /**
  * Controller for public-facing pages accessible to all users.
@@ -27,103 +22,63 @@ import com.cookiegramstudios.cookiegram.promotion.PromotionService;
  *
  * @author Matthew Samaha
  * @author Kyle Haines 
- * @date 2026-03-14
- * @version 1.2
+ * @date 2026-03-18
+ * @version 2.0
  */
 @Controller
 public class PublicController {
 	
-	private final PromotionService promotionService;
+	private static final String VIEW_INDEX = "index";
+    private static final String VIEW_LOGIN = "login";
+    private static final String VIEW_ABOUT = "about";
+    private static final String VIEW_FAQ = "faq";
+    private static final String VIEW_CONTACT = "contact";
+    private static final String VIEW_SHIPPING_POLICY = "shipping-policy";
+    private static final String VIEW_PRIVACY_POLICY = "privacy-policy";
 	
-	public PublicController(PromotionService promotionService) {
-		this.promotionService = promotionService;
-	}
+	private final PublicPageModelHelper pageModelHelper;
 
-    /**
-     * Displays the home/landing page with current promotions.
-     * <p>
-     * This page is accessible to all users (authenticated or not) and serves as
-     * the main entry point for the CookieGram application. It displays cookie orders, products & displays featured
-     * promotions and provides navigation to other parts of the site.
-     * </p>
+    public PublicController(PublicPageModelHelper pageModelHelper) {
+        this.pageModelHelper = pageModelHelper;
+    }
 
-     *
-     * @param model Spring MVC Model to pass data to the view
-     * @return view name "index" (maps to templates/index.html)
-     */
     @GetMapping("/")
-    public String home(Model model){
-    	List<Promotion> promotions = promotionService.getByIsActive(true);
-    	model.addAttribute("activePromotions", promotions);
-
+    public String home(Model model) {
+        pageModelHelper.populateHomeModel(model);
         return "index";
     }
 
-    /**
-     * Displays the custom login page with error and logout message handling.
-     * <p>
-     * This endpoint serves the login form and handles feedback messages from
-     * Spring Security:
-     * </p>
-     * <ul>
-     * <li>error=true - Authentication failed (invalid credentials)</li>
-     * <li>logout=true - User successfully logged out</li>
-     * </ul>
-     * <p>
-     * The actual authentication is processed by Spring Security at POST /login.
-     * Upon successful authentication, users are redirected to role-specific
-     * dashboards via CustomAuthenticationSuccessHandler.
-     * </p>
-     *
-     * @param error optional parameter indicating authentication failure
-     * @param logout optional parameter indicating successful logout
-     * @param model Spring MVC Model to pass data to the view
-     * @return view name "login" (maps to templates/login.html)
-     */
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
-                        Model model)
-        {
-
-        // Check if login failed and add error message
-        if (error != null) {
-            model.addAttribute("error", true);
-            model.addAttribute("errorMessage", "Invalid email or password. Please try again.");
-        }
-
-        // Check if user just logged out and add success message
-        if (logout != null) {
-            model.addAttribute("logout", true);
-            model.addAttribute("logoutMessage", "You have been successfully logged out.");
-        }
-
+                        Model model) {
+        pageModelHelper.populateLoginModel(error, logout, model);
         return "login";
-
     }
-
+    
     @GetMapping("/about")
-    public String aboutPage(){
-        return "about";
+    public String aboutPage() {
+        return VIEW_ABOUT;
     }
 
     @GetMapping("/faq")
-    public String faqPage(){
-        return "faq";
+    public String faqPage() {
+        return VIEW_FAQ;
     }
 
     @GetMapping("/contact")
-    public String contactPage(){
-        return "contact";
+    public String contactPage() {
+        return VIEW_CONTACT;
     }
 
     @GetMapping("/shipping-policy")
-    public String shippingPolicy(){
-        return "shipping-policy";
+    public String shippingPolicy() {
+        return VIEW_SHIPPING_POLICY;
     }
 
     @GetMapping("/privacy-policy")
     public String privacyPolicy() {
-        return "privacy-policy";
+        return VIEW_PRIVACY_POLICY;
     }
+
 }

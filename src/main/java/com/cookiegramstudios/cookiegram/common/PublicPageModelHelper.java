@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.utils;
+package com.cookiegramstudios.cookiegram.common;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import com.cookiegramstudios.cookiegram.promotion.PromotionService;
 
 @Component
 public class PublicPageModelHelper {
+
 	
 	private static final String ATTR_ACTIVE_PROMOTIONS = "activePromotions";
     private static final String ATTR_ERROR = "error";
