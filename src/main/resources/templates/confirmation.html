@@ -21,16 +21,15 @@
     <div class="order-card">
         <div class="detail-row">
             <span class="label">Order Number:</span>
-            <span class="value">#ORD-2026-9941</span>
+            <span class="value" th:text="'#ORD-2026-' + ${orderNumber}">#ORD-2026-9941</span>
         </div>
         <div class="detail-row">
             <span class="label">Recipient:</span>
-            <span class="value">Alex Johnson</span>
+            <span class="value" th:text="${recipient.recipientName}">Alex Johnson</span>
         </div>
-
         <div class="detail-row">
             <span class="label">Estimated Delivery:</span>
-            <span class="value">Thursday, March 19, 2026</span>
+            <span class="value" th:text="${#temporals.format(deliveryDate, 'EEEE, MMMM d, yyyy')}">Thursday, March 19, 2026</span>
         </div>
     </div>
 
@@ -39,6 +38,7 @@
         <a href="#" class="secondary-link">Return to Shop</a>
     </div>
 </div>
+
 
 </body>
 </html>
