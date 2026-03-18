@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.cookiegramstudios.cookiegram.common.NameParser;
 import com.cookiegramstudios.cookiegram.order.CheckoutFormDTO;
+import com.cookiegramstudios.cookiegram.utils.NameParser;
 
 import jakarta.transaction.Transactional;
 

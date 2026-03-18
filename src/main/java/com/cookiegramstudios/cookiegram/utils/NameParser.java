@@ -1,4 +1,4 @@
-package com.cookiegramstudios.cookiegram.common;
+package com.cookiegramstudios.cookiegram.utils;
 
 /**
  * Utility class for parsing and normalizing name strings.
