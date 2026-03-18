@@ -31,28 +31,10 @@ import jakarta.servlet.http.HttpServletResponse;
  * is redirected to the home page.
  * </p>
  *
- * <p><b>References:</b></p>
- * <ul>
- *     <li>
- *         <a href="https://www.codejava.net/frameworks/spring-boot/spring-security-authentication-success-handler-examples">
- *             CodeJava – Spring Security Authentication Success Handler Examples
- *         </a>
- *     </li>
- *     <li>
- *         <a href="https://mainul35.medium.com/spring-security-demonstrating-custom-authentication-success-handler-3b6fcb572a53">
- *             Medium – Custom Authentication Success Handler
- *         </a>
- *     </li>
- *     <li>
- *         <a href="https://www.baeldung.com/spring-redirect-after-login">
- *             Baeldung – Redirect After Login
- *         </a>
- *     </li>
- * </ul>
  *
  * @author Matthew Samaha
- * @date 2026-02-23
- * @version 2.0
+ * @date 2026-03-18
+ * @version 3.0
  */
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
