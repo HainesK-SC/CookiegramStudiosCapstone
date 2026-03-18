@@ -1,4 +1,39 @@
 
 Personal Todos
+2026-03-18
 
-- Test files for Pulling Orders in Bakckend for Employee Dasboard
+Clean up codebase and execute code management...
+
+== OrderController
+Specific methods to refactor:
+- GET getCheckout					/order/checkout
+
+- POST submitCheckout			/order/checkout
+
+- GET getConfirmation				/order/confirmation
+
+- Helper methods in a different class? maybe
+
+
+== PublicController
+Remove unecessary comments/and javadocs for methods
+
+- GET login
+for validation, put them in methods
+
+
+== CustomAuthSuccessHandler
+Refactor determineRedirectUrl perhaps?
+
+
+== UserService
+- refactor, break bigger methods into smaller ones, for example the createUser
+
+
+== RecipientService
+- refactor the validteRecipeipt method, break it into smaller methods 
+
+
+== CookieSerivice
+- refactor the validateCookie method, break it into smaller methods
+
