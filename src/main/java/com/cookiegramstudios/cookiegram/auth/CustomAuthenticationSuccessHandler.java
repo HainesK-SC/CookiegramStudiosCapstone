@@ -2,6 +2,7 @@ package com.cookiegramstudios.cookiegram.auth;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -75,19 +76,25 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.sendRedirect(redirectUrl);
     }
 
-
     private String determineRedirectUrl(Iterable<? extends GrantedAuthority> authorities) {
         for (GrantedAuthority authority : authorities) {
-            String role = authority.getAuthority();
-
-            if ("ROLE_ADMIN".equals(role)) {
-                return "/admin/dashboard";
-            }
-            if ("ROLE_EMPLOYEE".equals(role)) {
-                return "/employee/dashboard";
+            Optional<UserRole> role = toUserRole(authority.getAuthority());
+            if (role.isPresent()) {
+                String redirect = ROLE_REDIRECTS.get(role.get());
+                if (redirect != null) {
+                    return redirect; // first recognized role wins
+                }
             }
         }
+        return REDIRECT_HOME;
+    }
 
-        return "/";
+    private Optional<UserRole> toUserRole(String authority) {
+        for (UserRole role : UserRole.values()) {
+            if (role.toAuthority().equals(authority)) {
+                return Optional.of(role);
+            }
+        }
+        return Optional.empty();
     }
 }
