@@ -121,12 +121,10 @@ public class OrderController {
 	            Model model,
 	            RedirectAttributes redirectAttributes) {
 	 
-	        // Handle validation errors
 	        if (result.hasErrors()) {
 	            return handleCheckoutValidationError(session, model, redirectAttributes);
 	        }
 	 
-	        // Retrieve and validate cart
 	        Cart cart = SessionHelper.getCart(session);
 	        
 	        if (CartValidator.isCartEmpty(cart)) {
@@ -142,11 +140,26 @@ public class OrderController {
 	        return "redirect:/order/confirmation";
 	    }
 	    
-	    
-	    
-	    
-	    
-	    
+	    @GetMapping("/order/confirmation")
+	    public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+	        // Retrieve and validate confirmed order
+	        Order confirmedOrder = SessionHelper.getConfirmedOrder(session);
+	 
+	        if (confirmedOrder == null) {
+	            redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
+	            return "redirect:/order/";
+	        }
+	 
+	        // Add order details to model
+	        model.addAttribute("orderNumber", confirmedOrder.getOrderNumber());
+	        model.addAttribute("recipient", confirmedOrder.getRecipientUser());
+	        model.addAttribute("deliveryDate", confirmedOrder.getDeliveryDate());
+	 
+	        // Clean up session
+	        SessionHelper.clearOrderSession(session);
+	 
+	        return "confirmation";
+	    }
 	    
 	    
 	    private String handleCheckoutValidationError(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
@@ -167,13 +180,6 @@ public class OrderController {
 	 
 	        return "checkout";
 	    }
-	    
-	    
-	    
-	    
-
-	
-
 	
 }
 	
