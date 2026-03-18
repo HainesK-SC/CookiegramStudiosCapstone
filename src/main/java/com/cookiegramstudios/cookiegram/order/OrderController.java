@@ -290,20 +290,23 @@ public class OrderController {
 	
 	// Creates a new recipient entity from checkout form data
 	private Recipient createRecipient(CheckoutFormDTO form) {
-		Recipient recipient = new Recipient();
+	    Recipient recipient = new Recipient();
 
-		// Parse recipient name (assuming "First Last" format)
-		String[] nameParts = form.getRecipientName().split(" ", 2);
-		recipient.setFirstName(nameParts[0]);
-		recipient.setLastName(nameParts.length > 1 ? nameParts[1] : "");
+	    // Set full name
+	    recipient.setName(form.getRecipientName());  // ← ADD THIS
+	    
+	    // Parse recipient name (assuming "First Last" format)
+	    String[] nameParts = form.getRecipientName().split(" ", 2);
+	    recipient.setFirstName(nameParts[0]);
+	    recipient.setLastName(nameParts.length > 1 ? nameParts[1] : "");
 
-		recipient.setStreet(form.getRecipientStreet());
-		recipient.setCity(form.getRecipientCity());
-		recipient.setPostalCode(form.getRecipientPostalCode());
-		recipient.setCountry(form.getRecipientCountry());
-		recipient.setSpecialInstructions(form.getDeliveryInstructions());
+	    recipient.setStreet(form.getRecipientStreet());
+	    recipient.setCity(form.getRecipientCity());
+	    recipient.setPostalCode(form.getRecipientPostalCode());
+	    recipient.setCountry(form.getRecipientCountry());
+	    recipient.setSpecialInstructions(form.getDeliveryInstructions());
 
-		return recipientRepository.save(recipient);
+	    return recipientRepository.save(recipient);
 	}
 	
 	// Calculate total price of cart items including tax

@@ -44,6 +44,11 @@ public class Recipient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	// Added: 
+	@Column(nullable = true)
+	@NotBlank(message = "Recipient name is required")
+	private String name;
 
 	@Column(nullable = false)
 	@NotBlank(message = "Recipient name is required")
@@ -104,6 +109,14 @@ public class Recipient {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getFirstName() {
