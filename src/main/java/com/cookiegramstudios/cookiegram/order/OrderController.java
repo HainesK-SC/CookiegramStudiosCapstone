@@ -14,8 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.cart.CartService;
+import com.cookiegramstudios.cookiegram.customer.CustomerRepository;
 import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
+import com.cookiegramstudios.cookiegram.recipient.RecipientRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -42,10 +44,17 @@ public class OrderController {
 
 	private final ProductRepository productRepository;
 	private final CartService cartService;
+	
+	private final OrderRepository orderRepository;
+	private final CustomerRepository customerRepository;
+	private final RecipientRepository recipientRepository;
 
-	public OrderController(ProductRepository prodRepo, CartService cartServ) {
-		this.productRepository = prodRepo;
-		this.cartService = cartServ;
+	public OrderController(ProductRepository productRepository, CartService cartService, OrderRepository orderRepository, CustomerRepository customerRepository, RecipientRepository recipientRepository) {
+		this.productRepository = productRepository;
+		this.cartService = cartService;
+		this.orderRepository = orderRepository;
+		this.customerRepository = customerRepository;
+		this.recipientRepository = recipientRepository;
 	}
 
 	@GetMapping("/order")
@@ -193,12 +202,12 @@ public class OrderController {
 	public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
 		// 1. Retrieve completed order from session
-		Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
+		Order confirmedOrder = (Order) session.getAttribute("confirmedOrder"); // shouldn't this be null?
 
 		// 2. Validate order exists
 		if (confirmedOrder == null) {
 			redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
-			return "redirect:/order/";
+			return "redirect:/order/"; // is this correct?
 		}
 
 		// 3. Add order details to model
