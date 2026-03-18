@@ -1,0 +1,14 @@
+{
+  "taxRates": {
+    "ON": 0.13,
+    "BC": 0.12,
+    "AB": 0.05
+  },
+  "defaultTaxRate": 0.13,
+  "currency": "CAD",
+  "orderNumberSettings": {
+    "prefix": "CG",
+    "startRange": 1000,
+    "endRange": 9999
+  }
+}
