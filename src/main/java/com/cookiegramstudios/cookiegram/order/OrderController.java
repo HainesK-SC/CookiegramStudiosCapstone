@@ -195,8 +195,6 @@ public class OrderController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
 			return "redirect:/order/";
 		}
-
-		// 4. CREATE ORDER - NEW LOGIC STARTS HERE
 		
 		// 4a. Create or find customer
 		Customer customer = createOrFindCustomer(checkoutForm);

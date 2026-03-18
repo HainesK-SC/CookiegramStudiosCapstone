@@ -3,8 +3,17 @@ package com.cookiegramstudios.cookiegram.user;
 /**
  * Defines system-level roles for user authentication.
  * <p>
- *     Each role grants specific access permissions and determines post-login redirect destination.
- *     The system supports three disctint roles with different levels of access and responsibilities
+ * Each role grants specific access permissions and determines post-login
+ * redirect destination. The system supports three disctint roles with different
+ * levels of access and responsibilities
+ * </p>
+ * 
+ * <p>
+ * <b>Post-login redirect:</b> {@code /employee/dashboard/}
+ * </p>
+ * 
+ * <p>
+ * <b>Post-login redirect:</b> {@code /admin/dashboard/}
  * </p>
  *
  * @author Matthew Samaha
@@ -13,19 +22,7 @@ package com.cookiegramstudios.cookiegram.user;
  */
 public enum UserRole {
 
-    /**
-     * Admin role
-     * <p>
-     * <b>Post-login redirect:</b> {@code /admin/dashboard/}
-     * </p>
-     */
-    ADMIN,
+	ADMIN,
 
-    /**
-     * Baker role for production-level employees.
-     * <p>
-     * <b>Post-login redirect:</b> {@code /employee/dashboard/}
-     * </p>
-     */
-    EMPLOYEE,
+	EMPLOYEE,
 }

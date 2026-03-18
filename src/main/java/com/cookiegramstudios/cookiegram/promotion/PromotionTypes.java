@@ -21,6 +21,6 @@ package com.cookiegramstudios.cookiegram.promotion;
  */
 
 public enum PromotionTypes {
-	FIXED, // by dollar amount
-	PERCENTAGE // by percentage amount
+	FIXED, 
+	PERCENTAGE
 }
