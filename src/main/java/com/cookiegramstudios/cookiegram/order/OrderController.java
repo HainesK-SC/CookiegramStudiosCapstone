@@ -183,9 +183,9 @@ public class OrderController {
 		session.setAttribute("checkoutData", checkoutForm);
 
 		// 5. redirect to payment page
-		//return "redirect:/order/payment";
+		return "redirect:/order/payment";
 
-
+	}
 	@GetMapping("/order/confirmation")
 	public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
