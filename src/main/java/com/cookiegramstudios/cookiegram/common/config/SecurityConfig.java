@@ -41,60 +41,36 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 public class SecurityConfig {
+	
+	private static final String[] PUBLIC_ENDPOINTS = {
+            "/",
+            "/order/**",
+            "/login",
+            "/about",
+            "/contact",
+            "/faq",
+            "/shipping-policy",
+            "/privacy-policy",
+            "/css/**",
+            "/js/**",
+            "/images/**",
+            "/error"
+    };
 
-    /**
-     * Configures the custom authentication success handler bean.
-     * <p>
-     * This handler redirects users to role-specific dashboards after successful login.
-     * Creating it as a bean allows Spring Security to use it in the filter chain configuration.
-     * </p>
-     *
-     * @return configured CustomAuthenticationSuccessHandler instance
-     */
+    
     @Bean
     public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();
     }
 
-    /**
-     * Configures the password encoder bean for the entire application
-     * <p>
-     *     Uses BCrypt hashing algorithm for secure password storage.
-     *     BCrypt uses an adaptive hashing function that includes salt generation and is resistant to brute force
-     *     This should be feasible for our implementations' at this point.
-     * </p>
-     * @return
-     */
+    
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
 
-    /**
-     * Configures the security filter chain for HTTP requests.
-     * <p>
-     * This method sets up:
-     * <ul>
-     * <li>Public endpoints (home page, login, static resources)</li>
-     * <li>Role-based access control for EMPLOYEE, and ADMIN roles</li>
-     * <li>Form-based login with custom login page and success handler</li>
-     * <li>Logout configuration with session invalidation</li>
-     * <li>H2 console access (development only)</li>
-     * </ul>
-     * </p>
-     * <p>
-     * <b>Role-Based Access:</b>
-     * <ul>
-     * <li>ADMIN: Full access to /admin/** endpoints</li>
-     * <li>EMPLOYEE: Access to /employee/** endpoints</li>
-     * </ul>
-     * </p>
-     *
-     * @param http the HttpSecurity object to configure
-     * @return the configured SecurityFilterChain
-     * @throws Exception if configuration fails
-     */
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
