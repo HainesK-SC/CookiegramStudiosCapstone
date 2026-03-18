@@ -31,8 +31,6 @@ public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    // Email validation pattern (regex)
-    // this will be helpful when validating user input
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
     );
@@ -151,10 +149,8 @@ public class UserService {
     public User createUser(User user){
         logger.debug("Creating new user with email: {}", user.getEmail());
 
-        // validate user data before saving
         validateUserForCreation(user);
 
-        // check if user already exists
         if (userRepository.findByEmail(user.getEmail()) != null) {
             logger.warn("Attempted to create user with existing email: {}", user.getEmail());
             throw new UserAlreadyExistsException(
@@ -162,15 +158,12 @@ public class UserService {
             );
         }
 
-        // Encode password
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         logger.debug("Password encoded for user: {}", user.getEmail());
 
-        // Set creation timestamp (though @PrePersist also handles this)
         user.setCreatedAt(LocalDateTime.now());
 
-        // Save user
         User savedUser = userRepository.save(user);
         logger.info("Successfully created user with ID: {} and email: {}",
                 savedUser.getId(), savedUser.getEmail());
@@ -195,13 +188,10 @@ public class UserService {
     public User updateUser(Long id, User user){
         logger.debug("Updating user with ID: {}", id);
 
-        // Fetch existing user
         User existingUser = getUserById(id);
 
-        // Validate updated data
         validateUserForUpdate(user);
 
-        // Check if new email already exists (if email is being changed)
         if (!existingUser.getEmail().equals(user.getEmail())) {
             User userWithNewEmail = userRepository.findByEmail(user.getEmail());
             if (userWithNewEmail != null) {
@@ -212,13 +202,10 @@ public class UserService {
             }
         }
 
-        // Update allowed fields
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
         existingUser.setEmail(user.getEmail());
-        // Note: Role and password are NOT updated here for security
 
-        // Save updated user
         User updatedUser = userRepository.save(existingUser);
         logger.info("Successfully updated user with ID: {}", id);
 
@@ -234,10 +221,8 @@ public class UserService {
     public void deleteUser(Long id){
         logger.debug("Deleting user with ID: {}", id);
 
-        // verify user exists before deleting
         User user = getUserById(id);
 
-        // delete user
         userRepository.deleteById(id);
         logger.info("Successfully deleted user with ID: {} and email: {}",
                 id, user.getEmail());
@@ -263,7 +248,6 @@ public class UserService {
             throw new InvalidUserDataException("User cannot be null");
         }
 
-        // Validate email
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new InvalidUserDataException("Email is required");
         }
@@ -271,7 +255,6 @@ public class UserService {
             throw new InvalidUserDataException("Invalid email format: " + user.getEmail());
         }
 
-        // Validate password
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             throw new InvalidUserDataException("Password is required");
         }
@@ -281,17 +264,14 @@ public class UserService {
             );
         }
 
-        // Validate first name
         if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
             throw new InvalidUserDataException("First name is required");
         }
 
-        // Validate last name
         if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
             throw new InvalidUserDataException("Last name is required");
         }
 
-        // Validate role
         if (user.getRole() == null) {
             throw new InvalidUserDataException("Role is required");
         }
@@ -312,7 +292,6 @@ public class UserService {
             throw new InvalidUserDataException("User object cannot be null");
         }
 
-        // Validate email
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new InvalidUserDataException("Email is required");
         }
@@ -320,12 +299,10 @@ public class UserService {
             throw new InvalidUserDataException("Invalid email format: " + user.getEmail());
         }
 
-        // Validate first name
         if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
             throw new InvalidUserDataException("First name is required");
         }
 
-        // Validate last name
         if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
             throw new InvalidUserDataException("Last name is required");
         }
