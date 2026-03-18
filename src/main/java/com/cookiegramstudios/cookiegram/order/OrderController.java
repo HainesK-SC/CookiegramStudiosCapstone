@@ -182,8 +182,11 @@ public class OrderController {
 		// 4. store checkout data in session for payment page
 		session.setAttribute("checkoutData", checkoutForm);
 
-		// 5. redirect to payment page
-		return "redirect:/order/payment";
+		// 5. redirect to payment page -- date: 2026-03-17 - currently no payment page, so this will be a placeholder for now until that feature is implemented
+		// return "redirect:/order/payment";
+		
+		// For now, we'll skip the payment page and go straight to confirmation for testing purposes
+		return "redirect:/order/confirmation";
 
 	}
 	@GetMapping("/order/confirmation")
