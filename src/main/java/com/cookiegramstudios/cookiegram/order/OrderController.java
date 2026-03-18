@@ -258,54 +258,11 @@ public class OrderController {
 	}
 	
 	
-	/**
-	 * Helper Methods 
-	 */
+	Customer customer = customerService.findOrCreateCustomer(checkoutForm);
+
 	
-	// Create a new customer or find existing one based on email
-	private Customer createOrFindCustomer(CheckoutFormDTO form) {
-		// Check if customer exists by email
-		Optional<Customer> existing = customerRepository.findByEmail(form.getSenderEmail());
+	Recipient recipient = recipientService.createRecipient(checkoutForm);
 
-		if (existing.isPresent()) {
-			// Update last order date for existing customer
-			Customer customer = existing.get();
-			customer.updateLastOrderDate();
-			return customerRepository.save(customer);
-		} else {
-			// Create new customer
-			Customer newCustomer = new Customer();
-			newCustomer.setEmail(form.getSenderEmail());
-
-			// Parse name (assuming "First Last" format)
-			String[] nameParts = form.getSenderName().split(" ", 2);
-			newCustomer.setFirstName(nameParts[0]);
-			newCustomer.setLastName(nameParts.length > 1 ? nameParts[1] : "");
-
-			return customerRepository.save(newCustomer);
-		}
-	}
-	
-	// Creates a new recipient entity from checkout form data
-	private Recipient createRecipient(CheckoutFormDTO form) {
-	    Recipient recipient = new Recipient();
-
-	    // Set full name
-	    recipient.setName(form.getRecipientName());  // ← ADD THIS
-	    
-	    // Parse recipient name (assuming "First Last" format)
-	    String[] nameParts = form.getRecipientName().split(" ", 2);
-	    recipient.setFirstName(nameParts[0]);
-	    recipient.setLastName(nameParts.length > 1 ? nameParts[1] : "");
-
-	    recipient.setStreet(form.getRecipientStreet());
-	    recipient.setCity(form.getRecipientCity());
-	    recipient.setPostalCode(form.getRecipientPostalCode());
-	    recipient.setCountry(form.getRecipientCountry());
-	    recipient.setSpecialInstructions(form.getDeliveryInstructions());
-
-	    return recipientRepository.save(recipient);
-	}
 	
 	// Calculate total price of cart items including tax
 	private double calculateTotalPrice(Cart cart) {
