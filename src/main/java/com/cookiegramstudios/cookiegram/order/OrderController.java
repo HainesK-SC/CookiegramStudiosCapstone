@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.cart.CartService;
+import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.customer.CustomerRepository;
 import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.product.ProductRepository;
+import com.cookiegramstudios.cookiegram.recipient.Recipient;
 import com.cookiegramstudios.cookiegram.recipient.RecipientRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,8 +38,8 @@ import jakarta.validation.Valid;
  * @author Matthew Samaha
  * @auhor Kyle Haines
  * @date 2026-02-23
- * @date 2026-03-13
- * @version 1.1
+ * @date 2026-03-18 
+ * @version 1.5
  */
 @Controller
 public class OrderController {
@@ -142,7 +144,16 @@ public class OrderController {
 		// 6. return checkout template
 		return "checkout";
 	}
-
+ 
+	/**
+	 * Refactred checkout submission handle
+	 * @param checkoutForm
+	 * @param result
+	 * @param session
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping("/order/checkout")
 	public String submitCheckout(
 			@Valid @ModelAttribute("checkoutForm") CheckoutFormDTO checkoutForm,
@@ -151,16 +162,13 @@ public class OrderController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 
-
 		// 1. if validation errors, return to checkout page with errors
 		if (result.hasErrors()) {
-			// re-fetch cart and recalculate totals for display -- don't want to lose that info when returning to the form
-
 			Cart cart = (Cart) session.getAttribute("cart");
 
 			if (cart == null || cart.getCartItems().isEmpty()) {
 				redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
-				return "redirect:/order/"; // Redirect to order page or cart page as appropriate
+				return "redirect:/order/";
 			}
 
 			double subtotal = 0.0;
@@ -175,8 +183,7 @@ public class OrderController {
 			model.addAttribute("tax", String.format("%.2f", tax));
 			model.addAttribute("total", String.format("%.2f", total));
 
-			return "checkout"; // Stay on checkout page with errors displayed
-
+			return "checkout";
 		}
 
 		// 2. retrieve cart from session
@@ -185,29 +192,56 @@ public class OrderController {
 		// 3. final cart validation (check if cart is empty or null)
 		if (cart == null || cart.getCartItems().isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "Your cart is empty. Please add items before checking out.");
-			return "redirect:/order/"; // Redirect to order page or cart page as appropriate
+			return "redirect:/order/";
 		}
 
-		// 4. store checkout data in session for payment page
-		session.setAttribute("checkoutData", checkoutForm);
-
-		// 5. redirect to payment page -- date: 2026-03-17 - currently no payment page, so this will be a placeholder for now until that feature is implemented
-		// return "redirect:/order/payment";
+		// 4. CREATE ORDER - NEW LOGIC STARTS HERE
 		
-		// For now, we'll skip the payment page and go straight to confirmation for testing purposes
+		// 4a. Create or find customer
+		Customer customer = createOrFindCustomer(checkoutForm);
+		
+		// 4b. Create recipient
+		Recipient recipient = createRecipient(checkoutForm);
+		
+		// 4c. Calculate total price
+		double totalPrice = calculateTotalPrice(cart);
+		
+		// 4d. Build order notes
+		String notes = buildNotesFromCheckoutForm(checkoutForm);
+		
+		// 4e. Create new Order entity
+		Order newOrder = new Order();
+		newOrder.setOrderNumber(generateOrderNumber());
+		newOrder.setCustomerProfile(customer);
+		newOrder.setRecipientUser(recipient);
+		newOrder.setStatus(OrderStatus.PLACED);
+		newOrder.setDeliveryDate(checkoutForm.getDeliveryDate());
+		newOrder.setTotalPrice(totalPrice);
+		newOrder.setNotes(notes);
+		
+		// 4f. Save order to database
+		Order savedOrder = orderRepository.save(newOrder);
+		
+		// 4g. Store order in session for confirmation page
+		session.setAttribute("confirmedOrder", savedOrder);
+		
+		// 5. redirect to confirmation page
 		return "redirect:/order/confirmation";
-
 	}
+	
+	
+	
+	
 	@GetMapping("/order/confirmation")
 	public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
 		// 1. Retrieve completed order from session
-		Order confirmedOrder = (Order) session.getAttribute("confirmedOrder"); // shouldn't this be null?
+		Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
 
 		// 2. Validate order exists
 		if (confirmedOrder == null) {
 			redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
-			return "redirect:/order/"; // is this correct?
+			return "redirect:/order/";
 		}
 
 		// 3. Add order details to model
@@ -222,6 +256,9 @@ public class OrderController {
 
 		// 5. Return confirmation template
 		return "confirmation";
-		}
 	}
+	
+	
+}
+	
 
