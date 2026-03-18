@@ -106,25 +106,18 @@ public class OrderControllerTest {
 
 	@Test
 	void getCheckout_validCart_returnsView() throws Exception {
-	    Product p = buildProduct(1L, 10.0);
-	    Cart cart = buildCart(p, 2);
+		Product p = buildProduct(1L, 10.0);
+		Cart cart = buildCart(p, 2);
 
-	    when(pricingService.getOrderPricing(any()))
-	            .thenReturn(mockPricing("20.00", "2.60", "22.60"));
+		when(pricingService.getOrderPricing(any())).thenReturn(mockPricing("20.00", "2.60", "22.60"));
 
-	    MockHttpSession session = new MockHttpSession();
-	    session.setAttribute("cart", cart);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("cart", cart);
 
-	    mockMvc.perform(get("/order/checkout")
-	                    .session(session)
-	                    .with(csrf()))   
-	            .andExpect(status().isOk())
-	            .andExpect(view().name("checkout"))
-	            .andExpect(model().attributeExists("cartItems"))
-	            .andExpect(model().attribute("subtotal", "20.00"))
-	            .andExpect(model().attribute("tax", "2.60"))
-	            .andExpect(model().attribute("total", "22.60"))
-	            .andExpect(model().attributeExists("checkoutForm"));
+		mockMvc.perform(get("/order/checkout").session(session).with(csrf())).andExpect(status().isOk())
+				.andExpect(view().name("checkout")).andExpect(model().attributeExists("cartItems"))
+				.andExpect(model().attribute("subtotal", "20.00")).andExpect(model().attribute("tax", "2.60"))
+				.andExpect(model().attribute("total", "22.60")).andExpect(model().attributeExists("checkoutForm"));
 	}
 
 	@Test
