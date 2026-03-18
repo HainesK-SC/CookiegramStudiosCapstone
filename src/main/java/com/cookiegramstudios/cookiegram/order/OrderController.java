@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -18,6 +20,7 @@ import com.cookiegramstudios.cookiegram.product.ProductRepository;
 import com.cookiegramstudios.cookiegram.utils.SessionHelper;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 /**
  * Controller for order-related web endpoints.
@@ -106,6 +109,61 @@ public class OrderController {
 	        model.addAttribute("tax", pricing.getFormattedTax());
 	        model.addAttribute("total", pricing.getFormattedTotal());
 	        model.addAttribute("checkoutForm", checkoutForm);
+	 
+	        return "checkout";
+	    }
+	    
+	    @PostMapping("/order/checkout")
+	    public String submitCheckout(
+	            @Valid @ModelAttribute("checkoutForm") CheckoutFormDTO checkoutForm,
+	            BindingResult result,
+	            HttpSession session,
+	            Model model,
+	            RedirectAttributes redirectAttributes) {
+	 
+	        // Handle validation errors
+	        if (result.hasErrors()) {
+	            return handleCheckoutValidationError(session, model, redirectAttributes);
+	        }
+	 
+	        // Retrieve and validate cart
+	        Cart cart = SessionHelper.getCart(session);
+	        
+	        if (CartValidator.isCartEmpty(cart)) {
+	            redirectAttributes.addFlashAttribute("errorMessage", CartValidator.getEmptyCartMessage());
+	            return "redirect:/order/";
+	        }
+	 
+	        OrderPricingDTO pricing = pricingService.getOrderPricing(cart);
+	        OrderCreationRequest request = new OrderCreationRequest(cart, checkoutForm, pricing.getTotal());
+	        Order savedOrder = orderService.createOrder(request);
+	 
+	        SessionHelper.setConfirmedOrder(session, savedOrder);
+	        return "redirect:/order/confirmation";
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    private String handleCheckoutValidationError(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+	        Cart cart = SessionHelper.getCart(session);
+	 
+	        if (CartValidator.isCartEmpty(cart)) {
+	            redirectAttributes.addFlashAttribute("errorMessage", CartValidator.getEmptyCartMessage());
+	            return "redirect:/order/";
+	        }
+	 
+	        // Recalculate pricing for error state
+	        OrderPricingDTO pricing = pricingService.getOrderPricing(cart);
+	 
+	        model.addAttribute("cartItems", cart.getCartItems());
+	        model.addAttribute("subtotal", pricing.getFormattedSubtotal());
+	        model.addAttribute("tax", pricing.getFormattedTax());
+	        model.addAttribute("total", pricing.getFormattedTotal());
 	 
 	        return "checkout";
 	    }
