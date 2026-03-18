@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Basic tests for {@link AdminController}.
  * @author Matthew Samaha
  * @date 2026-02-27
- * @version 1.0
+ * @version 1.1
  */
 @WebMvcTest(AdminController.class)
 public class AdminControllerTest {
@@ -32,7 +32,6 @@ public class AdminControllerTest {
     @MockitoBean
     private UserService userService;
     
-    // adminCanAccessAdminDashboard test
     @Test
     @WithMockUser(username = "admin@test.com", roles = "ADMIN")
     void adminCanAccessDashboard() throws Exception {
