@@ -2,19 +2,6 @@
 Personal Todos
 2026-03-18
 
-Clean up codebase and execute code management...
-
-== OrderController
-Specific methods to refactor:
-- GET getCheckout					/order/checkout
-
-- POST submitCheckout			/order/checkout
-
-- GET getConfirmation				/order/confirmation
-
-- Helper methods in a different class? maybe
-
-
 == PublicController
 Remove unecessary comments/and javadocs for methods
 
