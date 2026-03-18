@@ -76,6 +76,13 @@ public class OrderController {
 	        return "cart";
 	    }
 	    
+	    @PostMapping("/order/cart/clear")
+	    public String clearCart(HttpSession session) {
+	        SessionHelper.clearCart(session);
+	        return "redirect:/order/cart";
+	    }
+	    
+	    
 	    
 	    
 
