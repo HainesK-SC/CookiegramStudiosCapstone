@@ -183,32 +183,21 @@ public class OrderController {
 		session.setAttribute("checkoutData", checkoutForm);
 
 		// 5. redirect to payment page
-		//return "redirect:/order/payment";
+		return "redirect:/order/payment";
 
-		@GetMapping("/order/confirmation")
-		public String getConfirmation (HttpSession session, Model model, RedirectAttributes redirectAttributes){
 
-			// 1. Retrieve completed order from session
-			Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
+	@GetMapping("/order/confirmation")
+	public String getConfirmation(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
-			// 2. Validate order exists
-			if (confirmedOrder == null) {
-				redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
-				return "redirect:/order/";
-			}
-			// 3. Add order details to model
-			model.addAttribute("orderNumber", confirmedOrder.getOrderNumber());
-			model.addAttribute("recipient", confirmedOrder.getRecipientUser());
-			model.addAttribute("deliveryDate", confirmedOrder.getDeliveryDate());
+		// 1. Retrieve completed order from session
+		Order confirmedOrder = (Order) session.getAttribute("confirmedOrder");
 
-			// 4. Clean up session — order is confirmed, no longer needed
-			session.removeAttribute("confirmedOrder");
-			session.removeAttribute("checkoutData");
-			session.removeAttribute("cart");
-
-			// 5. Return confirmation template
-			return "confirmation";
+		// 2. Validate order exists
+		if (confirmedOrder == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "No order found. Please start a new order.");
+			return "redirect:/order/";
 		}
-
+		}
 	}
+
 }
