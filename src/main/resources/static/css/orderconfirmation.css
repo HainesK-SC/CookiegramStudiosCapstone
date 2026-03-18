@@ -63,51 +63,42 @@ hr {
     margin: 2rem 0;
 }
 
-/* Order Details Card */
-.order-card {
-    background: var(--bg-main);
-    border: 2px solid var(--text-primary);
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: left;
+/* Order Details - No Box, Just Centered Text */
+.order-details {
+    text-align: center;
     margin-bottom: 2.5rem;
 }
 
 .detail-row {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 1rem;
-    align-items: start;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 1.75rem;
 }
 
 .detail-row:last-child {
     margin-bottom: 0;
-    border-bottom: none;
-    padding-bottom: 0;
 }
 
 .label {
+    display: block;
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
 }
 
 .value {
-    font-weight: 600;
+    display: block;
+    font-weight: 700;
     color: var(--text-primary);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
 }
 
 /* Order Number Highlight */
 .detail-row:first-child .value {
     color: var(--accent-dark);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 /* Actions */
@@ -160,13 +151,8 @@ hr {
         font-size: 1.75rem;
     }
 
-    .detail-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
     .label {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 
     .value {
@@ -174,7 +160,7 @@ hr {
     }
 
     .detail-row:first-child .value {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -203,8 +189,7 @@ hr {
         height: 35px;
     }
 
-    .order-card {
-        padding: 1.5rem;
-        border-width: 1px;
+    .detail-row {
+        margin-bottom: 1.5rem;
     }
 }

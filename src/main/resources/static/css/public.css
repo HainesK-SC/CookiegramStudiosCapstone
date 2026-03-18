@@ -1,19 +1,18 @@
 /* CSS VARIABLE DECLARATIONS */
 :root {
-  --bg-main: #f6f1e8;        /* warm cream */
-  --bg-card: #D0C7B7;
-  --accent: #c26d3b;         /* cinnamon */
-  --accent-dark: #9e542b;
-  --accent-dark-rgba-35: rgb(158,84,43,0.35);
-  --text-primary: #3e2c23;   /* dark cocoa */
-  --text-muted: #7a6a5f;
-  --border-soft: #e5ddd3;
-  --order-preview-card: #DDCAA8;
-  --card-border-radius: 10px;
-  --dashboard-border-radius: 10px;
-  --warm-beige: #cfc6b6;
+	--bg-main: #f6f1e8; /* warm cream */
+	--bg-card: #D0C7B7;
+	--accent: #c26d3b; /* cinnamon */
+	--accent-dark: #9e542b;
+	--accent-dark-rgba-35: rgb(158, 84, 43, 0.35);
+	--text-primary: #3e2c23; /* dark cocoa */
+	--text-muted: #7a6a5f;
+	--border-soft: #e5ddd3;
+	--order-preview-card: #DDCAA8;
+	--card-border-radius: 10px;
+	--dashboard-border-radius: 10px;
+	--warm-beige: #cfc6b6;
 }
-
 
 /* Minimal public styles */
 html {
@@ -24,15 +23,17 @@ html, body {
 	height: 100%;
 	width: 100%;
 	margin: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	/* Add this line */
 }
 
 body {
 	/*min-height: 100vh;*/
 	display: flex;
 	flex-direction: column;
-    background-color: #f8f9fa;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
+	background-color: #f8f9fa;
+	background-color: var(--bg-main);
+	color: var(--text-primary);
 }
 
 main {
@@ -45,7 +46,7 @@ main {
 .site-header {
 	background-color: var(--accent);
 	height: 4rem;
-	border-bottom: 1px solid rgba(0,0,0,.15);
+	border-bottom: 1px solid rgba(0, 0, 0, .15);
 	position: sticky;
 	top: 0;
 	z-index: 1000;
@@ -83,8 +84,7 @@ main {
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.site-header-link:hover,
-.site-header-link:focus-visible {
+.site-header-link:hover, .site-header-link:focus-visible {
 	background-color: var(--text-primary);
 	color: var(--accent);
 	text-decoration: none;
@@ -133,8 +133,7 @@ main {
 	color: var(--text-primary);
 }
 
-.login-tag,
-.login-button {
+.login-tag, .login-button {
 	color: var(--text-primary);
 }
 
@@ -149,7 +148,6 @@ main {
 	text-decoration: none;
 	background-color: var(--text-primary);
 	color: var(--accent);
-
 	border-radius: 10%;
 }
 
@@ -199,8 +197,7 @@ main {
 	display: inline-block;
 }
 
-.footer-link:hover,
-.footer-link:focus-visible {
+.footer-link:hover, .footer-link:focus-visible {
 	color: var(--bg-main); /* warm cream on hover */
 	text-decoration: none;
 	transform: translateX(3px);
@@ -209,7 +206,8 @@ main {
 /* Footer Divider */
 .footer-divider {
 	border: 0;
-	border-top: 2px solid rgba(246, 241, 232, 0.25); /* subtle cream divider */
+	border-top: 2px solid rgba(246, 241, 232, 0.25);
+	/* subtle cream divider */
 	margin: 2rem auto;
 	max-width: 800px;
 }
@@ -292,20 +290,20 @@ didn't seem to make a difference.
 .order-preview-section {
 	width: 100%;
 	margin: 0;
-    padding: 60px 20px;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
+	padding: 60px 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* Container */
 .order-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .order-header {
@@ -315,102 +313,101 @@ didn't seem to make a difference.
 
 /* Header */
 .order-header::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 4px;
-  background-color: var(--accent);
-  margin-top: 10px;
-  border-radius: 4px;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 4px;
+	background-color: var(--accent);
+	margin-top: 10px;
+	border-radius: 4px;
 }
 
 /* Subtext */
 .order-subtext {
-    color: #7a6a5f;
-    margin-bottom: 40px;
+	color: #7a6a5f;
+	margin-bottom: 40px;
 }
 
 /* Card Row */
 .order-card-row {
 	width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    gap: 30px;
-    flex-wrap: wrap; /* allows collapse on mobile */
-    background-color: var(--bg-card);
-    border-radius: 5px;
-    padding: 1rem;
+	display: flex;
+	justify-content: space-evenly;
+	gap: 30px;
+	flex-wrap: wrap; /* allows collapse on mobile */
+	background-color: var(--bg-card);
+	border-radius: 5px;
+	padding: 1rem;
 }
 
 /* Individual Card */
 .order-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-    flex: 1 1 280px;      /* responsive width */
-    max-width: 320px;
-    padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+	background: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+	flex: 1 1 280px; /* responsive width */
+	max-width: 320px;
+	padding: 20px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .order-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+	transform: translateY(-5px);
+	box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Card body layout */
 .order-card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* Image preview block */
 .order-preview-card {
-    height: 150px;
-    width: 100%;
-    background: #f3f0eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    border-radius: 8px;
+	height: 150px;
+	width: 100%;
+	background: #f3f0eb;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 15px;
+	border-radius: 8px;
 }
 
 /* Image sizing */
 .order-preview-image {
 	height: 90%;
 	width: 90%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 5px;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border-radius: 5px;
 }
 
 .policy-card {
-    background-color: #ffffff;
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    padding: 2rem;
-    max-width: 850px;
-    margin: 0 auto;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+	background-color: #ffffff;
+	border: 1px solid var(--border-soft);
+	border-radius: 12px;
+	padding: 2rem;
+	max-width: 850px;
+	margin: 0 auto;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
 }
 
 .policy-card h1 {
-    color: var(--text-primary);
-    font-weight: 700;
+	color: var(--text-primary);
+	font-weight: 700;
 }
 
 .policy-card h5 {
-    color: var(--accent-dark);
-    font-weight: 600;
-    margin-top: 1.5rem;
+	color: var(--accent-dark);
+	font-weight: 600;
+	margin-top: 1.5rem;
 }
 
-.policy-card p,
-.policy-card li {
-    color: var(--text-muted);
+.policy-card p, .policy-card li {
+	color: var(--text-muted);
 }
 
 /* LOGIN PAGE STYLING - CAN BE MOVED TO SEPARATE SHEET IF DESIRED */
@@ -436,20 +433,18 @@ didn't seem to make a difference.
 	border-radius: 10px;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
-	display: flex; 
+	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
 	padding: 1rem;
 }
- 
-.login-form,
-.login-form-header {
+
+.login-form, .login-form-header {
 	width: 40%;
 }
 
-.form-username-container,
-.form-password-container {
+.form-username-container, .form-password-container {
 	width: 60%;
 	text-align: left;
 	margin-bottom: 2rem;
@@ -465,15 +460,15 @@ didn't seem to make a difference.
 }
 
 .login-error-container {
-    min-height: 3rem;   /* reserve space */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	min-height: 3rem; /* reserve space */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-error {
-    background: #f8d7da;
-    color: #842029;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+	background: #f8d7da;
+	color: #842029;
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
 }
