@@ -1,6 +1,5 @@
 package com.cookiegramstudios.cookiegram.user;
 
-import com.cookiegramstudios.cookiegram.common.exceptions.InvalidUserDataException;
 import com.cookiegramstudios.cookiegram.common.exceptions.UserAlreadyExistsException;
 import com.cookiegramstudios.cookiegram.common.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Service layer for user-related business operations.

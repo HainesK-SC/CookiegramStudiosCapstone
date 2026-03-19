@@ -1,5 +1,4 @@
 package com.cookiegramstudios.cookiegram.cookie;
-import com.cookiegramstudios.cookiegram.common.exceptions.InvalidCookieDataException;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.*;
 import org.springframework.stereotype.Service;
