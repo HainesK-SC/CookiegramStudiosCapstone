@@ -34,4 +34,12 @@ public class OrderDTO {
         this.recipientId = recipientId;
     }
 
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
 }
