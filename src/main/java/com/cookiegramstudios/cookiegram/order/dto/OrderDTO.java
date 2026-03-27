@@ -50,4 +50,12 @@ public class OrderDTO {
         this.totalPrice = totalPrice;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
 }
