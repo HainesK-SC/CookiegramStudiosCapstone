@@ -124,6 +124,9 @@ public class Order {
 		this.deliveryDate = deliveryDate;
 		this.totalPrice = totalPrice;
 		this.notes = notes;
+		this.approved = approved;
+		this.approvedBy = approvedBy;
+		this.approvedAt = approvedAt;
 		this.createdAt = createdAt;
 		this.updatedat = updatedat;
 	}
