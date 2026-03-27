@@ -116,7 +116,8 @@ public class Order {
 	}
 
 	public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
-			LocalDate deliveryDate, double totalPrice, String notes, LocalDateTime createdAt, LocalDateTime updatedat) {
+			LocalDate deliveryDate, double totalPrice, String notes, boolean approved, User approvedBy,
+				 LocalDateTime approvedAt, LocalDateTime createdAt, LocalDateTime updatedat) {
 		this.orderNumber = orderNumber;
 		this.customerProfile = customerProfile;
 		this.recipientUser = recipientUser;
@@ -124,6 +125,9 @@ public class Order {
 		this.deliveryDate = deliveryDate;
 		this.totalPrice = totalPrice;
 		this.notes = notes;
+		this.approved = approved;
+		this.approvedBy = approvedBy;
+		this.approvedAt = approvedAt;
 		this.createdAt = createdAt;
 		this.updatedat = updatedat;
 	}
@@ -236,7 +240,8 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
 				+ ", recipientUser=" + recipientUser + ", status=" + status + ", deliveryDate=" + deliveryDate
-				+ ", totalPrice=" + totalPrice + ", notes=" + notes + ", createdAt=" + createdAt + ", updatedat="
+				+ ", totalPrice=" + totalPrice + ", notes=" + notes + ", approved=" + approved + ", approvedBy=" + approvedBy
+		        + ", approvedAt=" + approvedAt + ", createdAt=" + createdAt + ", updatedat="
 				+ updatedat + "]";
 	}
 
