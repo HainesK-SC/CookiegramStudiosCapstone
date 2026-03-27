@@ -86,6 +86,10 @@ public class Order {
 	@Column(columnDefinition = "TEXT")
 	private String notes;
 
+	@Column(nullable = false)
+	private boolean approved = false;
+
+
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 
