@@ -3,6 +3,7 @@ package com.cookiegramstudios.cookiegram.order;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.cookiegramstudios.cookiegram.user.User;
 import org.springframework.stereotype.Service;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
@@ -198,5 +199,8 @@ public class OrderService {
         return orderRepository.findByApprovedTrueOrderByApprovedAtDesc();
     }
 
+    public Order approveOrder(Long orderId, User approvedUser) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
 }
