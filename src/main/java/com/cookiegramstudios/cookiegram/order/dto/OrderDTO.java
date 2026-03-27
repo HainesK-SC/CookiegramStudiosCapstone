@@ -1,5 +1,7 @@
 package com.cookiegramstudios.cookiegram.order.dto;
 
+import java.time.LocalDate;
+
 public class OrderDTO {
     private Long customerId;
     private Long recipientId;
