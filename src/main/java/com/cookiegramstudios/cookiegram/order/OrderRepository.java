@@ -30,4 +30,9 @@ List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     Order findByOrderNumber(int orderNumber);
     
     Optional<Order> findTopByOrderByOrderNumberDesc();
+
+    List <Order> findByApprovedTrue();
+    List <Order> findByApprovedFalse();
+    List <Order> findByApprovedFalseOrderByCreatedAtAsc();
+    List <Order> findByApprovedTrueOrderByApprovedAtDesc();
 }

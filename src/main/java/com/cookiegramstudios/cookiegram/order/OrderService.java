@@ -1,8 +1,10 @@
 package com.cookiegramstudios.cookiegram.order;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.cookiegramstudios.cookiegram.user.User;
 import org.springframework.stereotype.Service;
 
 import com.cookiegramstudios.cookiegram.cart.Cart;
@@ -65,6 +67,11 @@ public class OrderService {
         order.setDeliveryDate(request.getCheckoutForm().getDeliveryDate());
         order.setTotalPrice(request.getTotalPrice());
         order.setNotes(notes);
+
+        // setApproved boolean
+        order.setApproved(false);
+        order.setApprovedBy(null);
+        order.setApprovedAt(null);
  
         // 6. Save and return
         return orderRepository.save(order);
@@ -182,6 +189,26 @@ public class OrderService {
 
     public Order findByOrderNumber(int orderNumber) {
         return orderRepository.findByOrderNumber(orderNumber);
+    }
+
+    //Approval Methods
+    public List<Order> findPending() {
+        return orderRepository.findByApprovedFalseOrderByCreatedAtAsc();
+    }
+
+    public List<Order> findApprovedOrders() {
+        return orderRepository.findByApprovedTrueOrderByApprovedAtDesc();
+    }
+
+    public Order approveOrder(Long orderId, User approvedUser) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+
+        order.setApproved(true);
+        order.setApprovedBy(approvedUser);
+        order.setApprovedAt(LocalDateTime.now());
+
+        return orderRepository.save(order);
     }
 
 }

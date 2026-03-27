@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
 
+import com.cookiegramstudios.cookiegram.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -85,6 +86,15 @@ public class Order {
 
 	@Column(columnDefinition = "TEXT")
 	private String notes;
+
+	@Column(nullable = false)
+	private boolean approved = false;
+
+	@ManyToOne
+	@JoinColumn(name = "approved_by")
+	private User approvedBy;
+
+	private LocalDateTime approvedAt;
 
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
@@ -180,6 +190,30 @@ public class Order {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public User getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(User approvedBy) {
+		this.approvedBy = approvedBy;
+	}
+
+	public LocalDateTime getApprovedAt() {
+		return approvedAt;
+	}
+
+	public void setApprovedAt(LocalDateTime approvedAt) {
+		this.approvedAt = approvedAt;
 	}
 
 	public LocalDateTime getCreatedAt() {
