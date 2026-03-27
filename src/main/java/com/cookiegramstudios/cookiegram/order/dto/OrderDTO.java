@@ -26,4 +26,12 @@ public class OrderDTO {
         this.customerId = customerId;
     }
 
+    public Long getRecipientId() {
+        return recipientId;
+    }
+
+    public void setRecipientId(Long recipientId) {
+        this.recipientId = recipientId;
+    }
+
 }
