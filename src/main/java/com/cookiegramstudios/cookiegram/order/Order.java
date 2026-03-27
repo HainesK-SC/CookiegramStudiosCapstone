@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
 
+import com.cookiegramstudios.cookiegram.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -88,6 +89,10 @@ public class Order {
 
 	@Column(nullable = false)
 	private boolean approved = false;
+
+	@ManyToOne
+	@JoinColumn(name = "approved_by")
+	private User approvedBy;
 
 
 	@Column(nullable = false, updatable = false)
