@@ -94,6 +94,7 @@ public class Order {
 	@JoinColumn(name = "approved_by")
 	private User approvedBy;
 
+	private LocalDateTime approvedAt;
 
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
