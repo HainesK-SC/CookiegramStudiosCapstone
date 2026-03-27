@@ -116,7 +116,8 @@ public class Order {
 	}
 
 	public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
-			LocalDate deliveryDate, double totalPrice, String notes, LocalDateTime createdAt, LocalDateTime updatedat) {
+			LocalDate deliveryDate, double totalPrice, String notes, boolean approved, User approvedBy,
+				 LocalDateTime approvedAt, LocalDateTime createdAt, LocalDateTime updatedat) {
 		this.orderNumber = orderNumber;
 		this.customerProfile = customerProfile;
 		this.recipientUser = recipientUser;
