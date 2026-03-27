@@ -65,6 +65,11 @@ public class OrderService {
         order.setDeliveryDate(request.getCheckoutForm().getDeliveryDate());
         order.setTotalPrice(request.getTotalPrice());
         order.setNotes(notes);
+
+        // setApproved boolean
+        order.setApproved(false);
+        order.setApprovedBy(null);
+        order.setApprovedAt(null);
  
         // 6. Save and return
         return orderRepository.save(order);
