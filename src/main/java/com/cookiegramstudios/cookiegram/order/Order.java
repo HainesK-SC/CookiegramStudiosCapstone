@@ -200,6 +200,14 @@ public class Order {
 		this.approved = approved;
 	}
 
+	public User getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(User approvedBy) {
+		this.approvedBy = approvedBy;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
