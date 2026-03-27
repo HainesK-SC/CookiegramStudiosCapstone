@@ -192,6 +192,14 @@ public class Order {
 		this.notes = notes;
 	}
 
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
