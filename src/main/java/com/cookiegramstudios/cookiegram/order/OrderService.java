@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.order;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.cookiegramstudios.cookiegram.user.User;
@@ -202,5 +203,12 @@ public class OrderService {
     public Order approveOrder(Long orderId, User approvedUser) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+
+        order.setApproved(true);
+        order.setApprovedBy(approvedUser);
+        order.setApprovedAt(LocalDateTime.now());
+
+        return orderRepository.save(order);
+    }
 
 }
