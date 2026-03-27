@@ -189,4 +189,9 @@ public class OrderService {
         return orderRepository.findByOrderNumber(orderNumber);
     }
 
+    //Approval Methods
+    public List<Order> findPending() {
+        return orderRepository.findByApprovedFalseOrderByCreatedAtAsc();
+    }
+
 }
