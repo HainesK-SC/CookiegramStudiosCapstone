@@ -194,4 +194,9 @@ public class OrderService {
         return orderRepository.findByApprovedFalseOrderByCreatedAtAsc();
     }
 
+    public List<Order> findApprovedOrders() {
+        return orderRepository.findByApprovedTrueOrderByApprovedAtDesc();
+    }
+
+
 }
