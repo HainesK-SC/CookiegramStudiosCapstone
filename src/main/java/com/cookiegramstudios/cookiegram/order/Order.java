@@ -240,7 +240,8 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
 				+ ", recipientUser=" + recipientUser + ", status=" + status + ", deliveryDate=" + deliveryDate
-				+ ", totalPrice=" + totalPrice + ", notes=" + notes + ", createdAt=" + createdAt + ", updatedat="
+				+ ", totalPrice=" + totalPrice + ", notes=" + notes + ", approved=" + approved + ", approvedBy=" + approvedBy
+		        + ", approvedAt=" + approvedAt + ", createdAt=" + createdAt + ", updatedat="
 				+ updatedat + "]";
 	}
 
