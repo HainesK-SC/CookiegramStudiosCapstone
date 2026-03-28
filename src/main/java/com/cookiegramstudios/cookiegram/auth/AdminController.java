@@ -103,6 +103,19 @@ public class AdminController {
     
     // Order approval endpoint
     @PostMapping("/orders/{id}/approve")
+    public String approveOrder(
+            @PathVariable("id") Long orderId,
+            Principal principal,
+            RedirectAttributes redirectAttributes
+    ) {
+        String email = principal.getName();
+        User adminUser = userService.findByEmail(email);
+
+        orderService.approveOrder(orderId, adminUser); // idempotent behavior handled in service
+
+        redirectAttributes.addFlashAttribute("successMessage", "Order approval saved.");
+        return "redirect:/admin/orders?tab=pending";
+    }
     
 }
 

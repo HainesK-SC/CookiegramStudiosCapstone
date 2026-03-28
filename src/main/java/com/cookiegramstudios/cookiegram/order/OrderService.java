@@ -204,6 +204,11 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
+        // Silent succeed: if already approved, do nothing and return current record
+        if (order.isApproved()) {
+            return order;
+        }
+
         order.setApproved(true);
         order.setApprovedBy(approvedUser);
         order.setApprovedAt(LocalDateTime.now());
