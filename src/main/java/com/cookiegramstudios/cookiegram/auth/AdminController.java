@@ -1,14 +1,19 @@
 package com.cookiegramstudios.cookiegram.auth;
 
-import com.cookiegramstudios.cookiegram.user.User;
-import com.cookiegramstudios.cookiegram.user.UserService;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
+import com.cookiegramstudios.cookiegram.order.Order;
+import com.cookiegramstudios.cookiegram.order.OrderService;
+import com.cookiegramstudios.cookiegram.user.User;
+import com.cookiegramstudios.cookiegram.user.UserService;
 
 /**
  * Controller for admin-only pages and actions.
@@ -42,9 +47,11 @@ import java.security.Principal;
 public class AdminController {
 
     private final UserService userService;
+    private final OrderService orderService;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     /**
@@ -63,12 +70,36 @@ public class AdminController {
         String email = principal.getName(); // principal username = email in your setup
         User user = userService.findByEmail(email);
         
-        long pendingOrderCount = userService.findPending().size();
+        long pendingOrderCount = orderService.findPending().size();
 
         model.addAttribute("user", user);
         model.addAttribute("pendingOrderCount", pendingOrderCount);
         
         return "admin/admin-dashboard";
+    }
+    
+    @GetMapping("/orders")
+    public String orders(
+            @RequestParam(name = "tab", defaultValue = "pending") String tab,
+            Principal principal,
+            Model model
+    ) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        List<Order> pendingOrders = orderService.findPending();
+        List<Order> approvedOrders = orderService.findApprovedOrders();
+
+        String activeTab = "approved".equalsIgnoreCase(tab) ? "approved" : "pending";
+
+        model.addAttribute("user", user);
+        model.addAttribute("activeTab", activeTab);
+        model.addAttribute("pendingOrders", pendingOrders);
+        model.addAttribute("approvedOrders", approvedOrders);
+        model.addAttribute("pendingOrderCount", pendingOrders.size());
+        model.addAttribute("approvedOrderCount", approvedOrders.size());
+
+        return "admin/admin-orders";
     }
     
  
