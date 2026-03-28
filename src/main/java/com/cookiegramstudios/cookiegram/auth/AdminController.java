@@ -62,22 +62,18 @@ public class AdminController {
     public String dashboard(Principal principal, Model model) {
         String email = principal.getName(); // principal username = email in your setup
         User user = userService.findByEmail(email);
+        
+        long pendingOrderCount = userService.findPending().size();
 
         model.addAttribute("user", user);
+        model.addAttribute("pendingOrderCount", pendingOrderCount);
+        
         return "admin/admin-dashboard";
     }
+    
+ 
 
-    // TODO: Implement admin user management page
-    // @GetMapping("/users")
-    // public String users() { return "admin/users"; }
-
-    // TODO: Implement admin orders overview page
-    // @GetMapping("/orders")
-    // public String orders() { return "admin/orders"; }
-
-    // TODO: Implement admin reports page
-    // @GetMapping("/reports")
-    // public String reports() { return "admin/reports"; }
+    
 
 }
 
