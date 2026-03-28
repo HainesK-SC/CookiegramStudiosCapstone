@@ -100,6 +100,10 @@ public class AdminController {
 
         return "admin/admin-orders";
     }
+    
+    // Order approval endpoint
+    @PostMapping("/orders/{id}/approve")
+    
 }
 
 
