@@ -1,6 +1,7 @@
 package com.cookiegramstudios.cookiegram.auth;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -46,26 +47,35 @@ public class EmployeeController {
     }
     
     @GetMapping("/dashboard")
-    public String dashboard(Principal principal, Model model) {
+    public String dashboard(Principal principal, Model model, 
+    		@RequestParam(required = false) OrderStatus statusFilter,
+            @RequestParam(required = false) LocalDate dateFilter) {
     	String email = principal.getName();
         User user = userService.findByEmail(email);
 
-        List<Order> todaysApprovedOrders = orderService.getTodaysApprovedOrders();
-        List<Order> otherApprovedOrders = orderService.getOtherApprovedOrders();
+        List<Order> todaysApprovedOrders;
+        List<Order> otherApprovedOrders;
+
+        if (statusFilter != null) {
+            todaysApprovedOrders = orderService.getTodaysApprovedOrdersByStatus(statusFilter);
+            otherApprovedOrders = orderService.getOtherApprovedOrdersByStatus(statusFilter);
+        } else if (dateFilter != null) {
+            todaysApprovedOrders = orderService.getTodaysApprovedOrders();
+            otherApprovedOrders = orderService.getOtherApprovedOrdersByDeliveryDate(dateFilter);
+        } else {
+            todaysApprovedOrders = orderService.getTodaysApprovedOrders();
+            otherApprovedOrders = orderService.getOtherApprovedOrders();
+        }
 
         model.addAttribute("user", user);
-
-        // Keep this for compatibility if any fragment expects "orders"
         model.addAttribute("orders", todaysApprovedOrders);
-
         model.addAttribute("todaysApprovedOrders", todaysApprovedOrders);
         model.addAttribute("otherApprovedOrders", otherApprovedOrders);
-
-        
-        model.addAttribute("terminalStatuses", 
-        	    List.of(OrderStatus.DELIVERED, OrderStatus.CANCELLED));    
+        model.addAttribute("terminalStatuses", List.of(OrderStatus.DELIVERED, OrderStatus.CANCELLED));
         model.addAttribute("allOrderStatuses", OrderStatus.values());
-        
+        model.addAttribute("statusFilter", statusFilter);
+        model.addAttribute("dateFilter", dateFilter);
+
         return "employee/employee-dashboard";
     }
     
