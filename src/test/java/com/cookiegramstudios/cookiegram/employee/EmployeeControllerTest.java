@@ -90,11 +90,9 @@ public class EmployeeControllerTest {
 		recipient.setCountry("Canada");
 
 		Order order = new Order();
-		order.setId((long) orderNumber);
 		order.setOrderNumber(orderNumber);
 		order.setStatus(OrderStatus.PLACED);
 		order.setDeliveryDate(LocalDate.now());
-		order.setCreatedAt(LocalDateTime.now());
 		order.setCustomerProfile(customer);
 		order.setRecipientUser(recipient);
 		return order;

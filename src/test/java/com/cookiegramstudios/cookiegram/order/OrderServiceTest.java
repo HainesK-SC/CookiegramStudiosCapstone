@@ -48,11 +48,9 @@ public class OrderServiceTest {
 	@BeforeEach
 	void setUp() {
 		sampleOrder = new Order();
-		sampleOrder.setId(1L);
 		sampleOrder.setOrderNumber(1001);
 		sampleOrder.setStatus(OrderStatus.PLACED); // Default status for new orders
 		sampleOrder.setDeliveryDate(LocalDate.now());
-		sampleOrder.setCreatedAt(LocalDateTime.now());
 	}
 
 	/**
