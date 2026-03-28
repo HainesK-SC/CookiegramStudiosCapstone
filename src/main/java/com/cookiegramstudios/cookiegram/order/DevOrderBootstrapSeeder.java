@@ -94,6 +94,18 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
                         new OrderItem(null, 4L, "Lemon Glazed Cookie", 3.75, 3)
                 )
         );
+        
+        // Order 4 - approved, placed, today's date
+        createOrderIfMissing(
+                1004, c1, r2, OrderStatus.PLACED,
+                LocalDate.now(), true, null,
+                LocalDateTime.of(2026, 4, 15, 9, 0),
+                "Nothing",
+                List.of(
+                        new OrderItem(null, 1L, "Classic Chocolate Chip Cookie", 3.50, 3),
+                        new OrderItem(null, 4L, "Lemon Glazed Cookie", 3.75, 3)
+                )
+        );
     }
 
     private void createOrderIfMissing(
