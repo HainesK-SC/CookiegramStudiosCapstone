@@ -67,17 +67,16 @@ public class AdminController {
      */
     @GetMapping("/dashboard")
     public String dashboard(Principal principal, Model model) {
-        String email = principal.getName(); // principal username = email in your setup
+        String email = principal.getName();
         User user = userService.findByEmail(email);
-        
-        long pendingOrderCount = orderService.findPending().size();
+
+        List<Order> pendingOrders = orderService.findPending();
 
         model.addAttribute("user", user);
-        model.addAttribute("pendingOrderCount", pendingOrderCount);
-        
+        model.addAttribute("pendingOrderCount", pendingOrders.size());
         return "admin/admin-dashboard";
     }
-    
+
     @GetMapping("/orders")
     public String orders(
             @RequestParam(name = "tab", defaultValue = "pending") String tab,
@@ -101,11 +100,6 @@ public class AdminController {
 
         return "admin/admin-orders";
     }
-    
- 
-
-    
-
 }
 
 
