@@ -49,70 +49,73 @@
 	    </div>
 	</form>
 	<!-- FILTERING ENDS -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <h2 class="h5 mb-3">Today's Approved Orders</h2>
-
-            <div th:if="${#lists.isEmpty(todaysApprovedOrders)}">
-                No approved orders for today.
-            </div>
-
-            <table th:if="${!#lists.isEmpty(todaysApprovedOrders)}" class="table">
-                <thead>
-                <tr>
-                    <th>Order #</th>
-                    <th>Customer</th>
-                    <th>Recipient</th>
-                    <th>Products</th>
-                    <th>Delivery Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="order : ${todaysApprovedOrders}">
-                    <td>
-                        <a th:href="@{/employee/orders/{id}(id=${order.id})}"
-                           th:text="${order.orderNumber}">1000</a>
-                    </td>
-                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
-                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
-                    <td>
-                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
-                        <span th:if="${!#lists.isEmpty(order.items)}">
-                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
-                            <span th:if="${#lists.size(order.items) > 1}"
-                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
-                        </span>
-                    </td>
-                    <td th:text="${order.deliveryDate}">2026-03-28</td>
-                    <td th:text="${order.status}">PLACED</td>
-                    <td>
-					    <form th:action="@{/employee/orders/{id}/status(id=${order.id})}" method="post">
-					        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-					        <div class="d-flex gap-2 align-items-center">
-					            <select name="status"
-					                    class="form-select form-select-sm"
-					                    th:disabled="${order.isTerminal()}">
-					                <option th:each="status : ${allOrderStatuses}"
-					                        th:value="${status}"
-					                        th:text="${status}"
-					                        th:selected="${status == order.status}">
-					                </option>
-					            </select>
-					            <button type="submit"
-					                    class="btn btn-sm btn-primary"
-					                    th:disabled="${order.isTerminal()}">
-					                Update
-					            </button>
-					        </div>
-					    </form>
-					</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<div th:unless="${hideTodaysOrders}" class="card mb-4">
+		<div class="card mb-4">
+	        <div class="card-body">
+	            <h2 class="h5 mb-3">Today's Approved Orders</h2>
+	
+	            <div th:if="${#lists.isEmpty(todaysApprovedOrders)}">
+	                No approved orders for today.
+	            </div>
+	
+	            <table th:if="${!#lists.isEmpty(todaysApprovedOrders)}" class="table">
+	                <thead>
+	                <tr>
+	                    <th>Order #</th>
+	                    <th>Customer</th>
+	                    <th>Recipient</th>
+	                    <th>Products</th>
+	                    <th>Delivery Date</th>
+	                    <th>Status</th>
+	                    <th>Actions</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr th:each="order : ${todaysApprovedOrders}">
+	                    <td>
+	                        <a th:href="@{/employee/orders/{id}(id=${order.id})}"
+	                           th:text="${order.orderNumber}">1000</a>
+	                    </td>
+	                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
+	                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
+	                    <td>
+	                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+	                        <span th:if="${!#lists.isEmpty(order.items)}">
+	                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+	                            <span th:if="${#lists.size(order.items) > 1}"
+	                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+	                        </span>
+	                    </td>
+	                    <td th:text="${order.deliveryDate}">2026-03-28</td>
+	                    <td th:text="${order.status}">PLACED</td>
+	                    <td>
+						    <form th:action="@{/employee/orders/{id}/status(id=${order.id})}" method="post">
+						        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						        <div class="d-flex gap-2 align-items-center">
+						            <select name="status"
+						                    class="form-select form-select-sm"
+						                    th:disabled="${order.isTerminal()}">
+						                <option th:each="status : ${allOrderStatuses}"
+						                        th:value="${status}"
+						                        th:text="${status}"
+						                        th:selected="${status == order.status}">
+						                </option>
+						            </select>
+						            <button type="submit"
+						                    class="btn btn-sm btn-primary"
+						                    th:disabled="${order.isTerminal()}">
+						                Update
+						            </button>
+						        </div>
+						    </form>
+						</td>
+	                </tr>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+    
 
     <div class="card">
         <div class="card-body">
@@ -167,8 +170,7 @@
 					            </select>
 					            <button type="submit"
 					                    class="btn btn-sm btn-primary"
-					                    th:disabled="${order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).DELIVERED
-					                               or order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).CANCELLED}">
+					                    th:disabled="${order.isTerminal()}">
 					                Update
 					            </button>
 					        </div>
