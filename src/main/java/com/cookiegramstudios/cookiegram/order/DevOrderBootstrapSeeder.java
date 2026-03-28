@@ -52,17 +52,17 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
             return;
         }
 
-        Customer c1 = customers.get(0);
-        Customer c2 = customers.size() > 1 ? customers.get(1) : customers.get(0);
+        Customer customer1 = customers.get(0);
+        Customer customer2 = customers.size() > 1 ? customers.get(1) : customers.get(0);
 
-        Recipient r1 = recipients.get(0);
-        Recipient r2 = recipients.size() > 1 ? recipients.get(1) : recipients.get(0);
+        Recipient recipient1 = recipients.get(0);
+        Recipient recipient2 = recipients.size() > 1 ? recipients.get(1) : recipients.get(0);
 
         User approver = users.get(0);
 
         // Order 1 — approved, delivered
         createOrderIfMissing(
-                1001, c1, r1, OrderStatus.DELIVERED,
+                1001, customer1, recipient1, OrderStatus.DELIVERED,
                 LocalDate.of(2026, 3, 10), true, approver,
                 LocalDateTime.of(2026, 3, 9, 10, 0),
                 "Leave at front door.",
@@ -74,7 +74,7 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
 
         // Order 2 — approved, in progress
         createOrderIfMissing(
-                1002, c2, r2, OrderStatus.IN_PROGRESS,
+                1002, customer2, recipient2, OrderStatus.IN_PROGRESS,
                 LocalDate.of(2026, 4, 5), true, approver,
                 LocalDateTime.of(2026, 4, 3, 14, 30),
                 null,
@@ -85,7 +85,7 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
 
         // Order 3 — not yet approved, placed
         createOrderIfMissing(
-                1003, c1, r2, OrderStatus.PLACED,
+                1003, customer1, recipient2, OrderStatus.PLACED,
                 LocalDate.of(2026, 4, 20), false, null,
                 LocalDateTime.of(2026, 4, 15, 9, 0),
                 "Please include a birthday card.",
@@ -97,7 +97,7 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
         
         // Order 4 - approved, placed, today's date
         createOrderIfMissing(
-                1004, c1, r2, OrderStatus.PLACED,
+                1004, customer1, recipient2, OrderStatus.PLACED,
                 LocalDate.now(), true, null,
                 LocalDateTime.of(2026, 4, 15, 9, 0),
                 "Nothing",
