@@ -35,4 +35,8 @@ List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     List <Order> findByApprovedFalse();
     List <Order> findByApprovedFalseOrderByCreatedAtAsc();
     List <Order> findByApprovedTrueOrderByApprovedAtDesc();
+    
+    List<Order> findByApprovedTrueAndDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
+    
+    List<Order> findByApprovedTrueAndDeliveryDateNotOrderByDeliveryDateAscCreatedAtAsc(LocalDate deliveryDate);
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Orders | CookieGram</title>
+    <link rel="stylesheet" th:href="@{/css/employee-dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-orders.css}" />
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <span class="badge text-bg-danger mb-2">ADMIN</span>
+            <h1 class="h3 mb-1">Admin Orders</h1>
+            <p class="text-muted mb-0">Review and approve incoming orders.</p>
+        </div>
+    </div>
+
+    <div th:if="${successMessage}" class="alert alert-success mb-3" th:text="${successMessage}"></div>
+
+    <div class="cg-tabs mb-3">
+        <a class="cg-tab"
+           th:classappend="${activeTab == 'pending'} ? ' cg-tab--active' : ''"
+           th:href="@{/admin/orders(tab='pending')}">
+            Pending (<span th:text="${pendingOrderCount}">0</span>)
+        </a>
+        <a class="cg-tab"
+           th:classappend="${activeTab == 'approved'} ? ' cg-tab--active' : ''"
+           th:href="@{/admin/orders(tab='approved')}">
+            Approved (<span th:text="${approvedOrderCount}">0</span>)
+        </a>
+    </div>
+
+    <section class="card">
+        <div class="card-body p-3">
+            <div class="table-responsive">
+                <table class="cg-table table" aria-label="Admin orders table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="cg-col--priority-1">Order #</th>
+                        <th scope="col" class="cg-col--priority-2">Customer</th>
+                        <th scope="col" class="cg-col--priority-2">Recipient</th>
+                        <th scope="col" class="cg-col--priority-2">Products</th>
+                        <th scope="col" class="cg-col--priority-1">Delivery Date</th>
+                        <th scope="col" class="cg-col--priority-3">Created At</th>
+                        <th scope="col" class="cg-col--priority-1">Status</th>
+                        <th scope="col" class="cg-col--priority-1">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody th:if="${activeTab == 'pending'}">
+                    <tr th:each="order : ${pendingOrders}">
+                        <td class="cg-col--priority-1" th:text="${order.orderNumber}">1000</td>
+                        <td class="cg-col--priority-2" th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
+                        <td class="cg-col--priority-2" th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
+                        <td class="cg-col--priority-2">
+                            <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                            <span th:if="${!#lists.isEmpty(order.items)}">
+                                <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                                <span th:if="${#lists.size(order.items) > 1}"
+                                      th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                            </span>
+                        </td>
+                        <td class="cg-col--priority-1" th:text="${#temporals.format(order.deliveryDate, 'MMM d, yyyy')}">Mar 28, 2026</td>
+                        <td class="cg-col--priority-3" th:text="${#temporals.format(order.createdAt, 'MMM d, yyyy HH:mm')}">Mar 28, 2026 10:00</td>
+                        <td class="cg-col--priority-1">
+                            <span class="cg-badge cg-status-badge"
+                                  th:classappend="' cg-badge--' + ${#strings.toLowerCase(order.status)}"
+                                  th:text="${order.status}">PLACED</span>
+                        </td>
+                        <td class="cg-col--priority-1">
+                            <form th:action="@{/admin/orders/{id}/approve(id=${order.id})}" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="cg-approve-btn">Approve</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pendingOrders)}">
+                        <td colspan="8" class="text-center py-4 text-muted">No pending orders.</td>
+                    </tr>
+                    </tbody>
+
+                    <tbody th:if="${activeTab == 'approved'}">
+                    <tr th:each="order : ${approvedOrders}">
+                        <td class="cg-col--priority-1" th:text="${order.orderNumber}">1000</td>
+                        <td class="cg-col--priority-2" th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
+                        <td class="cg-col--priority-2" th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
+                        <td class="cg-col--priority-2">
+                            <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                            <span th:if="${!#lists.isEmpty(order.items)}">
+                                <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                                <span th:if="${#lists.size(order.items) > 1}"
+                                      th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                            </span>
+                        </td>
+                        <td class="cg-col--priority-1" th:text="${#temporals.format(order.deliveryDate, 'MMM d, yyyy')}">Mar 28, 2026</td>
+                        <td class="cg-col--priority-3" th:text="${#temporals.format(order.createdAt, 'MMM d, yyyy HH:mm')}">Mar 28, 2026 10:00</td>
+                        <td class="cg-col--priority-1">
+                            <span class="cg-badge cg-status-badge"
+                                  th:classappend="' cg-badge--' + ${#strings.toLowerCase(order.status)}"
+                                  th:text="${order.status}">PLACED</span>
+                        </td>
+                        <td class="cg-col--priority-1"><span class="text-muted">Approved</span></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(approvedOrders)}">
+                        <td colspan="8" class="text-center py-4 text-muted">No approved orders.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

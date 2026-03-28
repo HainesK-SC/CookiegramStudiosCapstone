@@ -1,5 +1,6 @@
 package com.cookiegramstudios.cookiegram.auth;
 
+import com.cookiegramstudios.cookiegram.order.OrderService;
 import com.cookiegramstudios.cookiegram.user.User;
 import com.cookiegramstudios.cookiegram.user.UserRole;
 import com.cookiegramstudios.cookiegram.user.UserService;
@@ -11,6 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,6 +35,9 @@ public class AdminControllerTest {
     private UserService userService;
     
     @MockitoBean
+    private OrderService orderService;
+    
+    @MockitoBean
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     
     @Test
@@ -47,6 +52,8 @@ public class AdminControllerTest {
         user.setCreatedAt(LocalDateTime.now());
 
         when(userService.findByEmail("admin@test.com")).thenReturn(user);
+        when(orderService.findPending()).thenReturn(Collections.emptyList());
+
 
         mockMvc.perform(get("/admin/dashboard"))
                 .andExpect(status().isOk())

@@ -1,170 +1,190 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/public-layout :: layout(~{::content})}"
-      lang="en">
-	<head>
-	    <meta charset="UTF-8">
-	    <title>Admin Dashboard | CookieGram</title>
-	</head>
-	<body>
-		<div th:fragment="content" class="admin-dashboard-container">
+	th:replace="~{layout/public-layout :: layout(~{::content})}" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | CookieGram</title>
+</head>
+<body>
+	<div th:fragment="content" class="admin-dashboard-container">
 		<div class="admin-dashboard-header">
 			<h1>Admin Dashboard</h1>
-			<h2 th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></h2>
-			
+			<h2
+				th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></h2>
+
 		</div>
-		
+
 		<div class="today-glance-header">
-				<h3>Today at a Glance</h3>
-			</div>
-		<div class="today-at-a-glance item-container">			
-			
+			<h3>Today at a Glance</h3>
+		</div>
+		<div class="today-at-a-glance item-container">
+
+			<!-- Pending Count (new link) -->
 			<div class="today-glance-card">
 				<div class="card-left">
-					<img th:src="@{/images/admin/dashboard/orders_due_icon.png}" alt="Clock: orders due icon">
+					<img th:src="@{/images/admin/dashboard/orders_due_icon.png}"
+						alt="Pending approvals icon">
 				</div>
 				<div class="card-right">
-					<h4>Orders Due</h4>
-					<span class="card-value"><strong>47</strong></span>
-				</div>				
-			</div>
-			
-			<div class="today-glance-card">
-				<div class="card-left">
-					<img th:src="@{/images/admin/dashboard/cookies_due_icon.png}" alt="Clock: orders due icon">
+					<h4>Pending Approvals</h4>
+					<span class="card-value"><strong
+						th:text="${pendingOrderCount}">0</strong></span> <a
+						th:href="@{/admin/orders(tab='pending')}">View Orders</a>
 				</div>
-				<div class="card-right">
-					<h4>Cookies Due</h4>
-					<span class="card-value"><strong>150</strong></span>
-				</div>				
 			</div>
 
 			<div class="today-glance-card">
 				<div class="card-left">
-					<img th:src="@{/images/admin/dashboard/baked_today_icon.png}" alt="Clock: orders due icon">
+					<img th:src="@{/images/admin/dashboard/cookies_due_icon.png}"
+						alt="Clock: orders due icon">
+				</div>
+				<div class="card-right">
+					<h4>Cookies Due</h4>
+					<span class="card-value"><strong>150</strong></span>
+				</div>
+			</div>
+
+			<div class="today-glance-card">
+				<div class="card-left">
+					<img th:src="@{/images/admin/dashboard/baked_today_icon.png}"
+						alt="Clock: orders due icon">
 				</div>
 				<div class="card-right">
 					<h4>Baked Today</h4>
 					<span class="card-value"><strong>68%</strong></span>
-				</div>				
+				</div>
 			</div>
-			
+
 			<div class="today-glance-card">
 				<div class="card-left">
-					<img th:src="@{/images/admin/dashboard/ready_to_ship_icon.png}" alt="Clock: orders due icon">
+					<img th:src="@{/images/admin/dashboard/ready_to_ship_icon.png}"
+						alt="Clock: orders due icon">
 				</div>
 				<div class="card-right">
 					<h4>Ready to Ship</h4>
 					<span class="card-value"><strong>23</strong></span>
-				</div>				
+				</div>
 			</div>
-			
+
 			<div class="today-glance-card">
 				<div class="card-left">
-					<img th:src="@{/images/admin/dashboard/shipped_icon.png}" alt="Clock: orders due icon">
+					<img th:src="@{/images/admin/dashboard/shipped_icon.png}"
+						alt="Clock: orders due icon">
 				</div>
 				<div class="card-right">
 					<h4>Shipped Today</h4>
 					<span class="card-value"><strong>10</strong></span>
-				</div>				
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="dashboard-two-panel">
 			<!-- CAPACITY OVERVIEW PANEL -->
-				<div class="capacity-overview-container left-panel item-container">
-					<h3>Capacity Overview</h3>
-					<div class="dashboard-card">
-						<div class="dashboard-card-header">
-							<img th:src="@{/images/admin/dashboard/factory_icon.png}" /><span>Daily Production Capacity</span>
-						</div>
-						<div class="capacity-fields">
-							<h5>Total Capacity</h5>
-							<span>2,000 cookies</span>
-						</div>
-						<div class="capacity-fields">
-							<h5>Remaining Today</h5>
-							<span>750 cookies</span>
-							<div><p>63% capacity reached</p></div>
-						</div>
-					</div>
-				</div>
-				<!--  RECENT ACTIVITY PANEL -->
-				<div class="recent-activity-container right-panel item-container">
-					<h3>Recent Activity</h3>
-					<div class="dashboard-card">
-						<div class="dashboard-card-header">
-							<img th:src="@{/images/admin/dashboard/cancel_order_icon.png}"  /><span>Cancellations This Week</span>
-						</div>
-						<div id="total-cancelled">
-						<span>Total Cancelled</span>
-						<span>3 orders cancelled</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="dashboard-two-panel">
-				<!-- ACTIVE PROMOTIONS -->
-				<div class="active-promotions-container left-panel item-container">
-					<h3>Active Promotions</h3>
-					<div class="dashboard-card promos">
-						<div class="promo-card">
-							<p class="promo-card-title">SPRING25</p>
-							<p>25% off entire order</p>
-						</div>
-						<div class="promo-card">
-							<p class="promo-card-title">FREESHIP</p>
-							<p>Free shipping on all orders</p>
-						</div>
-					</div>
-				</div>
-				<!-- ORDER BOOKING STATUS -->
-				<div class="order-booking-container right-panel item-container">
-					<h3>Order Booking Status</h3>
-					<div class="booking-statuses">
-						<div class="dashboard-card booking-status">
-							<p>Mar. 4</p>
-							<p>Fully Booked</p>
-						</div>
-						<div class="dashboard-card booking-status">
-							<p>Mar. 7</p>
-							<p>Fully Booked</p>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			
-			<div class="next-week-production full-width item-container">
-				<h3>Next 7 Days Production</h3>
+			<div class="capacity-overview-container left-panel item-container">
+				<h3>Capacity Overview</h3>
 				<div class="dashboard-card">
-						<div class="dashboard-card-header">
-							<img th:src="@{/images/admin/dashboard/calendar_checkmark_icon.png}" /> <span>7-Day Production</span>
-						</div>
-						<div class="calendar-day">
-							<p>Monday, March 3</p><span>465 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Tuesday, March 4</p><span>500 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Wednesday, March 5</p><span>625 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Thursday, March 6</p><span>419 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Friday, March 7</p><span>720 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Saturday, March 8</p><span>687 Cookies</span>
-						</div>
-						<div class="calendar-day">
-							<p>Sunday, March 9</p><span>550 Cookies</span>
+					<div class="dashboard-card-header">
+						<img th:src="@{/images/admin/dashboard/factory_icon.png}" /><span>Daily
+							Production Capacity</span>
+					</div>
+					<div class="capacity-fields">
+						<h5>Total Capacity</h5>
+						<span>2,000 cookies</span>
+					</div>
+					<div class="capacity-fields">
+						<h5>Remaining Today</h5>
+						<span>750 cookies</span>
+						<div>
+							<p>63% capacity reached</p>
 						</div>
 					</div>
+				</div>
 			</div>
-			<!--  
+			<!--  RECENT ACTIVITY PANEL -->
+			<div class="recent-activity-container right-panel item-container">
+				<h3>Recent Activity</h3>
+				<div class="dashboard-card">
+					<div class="dashboard-card-header">
+						<img th:src="@{/images/admin/dashboard/cancel_order_icon.png}" /><span>Cancellations
+							This Week</span>
+					</div>
+					<div id="total-cancelled">
+						<span>Total Cancelled</span> <span>3 orders cancelled</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dashboard-two-panel">
+			<!-- ACTIVE PROMOTIONS -->
+			<div class="active-promotions-container left-panel item-container">
+				<h3>Active Promotions</h3>
+				<div class="dashboard-card promos">
+					<div class="promo-card">
+						<p class="promo-card-title">SPRING25</p>
+						<p>25% off entire order</p>
+					</div>
+					<div class="promo-card">
+						<p class="promo-card-title">FREESHIP</p>
+						<p>Free shipping on all orders</p>
+					</div>
+				</div>
+			</div>
+			<!-- ORDER BOOKING STATUS -->
+			<div class="order-booking-container right-panel item-container">
+				<h3>Order Booking Status</h3>
+				<div class="booking-statuses">
+					<div class="dashboard-card booking-status">
+						<p>Mar. 4</p>
+						<p>Fully Booked</p>
+					</div>
+					<div class="dashboard-card booking-status">
+						<p>Mar. 7</p>
+						<p>Fully Booked</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="next-week-production full-width item-container">
+			<h3>Next 7 Days Production</h3>
+			<div class="dashboard-card">
+				<div class="dashboard-card-header">
+					<img
+						th:src="@{/images/admin/dashboard/calendar_checkmark_icon.png}" />
+					<span>7-Day Production</span>
+				</div>
+				<div class="calendar-day">
+					<p>Monday, March 3</p>
+					<span>465 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Tuesday, March 4</p>
+					<span>500 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Wednesday, March 5</p>
+					<span>625 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Thursday, March 6</p>
+					<span>419 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Friday, March 7</p>
+					<span>720 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Saturday, March 8</p>
+					<span>687 Cookies</span>
+				</div>
+				<div class="calendar-day">
+					<p>Sunday, March 9</p>
+					<span>550 Cookies</span>
+				</div>
+			</div>
+		</div>
+		<!--  
 		    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
 		        <div>
 		            <span class="badge text-bg-danger mb-2">ADMIN</span>
@@ -187,6 +207,6 @@
 		        </div>
 		    </div>
 		    -->
-		</div>
-	</body>
+	</div>
+</body>
 </html>

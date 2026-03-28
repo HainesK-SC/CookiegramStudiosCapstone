@@ -1,0 +1,40 @@
+.cg-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cg-tab {
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid #d6d6d6;
+  color: #444;
+  background: #fff;
+  font-weight: 600;
+}
+
+.cg-tab:hover {
+  background: #f7f7f7;
+  color: #222;
+}
+
+.cg-tab--active {
+  background: #212529;
+  color: #fff;
+  border-color: #212529;
+}
+
+.cg-approve-btn {
+  border: 0;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  font-weight: 600;
+  background: #198754;
+  color: #fff;
+}
+
+.cg-approve-btn:hover {
+  background: #157347;
+}

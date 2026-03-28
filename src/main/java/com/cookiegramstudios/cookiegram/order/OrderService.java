@@ -4,16 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.cookiegramstudios.cookiegram.user.User;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.access.AccessDeniedException;
+import com.cookiegramstudios.cookiegram.user.UserRole;
 import com.cookiegramstudios.cookiegram.cart.Cart;
+import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.common.config.PaymentConfig;
 import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.customer.CustomerService;
 import com.cookiegramstudios.cookiegram.order.dto.CheckoutFormDTO;
+import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
 import com.cookiegramstudios.cookiegram.recipient.RecipientService;
+import com.cookiegramstudios.cookiegram.user.User;
 
 /**
  * Service layer for order-related business operations.
@@ -48,16 +51,16 @@ public class OrderService {
     public Order createOrder(OrderCreationRequest request) {
         // 1. Find or create customer
         Customer customer = customerService.findOrCreateCustomer(request.getCheckoutForm());
- 
+
         // 2. Create recipient
         Recipient recipient = recipientService.createRecipientFromCheckoutForm(request.getCheckoutForm());
- 
+
         // 3. Generate unique order number
         int orderNumber = generateUniqueOrderNumber();
- 
+
         // 4. Build order notes
         String notes = buildOrderNotes(request.getCheckoutForm(), request.getCart());
- 
+
         // 5. Create order entity
         Order order = new Order();
         order.setOrderNumber(orderNumber);
@@ -68,12 +71,36 @@ public class OrderService {
         order.setTotalPrice(request.getTotalPrice());
         order.setNotes(notes);
 
-        // setApproved boolean
+        // Approval defaults
         order.setApproved(false);
         order.setApprovedBy(null);
         order.setApprovedAt(null);
- 
-        // 6. Save and return
+
+        // 6. Snapshot cart items into OrderItem rows
+        if (request.getCart() != null && request.getCart().getCartItems() != null) {
+            for (CartItem cartItem : request.getCart().getCartItems()) {
+                if (cartItem == null || cartItem.getProductType() == null) {
+                    continue;
+                }
+
+                Product product = cartItem.getProductType();
+                int quantity = cartItem.getItemQty();
+                if (quantity <= 0) {
+                    continue;
+                }
+
+                OrderItem orderItem = new OrderItem();
+                orderItem.setProductId(product.getId());
+                orderItem.setProductName(product.getBaseName());
+                orderItem.setUnitPrice(product.getBasePrice());
+                orderItem.setQuantity(quantity);
+                orderItem.setLineTotal(product.getBasePrice() * quantity);
+
+                order.addItem(orderItem);
+            }
+        }
+
+        // 7. Save and return
         return orderRepository.save(order);
     }
     
@@ -201,14 +228,45 @@ public class OrderService {
     }
 
     public Order approveOrder(Long orderId, User approvedUser) {
+        if (approvedUser == null || approvedUser.getRole() != UserRole.ADMIN) {
+            throw new AccessDeniedException("Only ADMIN users can approve orders.");
+        }
+
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+
+        // Silent succeed: if already approved, do nothing and return current record
+        if (order.isApproved()) {
+            return order;
+        }
 
         order.setApproved(true);
         order.setApprovedBy(approvedUser);
         order.setApprovedAt(LocalDateTime.now());
 
         return orderRepository.save(order);
+    }
+    
+    public List<Order> getTodaysApprovedOrders() {
+        LocalDate today = LocalDate.now();
+        return orderRepository.findByApprovedTrueAndDeliveryDateOrderByCreatedAtAsc(today);
+    }
+
+    public List<Order> getOtherApprovedOrders() {
+        LocalDate today = LocalDate.now();
+        return orderRepository.findByApprovedTrueAndDeliveryDateNotOrderByDeliveryDateAscCreatedAtAsc(today);
+    }
+    
+    public Order findApprovedOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if (!order.isApproved()) {
+            // Hide existence of unapproved orders from employee route
+            throw new RuntimeException("Order not found");
+        }
+
+        return order;
     }
 
 }

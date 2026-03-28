@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/public-layout :: layout(~{::content})}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details | Employee</title>
+</head>
+<body>
+<div th:fragment="content" class="container py-5">
+    <h1 class="h4 mb-3">Order Details</h1>
+
+    <div class="mb-3">
+        <a th:href="@{/employee/dashboard}">Back to Dashboard</a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Order #:</strong> <span th:text="${order.orderNumber}">1000</span></p>
+            <p><strong>Status:</strong> <span th:text="${order.status}">PLACED</span></p>
+            <p><strong>Delivery Date:</strong> <span th:text="${order.deliveryDate}">2026-03-29</span></p>
+            <p><strong>Customer:</strong>
+                <span th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</span>
+            </p>
+            <p><strong>Recipient:</strong>
+                <span th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</span>
+            </p>
+            <p><strong>Total:</strong>
+                <span th:text="${'$' + #numbers.formatDecimal(order.totalPrice, 1, 2)}">$0.00</span>
+            </p>
+            <p><strong>Notes:</strong> <span th:text="${order.notes}">N/A</span></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Items</h2>
+
+            <div th:if="${#lists.isEmpty(order.items)}">No item details available.</div>
+
+            <table th:if="${!#lists.isEmpty(order.items)}" class="table">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Line Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${order.items}">
+                    <td th:text="${item.productName}">Chocolate Chip</td>
+                    <td th:text="${item.quantity}">1</td>
+                    <td th:text="${'$' + #numbers.formatDecimal(item.unitPrice, 1, 2)}">$0.00</td>
+                    <td th:text="${'$' + #numbers.formatDecimal(item.lineTotal, 1, 2)}">$0.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

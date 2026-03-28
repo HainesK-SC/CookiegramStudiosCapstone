@@ -2,11 +2,14 @@ package com.cookiegramstudios.cookiegram.order;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cookiegramstudios.cookiegram.customer.Customer;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
-
 import com.cookiegramstudios.cookiegram.user.User;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -61,188 +65,206 @@ import jakarta.persistence.Table;
 @Table(name = "orders")
 public class Order {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false, unique = true)
-	private int orderNumber;
+    @Column(nullable = false, unique = true)
+    private int orderNumber;
 
-	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customerProfile;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customerProfile;
 
-	@ManyToOne
-	@JoinColumn(name = "recipient_id", nullable = false)
-	private Recipient recipientUser;
+    @ManyToOne
+    @JoinColumn(name = "recipient_id", nullable = false)
+    private Recipient recipientUser;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private OrderStatus status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private OrderStatus status;
 
-	private LocalDate deliveryDate;
+    private LocalDate deliveryDate;
 
-	private double totalPrice;
+    private double totalPrice;
 
-	@Column(columnDefinition = "TEXT")
-	private String notes;
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 
-	@Column(nullable = false)
-	private boolean approved = false;
+    @Column(nullable = false)
+    private boolean approved = false;
 
-	@ManyToOne
-	@JoinColumn(name = "approved_by")
-	private User approvedBy;
+    @ManyToOne
+    @JoinColumn(name = "approved_by")
+    private User approvedBy;
 
-	private LocalDateTime approvedAt;
+    private LocalDateTime approvedAt;
 
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-	private LocalDateTime updatedat;
+    private LocalDateTime updatedat;
 
-	// Lifecycle Hooks
-	@PrePersist
-	protected void onCreate() {
-		createdAt = LocalDateTime.now();
-	}
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> items = new ArrayList<>();
 
-	@PreUpdate
-	protected void onUpdate() {
-		updatedat = LocalDateTime.now();
-	}
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 
-	public Order() {
-	}
+    @PreUpdate
+    protected void onUpdate() {
+        updatedat = LocalDateTime.now();
+    }
 
-	public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
-			LocalDate deliveryDate, double totalPrice, String notes, boolean approved, User approvedBy,
-				 LocalDateTime approvedAt, LocalDateTime createdAt, LocalDateTime updatedat) {
-		this.orderNumber = orderNumber;
-		this.customerProfile = customerProfile;
-		this.recipientUser = recipientUser;
-		this.status = status;
-		this.deliveryDate = deliveryDate;
-		this.totalPrice = totalPrice;
-		this.notes = notes;
-		this.approved = approved;
-		this.approvedBy = approvedBy;
-		this.approvedAt = approvedAt;
-		this.createdAt = createdAt;
-		this.updatedat = updatedat;
-	}
+    public Order() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Order(int orderNumber, Customer customerProfile, Recipient recipientUser, OrderStatus status,
+                 LocalDate deliveryDate, double totalPrice, String notes, boolean approved, User approvedBy,
+                 LocalDateTime approvedAt, LocalDateTime createdAt, LocalDateTime updatedat) {
+        this.orderNumber = orderNumber;
+        this.customerProfile = customerProfile;
+        this.recipientUser = recipientUser;
+        this.status = status;
+        this.deliveryDate = deliveryDate;
+        this.totalPrice = totalPrice;
+        this.notes = notes;
+        this.approved = approved;
+        this.approvedBy = approvedBy;
+        this.approvedAt = approvedAt;
+        this.createdAt = createdAt;
+        this.updatedat = updatedat;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void addItem(OrderItem item) {
+        item.setOrder(this);
+        this.items.add(item);
+    }
 
-	public int getOrderNumber() {
-		return orderNumber;
-	}
+    public void clearItems() {
+        for (OrderItem item : this.items) {
+            item.setOrder(null);
+        }
+        this.items.clear();
+    }
 
-	public void setOrderNumber(int orderNumber) {
-		this.orderNumber = orderNumber;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Customer getCustomerProfile() {
-		return customerProfile;
-	}
+    public int getOrderNumber() {
+        return orderNumber;
+    }
 
-	public void setCustomerProfile(Customer customerProfile) {
-		this.customerProfile = customerProfile;
-	}
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
-	public Recipient getRecipientUser() {
-		return recipientUser;
-	}
+    public Customer getCustomerProfile() {
+        return customerProfile;
+    }
 
-	public void setRecipientUser(Recipient recipientUser) {
-		this.recipientUser = recipientUser;
-	}
+    public void setCustomerProfile(Customer customerProfile) {
+        this.customerProfile = customerProfile;
+    }
 
-	public OrderStatus getStatus() {
-		return status;
-	}
+    public Recipient getRecipientUser() {
+        return recipientUser;
+    }
 
-	public void setStatus(OrderStatus status) {
-		this.status = status;
-	}
+    public void setRecipientUser(Recipient recipientUser) {
+        this.recipientUser = recipientUser;
+    }
 
-	public LocalDate getDeliveryDate() {
-		return deliveryDate;
-	}
+    public OrderStatus getStatus() {
+        return status;
+    }
 
-	public void setDeliveryDate(LocalDate deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
-	public double getTotalPrice() {
-		return totalPrice;
-	}
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
 
-	public String getNotes() {
-		return notes;
-	}
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public boolean isApproved() {
-		return approved;
-	}
+    public String getNotes() {
+        return notes;
+    }
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
-	public User getApprovedBy() {
-		return approvedBy;
-	}
+    public boolean isApproved() {
+        return approved;
+    }
 
-	public void setApprovedBy(User approvedBy) {
-		this.approvedBy = approvedBy;
-	}
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
 
-	public LocalDateTime getApprovedAt() {
-		return approvedAt;
-	}
+    public User getApprovedBy() {
+        return approvedBy;
+    }
 
-	public void setApprovedAt(LocalDateTime approvedAt) {
-		this.approvedAt = approvedAt;
-	}
+    public void setApprovedBy(User approvedBy) {
+        this.approvedBy = approvedBy;
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public LocalDateTime getApprovedAt() {
+        return approvedAt;
+    }
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setApprovedAt(LocalDateTime approvedAt) {
+        this.approvedAt = approvedAt;
+    }
 
-	public LocalDateTime getUpdatedat() {
-		return updatedat;
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setUpdatedat(LocalDateTime updatedat) {
-		this.updatedat = updatedat;
-	}
+    public LocalDateTime getUpdatedat() {
+        return updatedat;
+    }
 
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
-				+ ", recipientUser=" + recipientUser + ", status=" + status + ", deliveryDate=" + deliveryDate
-				+ ", totalPrice=" + totalPrice + ", notes=" + notes + ", approved=" + approved + ", approvedBy=" + approvedBy
-		        + ", approvedAt=" + approvedAt + ", createdAt=" + createdAt + ", updatedat="
-				+ updatedat + "]";
-	}
+    public void setUpdatedat(LocalDateTime updatedat) {
+        this.updatedat = updatedat;
+    }
 
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.clearItems();
+        if (items != null) {
+            for (OrderItem item : items) {
+                this.addItem(item);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
+                + ", recipientUser=" + recipientUser + ", status=" + status + ", deliveryDate=" + deliveryDate
+                + ", totalPrice=" + totalPrice + ", notes=" + notes + ", approved=" + approved + ", approvedBy=" + approvedBy
+                + ", approvedAt=" + approvedAt + ", createdAt=" + createdAt + ", updatedat="
+                + updatedat + ", itemsCount=" + (items != null ? items.size() : 0) + "]";
+    }
 }
