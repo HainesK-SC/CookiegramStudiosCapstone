@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cookiegramstudios.cookiegram.order.Order;
 import com.cookiegramstudios.cookiegram.order.OrderService;
@@ -62,6 +61,11 @@ public class EmployeeController {
         model.addAttribute("todaysApprovedOrders", todaysApprovedOrders);
         model.addAttribute("otherApprovedOrders", otherApprovedOrders);
 
+        
+        model.addAttribute("terminalStatuses", 
+        	    List.of(OrderStatus.DELIVERED, OrderStatus.CANCELLED));    
+        model.addAttribute("allOrderStatuses", OrderStatus.values());
+        
         return "employee/employee-dashboard";
     }
     
@@ -79,18 +83,31 @@ public class EmployeeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
     }
+//    
+//    @PostMapping("/order/update-status")
+//    @ResponseBody
+//    public ResponseEntity<String> updateOrderStatus(
+//            @RequestParam Long orderId, 
+//            @RequestParam OrderStatus newStatus) {
+//        try {
+//            orderService.updateOrderStatus(orderId, newStatus);
+//            return ResponseEntity.ok("Status updated successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                .body("Failed to update status: " + e.getMessage());
+//        }
+//    }
     
-    @PostMapping("/order/update-status")
-    @ResponseBody
-    public ResponseEntity<String> updateOrderStatus(
-            @RequestParam Long orderId, 
-            @RequestParam OrderStatus newStatus) {
-        try {
-            orderService.updateOrderStatus(orderId, newStatus);
-            return ResponseEntity.ok("Status updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Failed to update status: " + e.getMessage());
-        }
+    @PostMapping("/orders/{id}/status")
+    public String updateOrderStatus(
+            @PathVariable Long id,
+            @RequestParam OrderStatus status,
+            RedirectAttributes redirectAttributes, Model model) {
+
+        orderService.updateOrderStatus(id, status);
+        
+        redirectAttributes.addFlashAttribute("statusUpdateSuccess",
+                "Order status updated successfully.");
+        return "redirect:/employee/dashboard";
     }
 }
