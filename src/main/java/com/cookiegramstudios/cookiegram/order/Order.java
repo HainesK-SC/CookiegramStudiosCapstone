@@ -263,6 +263,10 @@ public class Order {
         }
     }
 
+    public boolean isTerminal() {
+        return this.status == OrderStatus.DELIVERED || this.status == OrderStatus.CANCELLED;
+    }
+    
     @Override
     public String toString() {
         return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
