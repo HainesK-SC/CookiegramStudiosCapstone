@@ -62,6 +62,7 @@ public class EmployeeController {
         } else if (dateFilter != null) {
             todaysApprovedOrders = orderService.getTodaysApprovedOrders();
             otherApprovedOrders = orderService.getOtherApprovedOrdersByDeliveryDate(dateFilter);
+            model.addAttribute("hideTodaysOrders", true);
         } else {
             todaysApprovedOrders = orderService.getTodaysApprovedOrders();
             otherApprovedOrders = orderService.getOtherApprovedOrders();
