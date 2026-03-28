@@ -33,6 +33,7 @@
                     <th>Products</th>
                     <th>Delivery Date</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,28 @@
                     </td>
                     <td th:text="${order.deliveryDate}">2026-03-28</td>
                     <td th:text="${order.status}">PLACED</td>
+                    <td>
+					    <form th:action="@{/employee/orders/{id}/status(id=${order.id})}" method="post">
+					        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					        <div class="d-flex gap-2 align-items-center">
+					            <select name="status"
+					                    class="form-select form-select-sm"
+					                    th:disabled="${order.isTerminal()}">
+					                <option th:each="s : ${allOrderStatuses}"
+					                        th:value="${s}"
+					                        th:text="${s}"
+					                        th:selected="${s == order.status}">
+					                </option>
+					            </select>
+					            <button type="submit"
+					                    class="btn btn-sm btn-primary"
+					                    th:disabled="${order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).DELIVERED
+					                               or order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).CANCELLED}">
+					                Update
+					            </button>
+					        </div>
+					    </form>
+					</td>
                 </tr>
                 </tbody>
             </table>
@@ -76,6 +99,7 @@
                     <th>Products</th>
                     <th>Delivery Date</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,6 +120,28 @@
                     </td>
                     <td th:text="${order.deliveryDate}">2026-03-29</td>
                     <td th:text="${order.status}">PLACED</td>
+                    <td>
+					    <form th:action="@{/employee/orders/{id}/status(id=${order.id})}" method="post">
+					        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					        <div class="d-flex gap-2 align-items-center">
+					            <select name="status"
+					                    class="form-select form-select-sm"
+					                    th:disabled="${order.isTerminal()}">
+					                <option th:each="status : ${allOrderStatuses}"
+					                        th:value="${status}"
+					                        th:text="${status}"
+					                        th:selected="${status == order.status}">
+					                </option>
+					            </select>
+					            <button type="submit"
+					                    class="btn btn-sm btn-primary"
+					                    th:disabled="${order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).DELIVERED
+					                               or order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).CANCELLED}">
+					                Update
+					            </button>
+					        </div>
+					    </form>
+					</td>
                 </tr>
                 </tbody>
             </table>
