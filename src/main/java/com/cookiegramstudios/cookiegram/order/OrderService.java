@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 import org.springframework.security.access.AccessDeniedException;
-import com.cookiegramstudios.cookiegram.user.UserRole;
+import org.springframework.stereotype.Service;
+
 import com.cookiegramstudios.cookiegram.cart.Cart;
 import com.cookiegramstudios.cookiegram.cart.CartItem;
 import com.cookiegramstudios.cookiegram.common.config.PaymentConfig;
@@ -17,6 +17,7 @@ import com.cookiegramstudios.cookiegram.product.Product;
 import com.cookiegramstudios.cookiegram.recipient.Recipient;
 import com.cookiegramstudios.cookiegram.recipient.RecipientService;
 import com.cookiegramstudios.cookiegram.user.User;
+import com.cookiegramstudios.cookiegram.user.UserRole;
 
 /**
  * Service layer for order-related business operations.
@@ -267,6 +268,21 @@ public class OrderService {
         }
 
         return order;
+    }
+    
+    // Order Filtering
+    public List<Order> getTodaysApprovedOrdersByStatus(OrderStatus status) {
+        LocalDate today = LocalDate.now();
+        return orderRepository.findByApprovedTrueAndDeliveryDateAndStatusOrderByCreatedAtAsc(today, status);
+    }
+
+    public List<Order> getOtherApprovedOrdersByStatus(OrderStatus status) {
+        LocalDate today = LocalDate.now();
+        return orderRepository.findByApprovedTrueAndDeliveryDateNotAndStatusOrderByDeliveryDateAscCreatedAtAsc(today, status);
+    }
+
+    public List<Order> getOtherApprovedOrdersByDeliveryDate(LocalDate date) {
+        return orderRepository.findByApprovedTrueAndDeliveryDateOrderByCreatedAtAsc(date);
     }
 
 }

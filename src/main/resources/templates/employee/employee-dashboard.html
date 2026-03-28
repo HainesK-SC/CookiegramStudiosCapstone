@@ -15,7 +15,40 @@
             <p class="text-muted mb-0">Approved orders only.</p>
         </div>
     </div>
-
+	<!-- FILTERING STARTS -->
+	<form th:action="@{/employee/dashboard}" method="get" class="card mb-4">
+	    <div class="card-body">
+	        <h2 class="h5 mb-3">Filter Orders</h2>
+	        <div class="d-flex flex-wrap gap-3 align-items-end">
+	
+	            <div>
+	                <label for="statusFilter" class="form-label mb-1">Status</label>
+	                <select id="statusFilter" name="statusFilter" class="form-select form-select-sm">
+	                    <option value="">All Statuses</option>
+	                    <option th:each="status : ${allOrderStatuses}"
+	                            th:value="${status}"
+	                            th:text="${status}"
+	                            th:selected="${status == statusFilter}">
+	                    </option>
+	                </select>
+	            </div>
+	
+	            <div>
+	                <label for="dateFilter" class="form-label mb-1">Delivery Date</label>
+	                <input id="dateFilter" type="date" name="dateFilter"
+	                       class="form-control form-control-sm"
+	                       th:value="${dateFilter}" />
+	            </div>
+	
+	            <div class="d-flex gap-2">
+	                <button type="submit" class="btn btn-sm btn-primary">Apply</button>
+	                <a th:href="@{/employee/dashboard}" class="btn btn-sm btn-outline-secondary">Clear</a>
+	            </div>
+	
+	        </div>
+	    </div>
+	</form>
+	<!-- FILTERING ENDS -->
     <div class="card mb-4">
         <div class="card-body">
             <h2 class="h5 mb-3">Today's Approved Orders</h2>
@@ -61,16 +94,15 @@
 					            <select name="status"
 					                    class="form-select form-select-sm"
 					                    th:disabled="${order.isTerminal()}">
-					                <option th:each="s : ${allOrderStatuses}"
-					                        th:value="${s}"
-					                        th:text="${s}"
-					                        th:selected="${s == order.status}">
+					                <option th:each="status : ${allOrderStatuses}"
+					                        th:value="${status}"
+					                        th:text="${status}"
+					                        th:selected="${status == order.status}">
 					                </option>
 					            </select>
 					            <button type="submit"
 					                    class="btn btn-sm btn-primary"
-					                    th:disabled="${order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).DELIVERED
-					                               or order.status == T(com.cookiegramstudios.cookiegram.order.OrderStatus).CANCELLED}">
+					                    th:disabled="${order.isTerminal()}">
 					                Update
 					            </button>
 					        </div>
