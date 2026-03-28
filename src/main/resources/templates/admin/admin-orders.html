@@ -1,80 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{layout/public-layout :: layout(~{::content})}" lang="en">
+    th:replace="~{layout/public-layout :: layout(~{::content})}" lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Admin Orders | CookieGram</title>
 </head>
 <body>
-	<div th:fragment="content" class="admin-orders-container">
-		<h1>Admin Orders</h1>
+    <div th:fragment="content" class="admin-orders-container">
+        <h1>Admin Orders</h1>
 
-		<div th:if="${successMessage}" class="alert alert-success"
-			th:text="${successMessage}"></div>
+        <div th:if="${successMessage}" class="alert alert-success"
+            th:text="${successMessage}"></div>
 
+        <div class="tabs">
+            <a th:href="@{/admin/orders(tab='pending')}"
+                th:classappend="${activeTab == 'pending'} ? 'active' : ''">
+                Pending (<span th:text="${pendingOrderCount}">0</span>)
+            </a>
+            <a th:href="@{/admin/orders(tab='approved')}"
+                th:classappend="${activeTab == 'approved'} ? 'active' : ''">
+                Approved (<span th:text="${approvedOrderCount}">0</span>)
+            </a>
+        </div>
 
-		<div class="tabs">
-			<a th:href="@{/admin/orders(tab='pending')}"
-				th:classappend="${activeTab == 'pending'} ? 'active' : ''">
-				Pending (<span th:text="${pendingOrderCount}">0</span>)
-			</a> <a th:href="@{/admin/orders(tab='approved')}"
-				th:classappend="${activeTab == 'approved'} ? 'active' : ''">
-				Approved (<span th:text="${approvedOrderCount}">0</span>)
-			</a>
-		</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Recipient</th>
+                    <th>Products</th>
+                    <th>Delivery Date</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Order #</th>
-					<th>Customer</th>
-					<th>Recipient</th>
-					<th>Delivery Date</th>
-					<th>Created At</th>
-					<th>Status</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
+            <tbody th:if="${activeTab == 'pending'}">
+                <tr th:each="order : ${pendingOrders}">
+                    <td th:text="${order.orderNumber}">1000</td>
+                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer
+                        Name</td>
+                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient
+                        Name</td>
+                    <td>
+                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                        <span th:if="${!#lists.isEmpty(order.items)}">
+                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                            <span th:if="${#lists.size(order.items) > 1}"
+                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                        </span>
+                    </td>
+                    <td th:text="${order.deliveryDate}">2026-03-28</td>
+                    <td th:text="${order.createdAt}">2026-03-28T10:00</td>
+                    <td th:text="${order.status}">PLACED</td>
+                    <td>
+                        <form th:action="@{/admin/orders/{id}/approve(id=${order.id})}"
+                            method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}"
+                                th:value="${_csrf.token}" />
+                            <button type="submit">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
 
-			<tbody th:if="${activeTab == 'pending'}">
-				<tr th:each="order : ${pendingOrders}">
-					<td th:text="${order.orderNumber}">1000</td>
-					<td
-						th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer
-						Name</td>
-					<td
-						th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient
-						Name</td>
-					<td th:text="${order.deliveryDate}">2026-03-28</td>
-					<td th:text="${order.createdAt}">2026-03-28T10:00</td>
-					<td th:text="${order.status}">PLACED</td>
-					<td>
-						<form th:action="@{/admin/orders/{id}/approve(id=${order.id})}"
-							method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}"
-								th:value="${_csrf.token}" />
-							<button type="submit">Approve</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
-
-			<tbody th:if="${activeTab == 'approved'}">
-				<tr th:each="order : ${approvedOrders}">
-					<td th:text="${order.orderNumber}">1000</td>
-					<td
-						th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer
-						Name</td>
-					<td
-						th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient
-						Name</td>
-					<td th:text="${order.deliveryDate}">2026-03-28</td>
-					<td th:text="${order.createdAt}">2026-03-28T10:00</td>
-					<td th:text="${order.status}">PLACED</td>
-					<td>-</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+            <tbody th:if="${activeTab == 'approved'}">
+                <tr th:each="order : ${approvedOrders}">
+                    <td th:text="${order.orderNumber}">1000</td>
+                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer
+                        Name</td>
+                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient
+                        Name</td>
+                    <td>
+                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                        <span th:if="${!#lists.isEmpty(order.items)}">
+                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                            <span th:if="${#lists.size(order.items) > 1}"
+                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                        </span>
+                    </td>
+                    <td th:text="${order.deliveryDate}">2026-03-28</td>
+                    <td th:text="${order.createdAt}">2026-03-28T10:00</td>
+                    <td th:text="${order.status}">PLACED</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

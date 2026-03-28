@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/public-layout :: layout(~{::content})}"
-      lang="en">
+      th:replace="~{layout/public-layout :: layout(~{::content})}" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Employee Dashboard | CookieGram</title>
@@ -13,13 +12,95 @@
         <div>
             <span class="badge text-bg-primary mb-2">EMPLOYEE</span>
             <h1 class="h3 mb-1">Employee Dashboard</h1>
-            <p class="text-muted mb-0">Welcome! This is the foundation for future order workflow tools.</p>
+            <p class="text-muted mb-0">Approved orders only.</p>
         </div>
-
     </div>
 
-    <!-- Include Today's Bake List fragment -->
-    <div th:replace="~{fragments/orders-today :: ordersToday}"></div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Today's Approved Orders</h2>
+
+            <div th:if="${#lists.isEmpty(todaysApprovedOrders)}">
+                No approved orders for today.
+            </div>
+
+            <table th:if="${!#lists.isEmpty(todaysApprovedOrders)}" class="table">
+                <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Recipient</th>
+                    <th>Products</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${todaysApprovedOrders}">
+                    <td>
+                        <a th:href="@{/employee/orders/{id}(id=${order.id})}"
+                           th:text="${order.orderNumber}">1000</a>
+                    </td>
+                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
+                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
+                    <td>
+                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                        <span th:if="${!#lists.isEmpty(order.items)}">
+                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                            <span th:if="${#lists.size(order.items) > 1}"
+                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                        </span>
+                    </td>
+                    <td th:text="${order.deliveryDate}">2026-03-28</td>
+                    <td th:text="${order.status}">PLACED</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Other Approved Orders</h2>
+
+            <div th:if="${#lists.isEmpty(otherApprovedOrders)}">
+                No other approved orders.
+            </div>
+
+            <table th:if="${!#lists.isEmpty(otherApprovedOrders)}" class="table">
+                <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Recipient</th>
+                    <th>Products</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${otherApprovedOrders}">
+                    <td>
+                        <a th:href="@{/employee/orders/{id}(id=${order.id})}"
+                           th:text="${order.orderNumber}">1000</a>
+                    </td>
+                    <td th:text="${order.customerProfile.firstName + ' ' + order.customerProfile.lastName}">Customer Name</td>
+                    <td th:text="${order.recipientUser.firstName + ' ' + order.recipientUser.lastName}">Recipient Name</td>
+                    <td>
+                        <span th:if="${#lists.isEmpty(order.items)}">N/A</span>
+                        <span th:if="${!#lists.isEmpty(order.items)}">
+                            <span th:text="${order.items[0].productName + ' x' + order.items[0].quantity}">Cookie x1</span>
+                            <span th:if="${#lists.size(order.items) > 1}"
+                                  th:text="${' +' + (#lists.size(order.items) - 1) + ' more'}">+1 more</span>
+                        </span>
+                    </td>
+                    <td th:text="${order.deliveryDate}">2026-03-29</td>
+                    <td th:text="${order.status}">PLACED</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>
