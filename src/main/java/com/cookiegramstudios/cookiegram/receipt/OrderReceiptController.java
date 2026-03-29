@@ -3,6 +3,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller for handling OrderReceipt-related endpoints.
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version 1.0
  */
 @Controller
+@RequestMapping("/receipts")
 public class OrderReceiptController {
     private final OrderReceiptService receiptService;
 
@@ -19,7 +21,7 @@ public class OrderReceiptController {
         this.receiptService = service;
     }
 
-    @GetMapping("/{orderNumber}")
+    @GetMapping("/orderNumber")
     public ResponseEntity<OrderReceipt> getReceipt(@PathVariable int orderNumber) {
         return ResponseEntity.ok(receiptService.getByOrderNumber(orderNumber));
     }

@@ -47,7 +47,7 @@ public class DevOrderBootstrapSeeder implements CommandLineRunner {
         List<Recipient> recipients = recipientRepository.findAll();
         List<User> users = userRepository.findAll();
 
-        if (customers.isEmpty() || recipients.isEmpty() || users.isEmpty()) {
+        if (customers.isEmpty() || users.isEmpty()) {
             logger.warn("Skipping order seed data — customers, recipients, or users not yet seeded.");
             return;
         }
