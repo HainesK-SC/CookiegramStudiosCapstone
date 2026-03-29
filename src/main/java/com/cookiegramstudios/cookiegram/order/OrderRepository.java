@@ -39,4 +39,10 @@ List<Order> findByDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     List<Order> findByApprovedTrueAndDeliveryDateOrderByCreatedAtAsc(LocalDate deliveryDate);
     
     List<Order> findByApprovedTrueAndDeliveryDateNotOrderByDeliveryDateAscCreatedAtAsc(LocalDate deliveryDate);
+    
+ // Today's approved orders filtered by status
+    List<Order> findByApprovedTrueAndDeliveryDateAndStatusOrderByCreatedAtAsc(LocalDate date, OrderStatus status);
+
+    // Other approved orders filtered by status
+    List<Order> findByApprovedTrueAndDeliveryDateNotAndStatusOrderByDeliveryDateAscCreatedAtAsc(LocalDate date, OrderStatus status);
 }

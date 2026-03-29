@@ -234,6 +234,10 @@ public class Order {
         this.approvedAt = approvedAt;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+    	this.createdAt = createdAt;
+    }
+    
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -259,6 +263,10 @@ public class Order {
         }
     }
 
+    public boolean isTerminal() {
+        return this.status == OrderStatus.DELIVERED || this.status == OrderStatus.CANCELLED;
+    }
+    
     @Override
     public String toString() {
         return "Order [id=" + id + ", orderNumber=" + orderNumber + ", customerProfile=" + customerProfile
